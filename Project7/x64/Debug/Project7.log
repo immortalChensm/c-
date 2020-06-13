@@ -1,0 +1,5 @@
+﻿  main.cpp
+E:\project\Project7\main.cpp(29,6): warning C4930: “Stu s2(void)”: 未调用原型函数(是否是有意用变量定义的?)
+  Stu.cpp
+  正在生成代码...
+  Project7.vcxproj -> E:\project\x64\Debug\Project7.exe
