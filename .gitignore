@@ -5,4 +5,4 @@ project.sln
 /x64
 /Debug
 /Release
-
+/cmake-build-debug
