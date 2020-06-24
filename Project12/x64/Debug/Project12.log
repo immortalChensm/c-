@@ -1,3 +1,0 @@
-﻿  main.cpp
-E:\project\Project12\main.cpp(29,12): error C3246: “C”: 无法从“B”继承，因为它已被声明为“final”
-E:\project\Project12\main.cpp(18): message : 参见“B”的声明

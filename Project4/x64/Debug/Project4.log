@@ -1,4 +1,0 @@
-﻿  main.cpp
-E:\project\Project4\main.cpp(30): warning C4172: 返回局部变量或临时变量的地址: i
-E:\project\Project4\main.cpp(25): warning C4172: 返回局部变量或临时变量的地址: temp
-  Project4.vcxproj -> E:\project\x64\Debug\Project4.exe

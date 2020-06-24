@@ -1,6 +1,0 @@
-﻿  main.cpp
-E:\project\Project15\main.cpp(42,10): warning C4477: “printf”: 格式字符串“%#X”需要类型“unsigned int”的参数，但可变参数 1 拥有了类型“A *”
-E:\project\Project15\main.cpp(42,10): warning C4313: “printf”: 格式字符串中的“%X”与“A *”类型的参数 1 冲突
-E:\project\Project15\main.cpp(89,9): warning C4477: “printf”: 格式字符串“%#x”需要类型“unsigned int”的参数，但可变参数 1 拥有了类型“A *”
-E:\project\Project15\main.cpp(89,9): warning C4313: “printf”: 格式字符串中的“%x”与“A *”类型的参数 1 冲突
-  Project15.vcxproj -> E:\project\x64\Debug\Project15.exe
