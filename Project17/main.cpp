@@ -3,7 +3,9 @@
 
 using namespace std;
 
-//类型转换构造函数||类型转换运算符（类型转换函数）||类成员函数指针
+//类型转换构造函数||类型转换运算符（类型转换函数）||类成员函数指针(普通函数，静态函数，虚函数)||类成员变量指针
+//类型转换运算函数（将类对象转换函数指针）
+//类成员函数指针（除了静态类，基它调用都要绑定一个对象才能调用）
 class TestInt
 {
 public:
@@ -66,7 +68,18 @@ public:
 	void ptfunc(int value){cout<<"ptfunc called,value="<<value<<endl;}
 	virtual void virtualptfunc(int value){cout<<"virtualptfunc called,value="<<value<<endl;}
 	static void staticptfunc(int value){cout<<"staticptfunc called,value="<<value<<endl;}
+
+	virtual void test(char a)
+	{
+		cout << "test" << a << endl;
+	}
+
+	int _a;
+	static int _b;
+
 };
+
+int CT::_b = 0;
 
 int main()
 {
@@ -132,5 +145,45 @@ int main()
 	void (CT::*virtualfunc)(int) = &CT::virtualptfunc;
 
 	(a.*virtualfunc)(10);
+
+	//3、获取类静态成员函数指针
+	//*指针变量名声明
+	//获取类静态成员函数指针  &类名：：成员函数名
+
+	void (*staticfunc)(int) = &CT::staticptfunc;
+	(staticfunc)(1000);
+
+	void (CT:: * test)(char) = &CT::test;
+
+	(a.*test)('a');
+
+	//类成员变量指针
+	int CT::*jj = &CT::_a;
+
+	CT obj;
+
+	obj.* jj = 100;
+
+	cout << obj.*jj << endl;
+	//类的静态成员变量地址
+
+	int* testa = &CT::_b;
+
+	*testa = 10;
+	cout << *testa << endl;
+	cout << CT::_b << endl;
+
+	//获取类的成员函数指针  &类名::成员函数名
+	//获取类的成员变量指针   &类名::成员变量名
+	//定义类的成员函数指针  数据类型 (类名::*指针变量名)(参数列表) = &类名::成员函数名
+
+	//定义类的静态成员函数指针   数据类型(*指针变量名)(参数列表) = &类名::静态成员函数名
+
+	//定义类的普通成员变量指针  数据类型 类名::*指针变量名 = &类名::普通变量名
+
+
+	//静态和非静态的区别
+	//静态定义指针变量时：没有类名 如 int *test = &class::xxx // void (*test)(int) = &class:xxx
+	//非静态：有类名  如 int class::*test = &class:xxx // void (class::*test)(int) = &class:xxx
 	return 0;
 }
