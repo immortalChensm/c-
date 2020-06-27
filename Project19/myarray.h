@@ -5,7 +5,7 @@
 #include <iostream>
 using namespace std;
 
-template <typename T, string size=10>
+template <typename T, int size=10>
 
 class myarray {
 private:
@@ -14,7 +14,7 @@ public:
 	void myfunc();
 };
 
-template <typename T, string size>
+template <typename T, int size>
 void myarray<T,size>::myfunc()
 {
 	cout << size << endl;
