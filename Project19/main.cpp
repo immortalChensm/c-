@@ -4,12 +4,16 @@
 #include "myvector.h"
 #include "myarray.h"
 //类模板
-//类模板声明|类模板定义|类模板实例化（调用）||typename的使用场景||函数指针||函数模板的使用示例
+//类模板声明|类模板定义|类模板实例化（调用）||typename的使用场景||函数指针||函数模板的使用示例||默认模板参数
 //类模板在使用的时候必须给类型参数值，编译不会自己推断的
 //模板的非参数参数不支持float,double,string,类
 
 //typename使用场景
 //类模板，函数模板  类的类型成员
+
+//模板默认参数
+//类模板：定义，声明，使用【实例化时】必须给模板实参数【除非有缺省值】
+//函数模板：定义，声明时【模板参数，和函数参数必须有缺省值】
 using namespace std;
 typedef int* test;
 
@@ -63,29 +67,56 @@ int testa(int a, int b)
 }
 typedef int (*Func)(int, int);
 
+class c {
+public:
+	c() {
+
+	}
+	int operator()(int a, int b) {
+
+		//cout << (a + b) << endl;
+		return a + b;
+	}
+};
 void testaa(int a, int b, Func function) {
 
 	cout << function(a,b) << endl;
 }
 
-template <typename T,typename F>
-void testfunc(const T& a, const T& b, F function) {
+//模板默认参数
+//template <typename T,typename F=c>
+//void testfunc(const T& a, const T& b, F function=F()) {
+
+template <typename T, typename F = Func>
+void testfunc(const T & a, const T & b, F function = testa) {
+
 
 	cout << function(a, b) << endl;
 }
+
+
 int main()
 {
+	//将函数指针作为参数传递
+	//testfunc<int,Func>(1,2,testa);
+	testfunc<>(1,2);
 
-	testfunc<int,Func>(1,2,testa);
+	//将函数对象作为参数【支持理由是此类重载了函数调用运算符成为了可调用对象】
+	//c obj;
+	//testfunc(10, 20,obj);
 
-	testaa(100, 200,testa);
+	//模板默认参数测试
+	//myarray<> my;//调用模板时【实例化模板】并没有提供 模板参数【而是使用它的默认参数】
+	//模板参数【实参调用时  用户可执行实参或是由编译器指定】
+
+	//testaa(100, 200,testa);
 
 	//类模板使用【实例化】
-	B<A> obj;
+	/*B<A> obj;
 	A *obja;
 	obja = obj.getSize(10);
 
-	cout << obja->_a << endl;
+	cout << obja->_a << endl;*/
 
 
 	/*test a;
@@ -93,7 +124,7 @@ int main()
 	a = &b;*/
 
 	//模板实例化
-	myvector<int> a;
+	//myvector<int> a;
 	//myvector<float> b;
 	//myvector<string> c;
 
@@ -103,9 +134,9 @@ int main()
 	//b.myfunc();
 	//a1.myfunc();
 
-	string str = "china";
-	string::size_type size = getLength<string>(str);
+	//string str = "china";
+	//string::size_type size = getLength<string>(str);
 
-	cout << size << endl;
+	//cout << size << endl;
 	return 0;
 }

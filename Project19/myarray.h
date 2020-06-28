@@ -4,8 +4,8 @@
 #define __MYARRAY__H  
 #include <iostream>
 using namespace std;
-
-template <typename T, int size=10>
+//模板默认参数
+template <typename T=string, int size=10>
 
 class myarray {
 private:
