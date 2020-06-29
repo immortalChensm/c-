@@ -6,3 +6,5 @@ project.sln
 /Debug
 /Release
 /cmake-build-debug
+/*/.idea/*
+/*/cmake-build-debug/*
