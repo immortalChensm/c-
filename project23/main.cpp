@@ -136,6 +136,35 @@ struct TI<y &&>
         cout<<"y && special show"<<endl;//右值引用特化版本
     }
 };
+//函数泛化版本
+template<typename t,typename u>
+void tfunc(t& a, u& b)
+{
+    cout << "函数泛化版本" << endl;
+    cout << a << b << endl;
+}
+
+//函数模板偏特化 不支持
+template<typename u>
+void tfunc<double, u>(double& a, u& b)
+{
+
+}
+
+//函数特化版本
+//template<>
+//void tfunc(int& a, double& b)
+//{
+//    cout << "special function version" << endl;
+//    cout << a << b << endl;
+//}
+//
+////重载函数
+//void tfunc(int& a, double& b)
+//{
+//    cout << "override function" << endl;
+//    cout << a << b << endl;
+//}
 int main()
 {
     talk<string,string,5000>("jack","hello,world");
@@ -163,7 +192,7 @@ int main()
     //T到T *指针
     //obj2.show();
 
-    TI<int> obj1;
+    /*TI<int> obj1;
     obj1.show();
 
     TI<int *> obj2;
@@ -176,7 +205,7 @@ int main()
     obj4.show();
 
     TI<const int> obj5;
-    obj5.show();
+    obj5.show();*/
 
     //总结
     //类模板全特化：定义的时候，不在指定模板参数，模板参数的值【数据类型】直接定义
@@ -187,6 +216,22 @@ int main()
     // 参数数量上：template<typename x,typename y,typename z> class<int,y,double>
     // 数据类型上：template<typenamt x> class<const x> 或 class<x *>或 class<x &> 或class<x &&>
 
+    //函数模板泛化
+    int a = 1, b = 2;
+    tfunc(a,b);// = tfunc<int,int>(a,b)
 
+    //全特化版本
+    double c = 10.54f;
+    tfunc(a, c);// = tfunc<int,double>(a,c)
+
+    //类特化
+    //1、类泛化 template<typenamt t> struct class{}
+    //2、全特化 template<> struct class<int>{}
+    //3、局特别化 template<typname t,typename u> struct class<int,u>{}
+    //           template<typename t> struct class<const t> //strut class<t &> struct class<t&&> struct class<t *>
+
+    //函数特化
+    //1、泛化：template<typename t> void func(t a,t b){}
+    //2、全特化：template<> void func(int a,double b){}
     return 0;
 }
