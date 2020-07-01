@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <tuple>
+#include <vector>
+#include <list>
 
 using namespace std;
 
@@ -84,12 +86,22 @@ namespace test2{
     class myclass{
     public:
         static void myfuncs(const tuple<T...>&t){
+            cout << "value=" << get<mycount>(t) << endl;
+            myclass<mycount + 1, mymaxcount, T...>::myfuncs(t);
+        }
+    };
+
+    template<int mymaxcount,typename...T>
+    class myclass<mymaxcount, mymaxcount,T...> {
+    public:
+        static void myfuncs(const tuple<T...>& t) {
 
         }
     };
     template<typename ...T>
     void myfunc(const tuple<T...>&t){
 
+        myclass<0, sizeof...(T), T...>::myfuncs(t);
     }
     void func()
     {
@@ -100,8 +112,37 @@ namespace test2{
         myfunc(obj);
     }
 }
+
+namespace test3 {
+
+    //模板 模板参数
+    template<
+        typename T,//类型模板参数
+        //template<class> class Container//模板  模板参数
+        template<typename W> typename Container
+    >
+    class myclass {
+    public:
+        T _i;
+        Container<T> mycon;
+        myclass()
+        {
+            for (int i = 0; i < 10; i++) {
+                mycon.push_back(i);
+            }
+        }
+    };
+    template<typename T> using myvector = std::vector<T, allocator<T>>;
+    template<typename T>
+    using mylist = std::list<T, allocator<T>>;
+    void func()
+    {
+        myclass<int, myvector> obj;
+        myclass<int, mylist> obj2;
+    }
+}
 int main()
 {
-    test::func();
+    test2::func();
     return 0;
 }

@@ -6,8 +6,8 @@ using namespace std;
 namespace test {
 
 	//1、可变参函数模板
-	template<typename ...T>//...T 一堆类型 或叫一包类型
-	void pfunc(T ... args)//...args  一堆参数 或叫一包参数
+	template<typename ...T>//...T 一堆类型 或叫一包类型 模板参数包
+	void pfunc(T ... args)//...args  一堆参数 或叫一包参数 函数参数包
 	{
 		cout << sizeof...(args) << endl;
 		cout << sizeof...(T) << endl;
