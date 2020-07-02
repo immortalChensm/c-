@@ -18,7 +18,7 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="说明.cpp">
+    <ClCompile Include="new和delete以及智能指针说明.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

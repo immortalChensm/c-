@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{15CFA646-0AE3-411B-AE1A-BF51C6961885}</ProjectGuid>
-    <RootNamespace>Project25</RootNamespace>
+    <ProjectGuid>{f66970f4-88a1-4e19-ab5b-9bfc1fe949b2}</ProjectGuid>
+    <RootNamespace>Project27</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -148,7 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="说明.cpp" />
+    <ClCompile Include="new和delete以及智能指针说明.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
