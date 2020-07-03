@@ -1,8 +1,32 @@
 #include <iostream> 
 #include <string>
+#include <tr1/memory>//win7 mingcc得加上这头文件
 
 
 //shared_ptr 类模板的使用|智能指针：共享式  引用计数
+/**
+ * 1、shared_ptr 智能指针创建方式
+ *    shared_ptr<int> obj(new int(1));
+ *    shared_ptr<int> obj(new int[10]);
+ *
+ *    shared_ptr<int> obj = make_shared<int>(100);
+ *
+ * 2、shared_ptr 模板类的成员
+ *    use_count() 引用次数
+ *    unique() 是否只有一个引用
+ *    reset() 将当前对象指向的内存地址重置，并将原内存地址的引用养1
+ *            如果内存地址有多个对象指向，则不会删除
+ *    reset(参数) 只有一个对象指向时，会释放到该对象原来指向的内存地址，同时指向新的参数
+ *    			有多个时，原对象所指向的内存计数减1
+ *    nullptr = reset 同理
+ *
+ * 3、指定删除器
+ * 		中括号删除器：shared_ptr<int[]) obj(new int[10]);
+ * 		普通函数删除器：shared_ptr<int> obj(new int[10],函数名);
+ * 		匿名函数删除器【lambda】:shared_ptr<int> obj(new int[10],[](int *p){delete [] p});
+ * 		std::default_delete 类模板删除器：shared_ptr<int> obj(new int[10],std::default_delete<int>[]());
+ *
+ * **/
 using namespace std;
 
 void testSharedPtr(shared_ptr<int> p)
@@ -11,24 +35,43 @@ void testSharedPtr(shared_ptr<int> p)
 	return;
 }
 
+class B{
+public:
+	B() {
+
+		cout <<"B constructor " << endl;
+	}
+	~B() {
+		cout << "B destrcutor " << endl;
+	}
+};
 template<typename t>
 class A {
 public:
 	A(t a) {
 		
-		cout <<"constructor "<< a << endl;
+		cout <<"A constructor "<< a << endl;
 	}
 	~A() {
 		cout << "A destrcutor " << endl;
 	}
 
+	B _obj;
 	
 };
+
+
 
 void myDelete(int* p)
 {
 	cout << "自己的删除器" << endl;
 	delete p;
+}
+
+template<typename t>
+shared_ptr<t> make_shared_array(size_t size)
+{
+	return shared_ptr<t>(new t[size],std::default_delete<t[]>());
 }
 int main()
 {
@@ -147,17 +190,71 @@ int main()
 	
 	//shared_ptr<int> p1(new int(100),myDelete);
 	//删除器可以是lambda表达
-	shared_ptr<int> p1(new int(100), [](int* p) {
+//	shared_ptr<int> p1(new int(100), [](int* p) {
+//		delete p;
+//		cout << 2 << endl;
+//	});
+//
+//	auto p2 = p1;
+//
+//	cout << 1 << endl;
+//
+//	p1 = nullptr;
+//
+//	p2.reset();
+
+//	shared_ptr<A<int>> obj(new A<int>[4]{0,0,0,0},[](A<int> *p){
+//		delete [] p;
+//	});
+	//default_delete模板删除器
+	//shared_ptr<A<int>> obj(new A<int>[4]{0,0,0,0},std::default_delete<A<int>[]>());
+	//c++17 []删除器
+//	shared_ptr<A<int>[]> obj(new A<int>[4]{0,1,2,3});
+//	shared_ptr<int[]> obj1(new int[100]);
+//	obj1[0] = 10;
+//	obj1[1] = 20;
+//
+//	cout<<obj1[0]<<endl;
+
+	//shared_ptr<int[]> piArr = make_shared_array<int>(5);
+//	auto func = [](int a,int b){
+//		cout<<a<<b<<endl;
+//	};
+//
+//	func(10,20);
+
+	auto func1 = [](int *p){
+
+		cout<<"func1 called"<<endl;
 		delete p;
-		cout << 2 << endl;
-	});
+	};
 
-	auto p2 = p1;
+	auto func2 = [](int *p){
+		cout<<"func2 called"<<endl;
+		delete p;
+	};
 
-	cout << 1 << endl;
-	
-	p1 = nullptr;
+	shared_ptr<int> obj1(new int(1),func1);
+	shared_ptr<int> obj2(new int(2),func2);
 
-	p2.reset();
+	obj2 = obj1;//obj2 离开原来指向的内容了，obj1所指向的内存引用就会计数为2
+
+	cout<<obj1.use_count()<<endl;
+	cout<<obj2.use_count()<<endl;
+
+	//piArr[0] = 1;
+
+//	shared_ptr<int> obj(new int[10],[](int *p){
+//		//内置类型 无析构函数可以这样
+//		delete p;
+//	});
+
+//	int *p = new int[10];
+//	p[0]=1;
+//	p[1] = 2;
+//
+//	cout<<p[1]<<endl;
+
+
 	return 0;
 }
