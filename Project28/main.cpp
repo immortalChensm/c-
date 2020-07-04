@@ -223,24 +223,24 @@ int main()
 //
 //	func(10,20);
 
-	auto func1 = [](int *p){
+	//auto func1 = [](int *p){
 
-		cout<<"func1 called"<<endl;
-		delete p;
-	};
+	//	cout<<"func1 called"<<endl;
+	//	delete p;
+	//};
 
-	auto func2 = [](int *p){
-		cout<<"func2 called"<<endl;
-		delete p;
-	};
+	//auto func2 = [](int *p){
+	//	cout<<"func2 called"<<endl;
+	//	delete p;
+	//};
 
-	shared_ptr<int> obj1(new int(1),func1);
-	shared_ptr<int> obj2(new int(2),func2);
+	//shared_ptr<int> obj1(new int(1),func1);
+	//shared_ptr<int> obj2(new int(2),func2);
 
-	obj2 = obj1;//obj2 离开原来指向的内容了，obj1所指向的内存引用就会计数为2
+	//obj2 = obj1;//obj2 离开原来指向的内容了，obj1所指向的内存引用就会计数为2
 
-	cout<<obj1.use_count()<<endl;
-	cout<<obj2.use_count()<<endl;
+	//cout<<obj1.use_count()<<endl;
+	//cout<<obj2.use_count()<<endl;
 
 	//piArr[0] = 1;
 
@@ -254,6 +254,10 @@ int main()
 //	p[1] = 2;
 //
 //	cout<<p[1]<<endl;
+
+	
+
+
 
 
 	return 0;
