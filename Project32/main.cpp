@@ -1,5 +1,6 @@
 #include <iostream> 
-#include <string> 
+#include <string>
+#include <tr1/memory>
 
 using namespace std;
 
@@ -10,6 +11,23 @@ void mydelete(string* p)
 	p = nullptr;
 	cout << "pp" << endl;
 }
+class A{
+public:
+	A()
+	{
+		cout<<"constructor"<<endl;
+	}
+	~A()
+	{
+		cout<<"destructor"<<endl;
+	}
+	int _a;
+};
+void show(shared_ptr<A> p)
+{
+	cout<<p->_a<<endl;
+}
+
 int main()
 {
 	/*cout<<[](int a, int b) {
@@ -49,17 +67,25 @@ int main()
 	/*unique_ptr<string> c(new string("sdfdsfsdf"));
 	int a = sizeof(c);*/
 
-	string* a ;
-	int a0 = sizeof(a);
-	
-	shared_ptr<string> c(a);
-	int a1 = sizeof(c);
-
-	unique_ptr<string> d(a);
-
-	int a2 = sizeof(d);
+//	string* a ;
+//	int a0 = sizeof(a);
+//
+//	shared_ptr<string> c(a);
+//	int a1 = sizeof(c);
+//
+//	unique_ptr<string> d(a);
+//
+//	int a2 = sizeof(d);
 
 	//智能指针总结：
 	//1、自行释放内存，防止编写时忘记释放delete
+	//unique_ptr<int> p(new int(10));
+	//cout<<*p<<endl;
+
+	//unique_ptr<int> p1(p);
+
+	shared_ptr<A> p(new A());
+	show(p);
+
 	return 0;
 }
