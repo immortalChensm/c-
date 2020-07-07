@@ -24,7 +24,7 @@
  * 		ÖĞÀ¨ºÅÉ¾³ıÆ÷£ºshared_ptr<int[]) obj(new int[10]);
  * 		ÆÕÍ¨º¯ÊıÉ¾³ıÆ÷£ºshared_ptr<int> obj(new int[10],º¯ÊıÃû);
  * 		ÄäÃûº¯ÊıÉ¾³ıÆ÷¡¾lambda¡¿:shared_ptr<int> obj(new int[10],[](int *p){delete [] p});
- * 		std::default_delete ÀàÄ£°åÉ¾³ıÆ÷£ºshared_ptr<int> obj(new int[10],std::default_delete<int>[]());
+ * 		std::default_delete ÀàÄ£°åÉ¾³ıÆ÷£ºshared_ptr<int[]> obj(new int[10],std::default_delete<int>[]());
  *
  * **/
 using namespace std;
