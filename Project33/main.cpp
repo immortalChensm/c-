@@ -1,7 +1,7 @@
 #include <iostream> 
 #include <string> 
 #include <thread>
-
+#include <fstream>
 using namespace std;
 
 //进程：正在运行的程序  
@@ -44,16 +44,35 @@ class Ta
 {
 public:
 	int &_i;
-	Ta(int &i) :_i(i) {};
+	Ta(int &i) :_i(i) {
+		cout<<"Ta(int &i)"<<endl;
+	}
+	Ta(const Ta &obj):_i(obj._i){
+		cout<<"Ta(const Ta &obj)"<<endl;
+	}
+	~Ta(){
+		cout<<"~Ta()"<<endl;
+	}
 	void operator()()
 	{
 		cout << "operator begin" << endl;
 		cout << "_i=" << _i << endl;
+		cout << "_i=" << _i << endl;
+		cout << "_i=" << _i << endl;
+		cout << "_i=" << _i << endl;
+		cout << "_i=" << _i << endl;
+		cout << "_i=" << _i << endl;
+		cout << "_i=" << _i << endl;
+		//ofstream destFile("./test.txt",ios::out);
+		//o.open("./test.txt",ios::out);
+		//destFile<<_i<<" ";
+		//destFile.close();
 	}
 };
 int main()
 {
 
+	//1、普通函数
 	//thread t(myshow);
 	//t.join();
 	//join 加入，汇合  阻塞主线程，让主线程等待子线程执行完毕，然后子线程和主线程汇合，然后主线程再往下执行
@@ -74,22 +93,33 @@ int main()
 		cout << "2 false" << endl;
 	}*/
 
-	//、其它方式创建子线程
-	int j = 10;
-	Ta obj(j);
-	thread t(obj);
+	//2、其它方式创建子线程 类函数对象
+	//int j = 10;
+	//Ta obj(j);//主线程运行结束，整个进程停止，obj对象不存在了，分离出去的线程得到的数据是复制过来的数据
+	//thread t(obj);
 
+	//t.join();
+	//t.detach();
+
+
+//	cout << "main thread" << endl;
+//	cout << "main thread" << endl;
+//	cout << "main thread" << endl;
+//	cout << "main thread" << endl;
+//	cout << "main thread" << endl;
+//	cout << "main thread" << endl;
+//	cout << "main thread" << endl;
+
+	//getchar();
+	//3、匿名函数
+	thread t([](){
+		cout<<"begin"<<endl;
+		//;;
+		cout<<"end"<<endl;
+	});
 	//t.join();
 	t.detach();
 
-
-	cout << "main thread" << endl;
-	cout << "main thread" << endl;
-	cout << "main thread" << endl;
-	cout << "main thread" << endl;
-	cout << "main thread" << endl;
-	cout << "main thread" << endl;
-	cout << "main thread" << endl;
-
+	cout<<"main end"<<endl;
 	return 0;
 }
