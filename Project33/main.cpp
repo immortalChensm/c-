@@ -94,12 +94,12 @@ int main()
 	}*/
 
 	//2、其它方式创建子线程 类函数对象
-	//int j = 10;
-	//Ta obj(j);//主线程运行结束，整个进程停止，obj对象不存在了，分离出去的线程得到的数据是复制过来的数据
-	//thread t(obj);
+	int j = 10;
+	Ta obj(j);//主线程运行结束，整个进程停止，obj对象不存在了，分离出去的线程得到的数据是复制过来的数据
+	thread t(obj);
 
 	//t.join();
-	//t.detach();
+	t.detach();
 
 
 //	cout << "main thread" << endl;
@@ -112,13 +112,13 @@ int main()
 
 	//getchar();
 	//3、匿名函数
-	thread t([](){
-		cout<<"begin"<<endl;
-		//;;
-		cout<<"end"<<endl;
-	});
-	//t.join();
-	t.detach();
+	//thread t([](){
+	//	cout<<"begin"<<endl;
+	//	//;;
+	//	cout<<"end"<<endl;
+	//});
+	////t.join();
+	//t.detach();
 
 	cout<<"main end"<<endl;
 	return 0;
