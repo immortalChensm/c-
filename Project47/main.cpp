@@ -1,4 +1,8 @@
 #include <iostream>
+#include <ctime> 
+using namespace std;
+
+#define MEMORYPOOL 1
 //内存池的实现 
 namespace test
 {
@@ -24,7 +28,12 @@ namespace test
 
 	void* A::operator new(size_t size)
 	{
+
 		A* tmplink;
+#ifdef MEMORYPOOL 
+		tmplink = (A*)malloc(size);
+		return tmplink;
+#endif 
 		if (_freePosi == nullptr) {
 
 			size_t realSize = _sTrunkCount * size;
@@ -49,13 +58,26 @@ namespace test
 
 	void A::operator delete(void* p)
 	{
-
+#ifdef MEMORYPOOL 
+		free(p);
+#endif 
 		(static_cast<A*>(p))->_next = _freePosi;
+		_freePosi = static_cast<A*>(p);
 
 	}
 	void func()
 	{
 		
+		clock_t start, end;
+		start = clock();
+		for (int i = 0; i < 500'0000; i++) {
+
+			A* o = new A();
+		}
+
+		end = clock();
+
+		cout << "分配内存次数：" << A::_iCount << "，malloc次数：" << A::_iMallocCount << "，用时（ms):" << (end-start) << endl;
 	}
 }
 
