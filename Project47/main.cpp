@@ -81,11 +81,40 @@ namespace test
 	}
 }
 
+namespace test1
+{
+	//1、嵌入式指针
+	class TestEP
+	{
+	public:
+		int _i;
+		int _j;
+	public:
+		struct obj
+		{
+			struct obj* next;
+		};
+	};
 
+	void func()
+	{
+		TestEP mytest;//8个字节
+		cout << sizeof(mytest) << endl;
+		TestEP::obj* tmp;
+
+		tmp = (TestEP::obj*)(&mytest);//tmp 指向了前4个字节
+
+		cout << sizeof(tmp->next) << endl;
+		cout << sizeof(TestEP::obj) << endl;
+
+		tmp->next = nullptr;
+
+	}
+}
 
 int main()
 {
-	test::func();
+	test1::func();
 
 	return 0;
 }
