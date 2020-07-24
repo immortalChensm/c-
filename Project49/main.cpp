@@ -69,6 +69,11 @@ namespace test1
 
 		}
 
+		//÷ÿ‘ÿ∂®Œªnew
+		void* operator new (size_t size, void* p)
+		{
+			return p;
+		}
 		~A()
 		{
 			int a=10;
@@ -102,8 +107,31 @@ namespace test1
 
 	}
 }
+namespace test2 {
+
+	class A {
+	public:
+
+		void* operator new(size_t size)
+		{
+			return malloc(size);
+		}
+
+		void* operator new(size_t size, int a)
+		{
+			return malloc(size);
+		}
+	};
+	void func()
+	{
+
+		//A* a = new A();
+		A* a = new (123) A();
+	}
+}
+
 int main()
 {
-	test1::func();
+	test2::func();
 	return 0;
 }
