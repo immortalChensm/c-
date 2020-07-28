@@ -3,12 +3,13 @@
 #include <string>
 #include <vector>
 #include <queue>
-#include <list>
-#include <forward_list>
-#include <map>
+#include <list>//双向链表
+#include <forward_list>//单向链表
+#include <map>//关联容器  红黑树
 #include <set>
+#include <unordered_set>//hash 表
 
-
+//容器
 using namespace std;
 namespace test
 {
@@ -181,8 +182,40 @@ namespace test3
 
 	}
 }
+namespace test4
+{
+	void func()
+	{
+
+		unordered_set<int> sets;
+		cout << sets.bucket_count() << endl;
+		for (int i = 0; i < 8; i++) {
+			sets.insert(i);
+		}
+		cout << sets.bucket_count() << endl;
+		sets.insert(9);
+		cout << sets.bucket_count() << endl;
+		cout << sets.max_bucket_count() << endl;
+
+		cout << sets.size() << endl;
+		for (int i = 0; i < sets.bucket_count(); i++) {
+			cout << "bucket_size=" << sets.bucket_size(i) << endl;
+		}
+
+
+		auto f = sets.find(5);
+		if (f != sets.end()) {
+			cout << "find 5" << endl;
+		}
+
+		if (find(sets.begin(), sets.end(), 5) != sets.end()) {
+			cout << "find function find 5" << endl;
+		}
+
+	}
+}
 int main()
 {
-	test3::func();
+	test4::func();
 	return 0;
 }
