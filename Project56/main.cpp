@@ -45,8 +45,39 @@ namespace test1
 		});
 	}
 }
+
+namespace test2
+{
+
+	class A {
+	public:
+		bool operator()(int i) {
+			//return i > 2;
+			return greater<int>()(i,2);
+		}
+	};
+	void func()
+	{
+		//适配器  在原有基础上做一些添加或是修改，删除的操作
+		//适配器分类：容器适配器，算法函数适配器，迭代器适配器
+
+		//1、容器适配器  stack,queue,deque  
+
+		//2、算法函数适配器
+		vector<int> iv{ 1,2,3,4,5,3,2 };
+
+		int c = count(iv.begin(),iv.end(),2);
+		cout << c << endl;
+
+		//int c1 = count_if(iv.begin(),iv.end(),A()); 
+		int c1 = count_if(iv.begin(),iv.end(),bind(greater<int>(),2,placeholders::_1));
+
+		cout << c1 << endl;
+
+	}
+}
 int main()
 {
-	test1::func();
+	test2::func();
 	return 0;
 }
