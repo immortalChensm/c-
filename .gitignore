@@ -10,3 +10,4 @@ project.sln
 /*/cmake-build-debug/*
 /MFCApplication1
 /boost_1_73_0
+/Debug/*
