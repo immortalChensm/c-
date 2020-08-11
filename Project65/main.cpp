@@ -124,8 +124,13 @@ int main()
 	cout << b << endl;*/
 
 	//auto x = adds(10,20);
-	int b = 100;
-	auto x = xas(b);
-	cout << "x=" << type_id_with_cvr<decltype(x)>().pretty_name() << endl;
+	/*int b = 100;
+	auto x = xas(b);*/
+
+	int x = 1;
+	const int& y = 10;
+	//auto z = y;
+	decltype(auto) z = y;
+	cout << "x=" << type_id_with_cvr<decltype(z)>().pretty_name() << endl;
 	return 0;
 }
