@@ -142,10 +142,27 @@ int main()
 	cout << "a=" << a <<",b="<<b << endl;*/
 
 	//绑类成员函数
+	/*B obj;
+	auto f5 = std::bind(&B::show,&obj,100,200);
+	f5();*/
+
 	B obj;
-	auto f5 = std::bind(&B::show,obj,100,200);
-	f5();
+	//std::function<void(int, int)> f = std::bind(&B::show,&obj,placeholders::_1,placeholders::_2);
+
+	//f(10,101);
+
+	// 绑定类成员变量
+	std::function<int& ()> ix = std::bind(&B::_i,&obj);
+	ix() = 101;
 
 	cout << obj._i << endl;//并没有赋值
+
+	//总结
+	//可调用对象：函数指针  operator() operator type() 类成员函数指针
+	//std::function 绑定
+	//std::bind 用于绑定函数和参数，有点位符placeholders::_1~20
+	//std::bind 也能绑定类成员函数和类成员变量  
+
+
 	return 0;
 }
