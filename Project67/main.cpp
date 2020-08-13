@@ -1,4 +1,8 @@
 #include <iostream>
+#include <string>
+#include <functional>
+#include <vector>
+#include <algorithm>
 using namespace std;
 //lambda,for_each find_if
 //格式：[捕获列表](参数列表)->返回类型{函数体}
@@ -27,6 +31,10 @@ public:
 		}();
 	}
 };
+
+int x(int a) {
+	return a;
+}
 int main()
 {
 
@@ -77,7 +85,7 @@ int main()
 
 	//mutable  
 
-	int x = 10;
+	/*int x = 10;
 	auto y = [=]() mutable {
 		
 		x = 101; cout << x << endl;
@@ -90,7 +98,40 @@ int main()
 		[] {
 			cout << "he" << endl;
 		}();
-	}();
+	}();*/
+
+	std::function<int(int)> f1 = [](int v) {return v + 1; };
+	std::function<int(int)> f2 = std::bind([](int a, int b)->int {return a + b; }, 100,placeholders::_1);
+
+	cout << f1(100) << endl;
+
+	cout << f2(101) << endl;
+
+	typename  int(*f3)(int) ;
+
+	f3 = [](int a) {return a; };
+	cout << f3(2) << endl;
+
+	typedef int(*fx)(int);
+	typedef int y;
+
+	//lambda 的使用
+	
+	vector<int> data = { 1,2,3 };
+
+	std::for_each(data.begin(), data.end(), [](int v) {
+		
+		cout << v << endl;
+	});
+
+
+	auto vd = find_if(data.begin(), data.end(), [](int v) {
+		
+		if (v == 2)return true;
+		return false;
+	});
+
+	cout << *vd << endl;
 
 	return 0;
 }
