@@ -2,7 +2,7 @@
 #include <string> 
 #include <initializer_list>
 #include <stdarg.h>
-
+//initializer_list 初始化列表【模板类，类似数组】
 using namespace std;
 
 void func(initializer_list<string> arr)
