@@ -91,5 +91,18 @@ int main()
 	//cout << is_object<R>::type << endl;
 	//cout << is_object<R>::value_type << endl;
 	
+	/**
+	oop与类
+	模板
+	智能指针
+	高级内存
+	并发与多线程
+	泛型编程
+	函数对象
+	引用
+	类型推断
+	lambda
+
+	**/
 	return 0;
 }
