@@ -8,11 +8,13 @@ class A
 {
 public:
 	int _i = 0;
+	char _b;
+	
 	int _j = 0;
-	virtual void test()
+	/*virtual void test()
 	{
 
-	}
+	}*/
 };
 int main()
 {
