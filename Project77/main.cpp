@@ -20,9 +20,9 @@ public:
 class B :public Base
 {
 public:
-	virtual void b() {
+	/*virtual void b() {
 		cout << "B::b" << endl;
-	}
+	}*/
 };
 int main() {
 
@@ -69,7 +69,8 @@ int main() {
 		printf("vptrparent[%d]：%#x\n", i, x2[i]);
 
 	}
-
+	printf("obj：%#x\n", *vptr);
+	printf("x2：%#x\n", *x2);
 	Func f11 = (Func)x2[0];
 	Func f22 = (Func)x2[1];
 	Func f33 = (Func)x2[2];
@@ -78,6 +79,7 @@ int main() {
 	f22();
 	f33();
 
+	//1、类中有虚函数，就会有虚函数表，同属于一个类的多个对象，会有一个虚函数指针vptr指向虚函数表的首地址
 	int a = 0;
 	return 0;
 }
