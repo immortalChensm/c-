@@ -53,6 +53,30 @@ int main()
 	obj._i = 5;
 	obj._j = 10;
 
+	/**
+	
+	0x00b4f7e0 {_i=5 _j=10 }
+
+	A obj 对象的内存布局
+	58 8b a3 00 02 00 00 00  Base1 [vptr,_x]
+
+	68 8b a3 00 04 00 00 00  Base2 [vptr,_y]
+
+	74 8b a3 00 07 00 00 00  Base3[vptr,_z]
+
+	05 00 00 00 0a 00 00  00 A [_i,_j]
+
+	0x00b4f7e0 {_i=5 _j=10 }
+
+	0x00b4f7e8 {_i=5 _j=10 }
+	0x00b4f7e8 {_i=5 _j=10 }
+	**/
+
+	Base1* objx = &obj;//objx 的内存地址起始和obj一样
+	Base2* objxy = &obj;//objxy 的内存起始地址 = obj首地址+偏移8个字节
+
+	Base2* objy = (Base2*)(  ((char*)&obj)+sizeof(Base1)   );
+
 
 	return 0;
 }
