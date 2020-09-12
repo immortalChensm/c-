@@ -76,7 +76,7 @@ namespace vx
 	}
 }
 int main()
-{
+{                                   
 
 	//obj ÄÚ´æ²¼¾Ö  https://note.youdao.com/web/#/file/WEBb85a68c37ec76463b754d565badab7d1/note/WEBb682238d4ea0062195a0614e7f8831fe/
 	/*A1 obj;
