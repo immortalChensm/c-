@@ -72,12 +72,53 @@ namespace test1
 		cout << ((A*)x)->_x << endl;
 		cout << ((A*)(x - sizeof(A)))->_x << endl;
 
+		cout << (*x) << endl;
+
+	}
+}
+namespace test2
+{
+
+	class A {
+	public:
+		A()
+		{
+			cout << "a" << endl;
+		}
+		~A()
+		{
+			cout << "~a" << endl;
+		}
+
+		void* operator new (size_t size, int i,void* head) {
+			return head;
+		}
+	};
+
+	void func()
+	{
+
+		void* a = (void*)new char[sizeof(A)];
+
+		A* obja = new (100,a) A();//实际上调用operator new(size_t size,void *)()
+
+		delete obja;
+
+
+		/*void* b = (void*)new char[sizeof(A) * 10];
+
+		A* objb = new (b)A[10]();
+
+		delete[] objb;*/
+		//objb->~A();
+		//delete b;
+
 	}
 }
 int main()
 {
 
-	test1::func();
+	test2::func();
 
 	return 0;
 }
