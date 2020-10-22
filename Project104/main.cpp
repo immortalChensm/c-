@@ -100,8 +100,30 @@ namespace test2
 
 	}
 }
+namespace test3
+{
+
+	template<typename T>
+	void func(T&& x) {//可以接左值，右值  万能引用
+		cout << x << endl;
+	}
+	template <typename T>
+	class A {
+	public:
+		void show(T&& x) {
+			cout << x << endl;
+		}
+	};
+	void s()
+	{
+		int j = 100;
+		//func<int>(30);//万能引用：T&& 必须由编译器自行推断
+		A<int> obj;
+		obj.show(3);
+	}
+}
 int main()
 {
-	test2::func();
+	test3::s();
 	return 0;
 }
