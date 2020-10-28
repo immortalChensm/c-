@@ -122,8 +122,94 @@ namespace test3
 		obj.show(3);
 	}
 }
+namespace test5
+{
+
+	void show(int& i)
+	{
+		cout << "左值i" << i << endl;
+	}
+	void show(int&& i)
+	{
+		cout << "右值i" << i << endl;
+	}
+
+	template<typename T>
+	void test(T&& x)//万能引用 会存在引用折叠规则
+	{
+		show(x);
+		show(std::forward<T>(x)); 
+		show(std::move(x));
+	}
+
+	void func()
+	{
+		//test(100);
+		int j = 10;
+		test(j);
+	}
+}
+namespace test6
+{
+
+	void test(){
+		cout << "test" << endl;
+	}
+
+	class A {
+	public:
+		int operator()()
+		{
+			return 100;
+		}
+	};
+	class N {
+	public:
+		double operator()()
+		{
+			return 10.23f;
+		}
+	};
+	template<typename T>
+	auto testx(void) {
+		auto v = T()();
+		
+		return v;
+	}
+	void func()
+	{
+		auto x = 10;
+		auto& y = x;
+		auto* z = &y;
+		auto f1 = test;
+		auto f2 = test;
+		f1();
+		f2();
+
+		std::map<string, int> obj;
+		obj["a"] = 1;
+		obj["b"] = 2;
+		obj["c"] = 3;
+
+		std::map<string, int>::iterator itr;
+		for (itr = obj.begin(); itr != obj.end(); itr++) {
+
+			cout << itr->first << itr->second << endl;
+		}
+
+		for (auto x = obj.begin(); x != obj.end(); x++) {
+			cout << x->first << x->second << endl;
+		}
+
+		cout << N()() << endl;
+
+		cout << testx<A>() << endl;
+		cout << testx<N>() << endl;
+		
+	}
+}
 int main()
 {
-	test3::s();
+	test6::func();
 	return 0;
 }
