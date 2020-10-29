@@ -208,8 +208,66 @@ namespace test6
 		
 	}
 }
+namespace test7
+{
+	template<typename T>
+	class O {
+	public:
+		typename T::iterator itr;
+		//decltype(T().begin()) itr;
+		void getItr(T& tmp)
+		{
+			itr = tmp.begin();
+		}
+	};
+	template<typename T>
+	class O<const T>
+	{
+	public:
+		typename T::const_iterator itr;
+		
+		void getItr(const T& tmp)
+		{
+			itr = tmp.begin();
+		}
+	};
+	int show()
+	{
+		cout << "show" << endl;
+		return 1;
+	}
+	void func()
+	{
+
+		int x = 10;
+		decltype(x) y = 10;
+
+		decltype(10) j = 102;
+		cout << j << endl;
+
+		decltype((100)) k = y;
+		y = 22;
+		cout << k << endl;
+		cout << y << endl;
+
+		decltype(show()) funcx = 10;
+		//funcx();
+		//show();
+
+		//decltype(show) fun;
+		//cout<<fun()<<endl;
+		std::function<decltype(show)> fun1 = show;
+		cout<<fun1()<<endl;
+
+		cout << "******************" << endl;
+		using arr = const std::vector<int>;
+		arr x1 = { 1,2,3 };
+		O<arr> yobj;
+		yobj.getItr(x1);
+	}
+}
 int main()
 {
-	test6::func();
+	test7::func();
 	return 0;
 }
