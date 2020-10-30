@@ -236,10 +236,50 @@ namespace test7
 		cout << "show" << endl;
 		return 1;
 	}
+
+	int x1(int x) {
+		cout << "int x1" << endl;
+		return x + 1;
+	}
+	double x1(double x) {
+		cout << "double x1" << endl;
+		return x + 1.24f;
+	}
+
+	template<typename T>
+	auto a(T& tv)->decltype(x1(tv)) {
+
+		return x1(tv);
+	}
+
+	decltype(auto) bbc(int &x) {
+
+		return (x );
+	}
+
+	class C {
+	public:
+		void show()
+		{
+			cout << "c show" << endl;
+		}
+		decltype(auto) begin()
+		{
+			return 0;
+		}
+	};
 	void func()
 	{
+		//int j = 10;
+		//bbc(j) = 200;
+		//cout << j << endl;
 
-		int x = 10;
+		//C().show();
+		decltype(C().begin()) j = 100;
+		cout << j << endl;
+		//int j = 10;
+		//cout << a(j)<<endl;
+		/*int x = 10;
 		decltype(x) y = 10;
 
 		decltype(10) j = 102;
@@ -250,20 +290,20 @@ namespace test7
 		cout << k << endl;
 		cout << y << endl;
 
-		decltype(show()) funcx = 10;
+		decltype(show()) funcx = 10;*/
 		//funcx();
 		//show();
 
 		//decltype(show) fun;
 		//cout<<fun()<<endl;
-		std::function<decltype(show)> fun1 = show;
+		/*std::function<decltype(show)> fun1 = show;
 		cout<<fun1()<<endl;
 
 		cout << "******************" << endl;
 		using arr = const std::vector<int>;
 		arr x1 = { 1,2,3 };
 		O<arr> yobj;
-		yobj.getItr(x1);
+		yobj.getItr(x1);*/
 	}
 }
 int main()
