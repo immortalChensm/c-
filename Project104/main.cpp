@@ -306,8 +306,68 @@ namespace test7
 		yobj.getItr(x1);*/
 	}
 }
+namespace test8
+{
+
+
+	void a()
+	{
+		cout << "a" << endl;
+	}
+	class A {
+	public:
+		/*void show()
+		{
+			cout << "A::show" << endl;
+		}
+		void operator()()
+		{
+			cout << "A::operator()" << endl;
+		}*/
+
+		/*static int p() {
+			cout << 1000 << endl;
+			return 1;
+		}
+		using x = int(*)(void);
+		operator x() {
+			return p;
+		}*/
+
+		void showa(int &x,int &y)
+		{
+			cout << "show a" << x<<y<<endl;
+			x++;
+			y++;
+		}
+	};
+
+	void func()
+	{
+		A obj;
+		int a1 = 10, a2 = 20;
+		auto f1 = std::bind(&A::showa,obj,std::placeholders::_1,a1);
+		f1(a2);
+
+		cout << a1 << a2 << endl;
+
+
+		//void (A:: * b)(void) = &A::showa;
+		//A obj;
+		//(obj.*b)();
+		//std::function<void(void)> f1 = a;
+		//f1();
+
+		/*A obj;
+		std::function<void(void)> f2 = obj;
+		f2();*/
+		//A obj;
+		//std::function<int(void)> f3 = obj;
+		//f3();
+	}
+}
 int main()
 {
-	test7::func();
+	test8::func();
 	return 0;
 }
