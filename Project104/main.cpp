@@ -310,9 +310,13 @@ namespace test8
 {
 
 
-	void a()
+	void a(int x)
 	{
-		cout << "a" << endl;
+		cout << "a" <<x<< endl;
+	}
+	void b(int j,std::function<void(int)> f)
+	{
+		f(j);
 	}
 	class A {
 	public:
@@ -340,16 +344,51 @@ namespace test8
 			x++;
 			y++;
 		}
+
+		int _x;
 	};
 
 	void func()
 	{
 		A obj;
-		int a1 = 10, a2 = 20;
+
+		std::function<void(int)> f1 = std::bind(a,std::placeholders::_1);
+
+		b(10,f1);
+
+		auto  f2 = std::bind(b, std::placeholders::_1, std::placeholders::_2);
+
+		f2(100,a);
+
+		[]() {
+			cout << "123" << endl;
+		}();
+		obj._x = 22;
+		[&] {
+		
+			cout << obj._x << endl;
+
+		}();
+		static int jj = 100;
+		[&]()->A {
+			
+			cout << "objx obj" <<jj<< endl;
+			return obj;
+		}();
+
+		/*std::function<int& (void)> f1 = std::bind(&A::_x,&obj);
+		f1() = 100;
+
+		cout << obj._x << endl;*/
+
+		/*int a1 = 10, a2 = 20;
 		auto f1 = std::bind(&A::showa,obj,std::placeholders::_1,a1);
 		f1(a2);
 
 		cout << a1 << a2 << endl;
+
+		std::function<void(int, int)> f2 = std::bind(&A::showa,&obj,a1,a2);
+		f2(a1,a2);*/
 
 
 		//void (A:: * b)(void) = &A::showa;
