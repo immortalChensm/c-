@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <functional>
+#include <algorithm>
 #include <map>
 using namespace std;
 
@@ -405,8 +406,65 @@ namespace test8
 		//f3();
 	}
 }
+namespace test9
+{
+	void func()
+	{
+
+		std::function<int(int)> f1 = [](int v) {
+
+			return v + 10;
+		};
+
+		cout << f1(100) << endl;
+
+		int j = 10;
+		auto f2 = [=](int v) mutable{
+
+			j = 1020;
+			cout << v << endl;
+		};
+
+		f2(1000);
+		cout << j << endl;
+
+		std::function<int(int)> f3 = std::bind([](int v) {
+			cout << v << endl;
+			return v;
+		},888);
+
+		f3(2);
+
+		cout << "***************" << endl; 
+
+		vector<int> ks = { 1,2,3,4,5 };
+
+		for_each(ks.begin(), ks.end(), [](int k) {
+
+			cout << k << endl;
+			});
+
+		auto result = find_if(ks.begin(), ks.end(), [](int k) {
+		
+			cout << k << endl;
+
+			if (k > 2) {
+				return true;
+			}
+			return false;
+		});
+
+		if (result != ks.end()) {
+
+			cout << "find elem\r\n";
+		}
+		else {
+			cout << "not found\r\n";
+		}
+	}
+}
 int main()
 {
-	test8::func();
+	test9::func();
 	return 0;
 }
