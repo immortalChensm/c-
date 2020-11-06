@@ -463,8 +463,50 @@ namespace test9
 		}
 	}
 }
+namespace test10
+{
+	std::vector<std::function<bool(int)>> gv;
+	void myfunc()
+	{
+
+		static int c = 10;
+		gv.push_back([a=c](int v) {
+			
+			cout << "v=" << v << endl;
+			cout << "c=" << c << endl;
+			cout << "a=" << a << endl;
+			return true;
+		});
+		c++;
+
+	}
+	class A
+	{
+	public:
+		int _x = 100;
+		void addItem()
+		{
+			gv.push_back([y=_x](int v) {
+
+				cout << "x=" << y << endl;
+				return true;
+			});
+		}
+	};
+
+	void func()
+	{
+		//myfunc();
+		//gv[0](100);
+
+		A* obj = new A();
+		obj->addItem();
+		delete obj;
+		gv[0](101);
+	}
+}
 int main()
 {
-	test9::func();
+	test10::func();
 	return 0;
 }
