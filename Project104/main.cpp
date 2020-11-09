@@ -4,6 +4,8 @@
 #include <functional>
 #include <algorithm>
 #include <map>
+#include <initializer_list>
+#include <stdarg.h>
 using namespace std;
 
 namespace test
@@ -505,8 +507,57 @@ namespace test10
 		gv[0](101);
 	}
 }
+namespace test11
+{
+	void test(std::initializer_list<std::string> args)
+	{
+		for (auto beg = args.begin(); beg != args.end(); ++beg)
+		{
+			cout << (*beg).c_str() << endl;
+		}
+
+		cout << args.size() << endl;
+
+		for (auto itr : args) {
+			cout << itr.c_str() << endl;
+		}
+	}
+
+	class A {
+	public:
+		explicit A(std::initializer_list<int> args) {
+
+			for (auto x : args) {
+				cout << x << endl;
+			}
+		}
+	};
+	int sum(int num, ...)
+	{
+		va_list valist;
+		va_start(valist,num);
+
+		int t = 0;
+
+		for (int i = 0; i < num; i++) {
+
+			t+=va_arg(valist, int);
+		}
+		va_end(valist);
+		return t;
+
+	}
+	void func()
+	{
+		test({ "a","b","c" });
+		A obj{ 1,2,3 };
+		//A obj1 = { 10,20,30 };
+
+		cout << sum(2,100,200) << endl;
+	}
+}
 int main()
 {
-	test10::func();
+	test11::func();
 	return 0;
 }
