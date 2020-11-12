@@ -556,8 +556,22 @@ namespace test11
 		cout << sum(2,100,200) << endl;
 	}
 }
+namespace test12
+{
+	void func()
+	{
+		const int a = 3;
+		int x = 55;
+		//constexpr int j = x;
+		//cout << a << j << endl;
+
+		int& y = x;
+		y = 100;
+		cout << x << y << endl;
+	}
+}
 int main()
 {
-	test11::func();
+	test12::func();
 	return 0;
 }
