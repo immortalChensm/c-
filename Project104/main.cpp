@@ -570,8 +570,58 @@ namespace test12
 		cout << x << y << endl;
 	}
 }
+namespace test13
+{
+	void func()
+	{
+
+		int x[]{ 1,2,3,4,5 };
+		for (auto& y : x) {
+			cout << y << endl;
+		}
+
+		int* p = new int{ 10 };
+		cout << *p << endl;
+
+		int* z = new int[3];
+		*(z++) = 100;
+		*(z++) = 200;
+		cout << *(z + 1) << endl;
+
+		delete p;
+		delete[] z;
+
+		cout << typeid(NULL).name() << endl;
+		cout << typeid(nullptr).name() << endl;
+	}
+}
+namespace test14
+{
+	void func()
+	{
+
+		int* z = new int[5];
+		//*z++ = 0;
+		//z[0] = 9;
+		//*z++ = 10;
+		//*z++ = 10;
+		//cout << *z << endl;
+		if (z != nullptr) {
+			int* z1 = z;
+			*z1++ = 10;
+			*z1++ = 20;
+			cout << *z << endl;
+			cout << *(z+1) << endl;
+			delete[] z;
+		}
+		
+
+		
+
+	}
+}
 int main()
 {
-	test12::func();
+	test14::func();
 	return 0;
 }
