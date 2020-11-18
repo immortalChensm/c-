@@ -620,8 +620,29 @@ namespace test14
 
 	}
 }
+namespace test15
+{
+	struct stdx {
+
+		int age;
+		char name;
+		void show()
+		{
+			age = 100;
+			name = 'c';
+			cout << name << this->age << endl;
+		}
+	};
+	void func()
+	{
+
+		stdx* obj = new stdx();
+		obj->show();
+
+	}
+}
 int main()
 {
-	test14::func();
+	test15::func();
 	return 0;
 }
