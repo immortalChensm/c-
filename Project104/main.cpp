@@ -641,8 +641,34 @@ namespace test15
 
 	}
 }
+namespace test16
+{
+
+	void func()
+	{
+		std::string s1 = "china";
+		std::string s2("japanese");
+		std::string s3 = { "ok" };
+		//std::string s4 = ("hello");
+
+		if (s1.empty()) {
+			cout << "emp" << endl;
+		}
+		cout << s1.size() << endl;
+		cout << s1.length() << endl;
+
+		
+		cout << s1[3] << endl;
+
+		cout << s1 + s2 << endl;
+
+		s3 = s2;
+
+
+	}
+}
 int main()
 {
-	test15::func();
+	test16::func();
 	return 0;
 }
