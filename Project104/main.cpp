@@ -667,8 +667,42 @@ namespace test16
 
 	}
 }
+namespace test17
+{
+
+	void func()
+	{
+
+		std::vector<int> x1 = { 1,2,3,4 };
+		std::vector<int> x2(10, 2);
+
+		std::vector<string> x3 = { "h","x" };
+		std::vector<string> x4 = { 4,"hello" };
+
+		for (auto j : x1) {
+			cout << j << endl;
+		}
+		for (auto j : x2) {
+			cout << j << endl;
+		}
+		for (auto j : x3) {
+			cout << j << endl;
+		}
+		for (auto j : x4) {
+			cout << j << endl;
+		}
+
+		std::vector<string> x5(x4);
+
+		x5.push_back("china");
+		for (auto j : x5) {
+			cout << j << endl;
+		}
+
+	}
+}
 int main()
 {
-	test16::func();
+	test17::func();
 	return 0;
 }
