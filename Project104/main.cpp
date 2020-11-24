@@ -699,6 +699,31 @@ namespace test17
 			cout << j << endl;
 		}
 
+		cout << "*************************" << endl;
+
+		if (x5 != x3) {
+			cout << "x5!=x3" << endl;
+		}
+		cout << x5.size() << endl;
+		x5.clear();
+		cout << x5.size() << endl;
+
+		/*for (auto j : x3) {
+			cout << j << endl;
+			if (j == "h") {
+				x3.push_back("bb");
+				x3.pop_back();
+			}
+		}*/
+		cout << "remove************" << endl;
+		auto itr = std::find(x3.begin(),x3.end(),"h");
+		//cout << itr->c_str() << endl;
+		x3.erase(itr);
+		for (auto j : x3) {
+			cout << j << endl;
+			
+		}
+
 	}
 }
 int main()
