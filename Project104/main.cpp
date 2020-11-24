@@ -669,9 +669,17 @@ namespace test16
 }
 namespace test17
 {
+	class A {
+	public:
+		//typename int jj;
+		using baba = int;
 
+	};
 	void func()
 	{
+		A obj;
+		A::baba tt = 100;
+		cout << tt << endl;
 
 		std::vector<int> x1 = { 1,2,3,4 };
 		std::vector<int> x2(10, 2);
@@ -717,13 +725,24 @@ namespace test17
 		}*/
 		cout << "remove************" << endl;
 		auto itr = std::find(x3.begin(),x3.end(),"h");
+		cout << typeid(itr).name() << endl;
+		//cout << typeid(itr).hash_code() << endl;
+
+		itr->assign("jack");
+		itr->erase();
 		//cout << itr->c_str() << endl;
-		x3.erase(itr);
+		//x3.erase(itr);
 		for (auto j : x3) {
 			cout << j << endl;
 			
 		}
 
+		for (std::vector<string>::iterator itr = x3.begin(); itr != x3.end(); itr++) {
+
+			cout << itr->data() << endl;
+		}
+
+		
 	}
 }
 int main()
