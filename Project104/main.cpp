@@ -675,6 +675,10 @@ namespace test17
 		using baba = int;
 
 	};
+	class B {
+	public:
+		int x = 0;
+	};
 	void func()
 	{
 		A obj;
@@ -744,9 +748,37 @@ namespace test17
 
 		
 	}
+	void func1()
+	{
+
+		//vector<int> obj = { 1,2,3,4,5 };
+
+		//vector<int>::iterator itr;
+		//vector<int>::reverse_iterator itr;
+		//vector<int>::const_iterator itr;
+		vector<B> obj;
+		B k,s;
+		k.x = 100;
+		obj.push_back(k);
+		obj.push_back(s);
+		for (auto itr = obj.cbegin(); itr != obj.cend(); itr++) {
+
+			//*itr = *itr * 10;
+			cout << itr->x<< endl;
+		}
+		auto itr = obj.begin();
+
+		obj.erase(itr);
+
+		for (auto itr = obj.cbegin(); itr != obj.cend(); itr++) {
+
+			
+			cout << itr->x << endl;
+		}
+	}
 }
 int main()
 {
-	test17::func();
+	test17::func1();
 	return 0;
 }
