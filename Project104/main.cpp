@@ -757,17 +757,20 @@ namespace test17
 		//vector<int>::reverse_iterator itr;
 		//vector<int>::const_iterator itr;
 		vector<B> obj;
-		B k,s;
+		B k,s,j;
 		k.x = 100;
+		j.x = 101;
 		obj.push_back(k);
 		obj.push_back(s);
+		obj.push_back(j);
 		for (auto itr = obj.cbegin(); itr != obj.cend(); itr++) {
 
 			//*itr = *itr * 10;
 			cout << itr->x<< endl;
 		}
 		auto itr = obj.begin();
-
+		itr++;
+		
 		obj.erase(itr);
 
 		for (auto itr = obj.cbegin(); itr != obj.cend(); itr++) {
@@ -777,8 +780,49 @@ namespace test17
 		}
 	}
 }
+namespace test18
+{
+	void func()
+	{
+		std::vector<int> obj = { 1,2,3,4,5 };
+		
+		while (!obj.empty()) {
+
+			auto itr = obj.begin();
+			obj.erase(itr);
+		}
+
+		std::string str("china is ok");
+
+		for (auto itr = str.begin(); itr != str.end(); ++itr) {
+			*itr = toupper(*itr);
+		}
+		cout << str << endl;
+
+
+	}
+	void func1()
+	{
+
+		float x = 10;
+		int j = static_cast<int>(x);
+		cout << j << endl;
+
+		class A{};
+		class B:public A{};
+
+		B obj1;
+		A obj2 = static_cast<A>(obj1);
+
+		/*float a1 = 32.34f;
+		float* a2a = &a1;
+		double *a2 = static_cast<double*>(a2a);*/
+
+
+	}
+}
 int main()
 {
-	test17::func1();
+	test18::func1();
 	return 0;
 }
