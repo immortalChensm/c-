@@ -808,7 +808,7 @@ namespace test18
 		int j = static_cast<int>(x);
 		cout << j << endl;
 
-		class A{};
+	class A { public:int x = 105; };
 		class B:public A{};
 
 		B obj1;
@@ -818,6 +818,20 @@ namespace test18
 		float* a2a = &a1;
 		double *a2 = static_cast<double*>(a2a);*/
 
+		const int* p = &j;
+
+		int* y1 = const_cast<int*>(p);
+		cout << *y1 << endl;
+
+
+		int* z = reinterpret_cast<int*>(y1);
+		cout << *z << endl;
+
+		//int *x = dynamic_cast<int*>(z);
+		//cout << x << endl;
+
+		A *obj3 = dynamic_cast<A*>(&obj1);
+		cout << obj3->x << endl;
 
 	}
 }
