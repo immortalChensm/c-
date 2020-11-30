@@ -835,8 +835,41 @@ namespace test18
 
 	}
 }
+namespace test19
+{
+	class A {
+
+	public:
+		int _x;
+		int _y;
+		A(int x, int y) :_x(x), _y(y) {
+
+		}
+		A()
+		{
+			_x = 0;
+			_y = 0;
+		}
+	};
+	void func()
+	{
+		A obj{ 1,2 };
+		A obj1(1, 2);
+		A obj2 = { 1,2 };
+		A obj3 = A(2, 3);
+	}
+}
 int main()
 {
-	test18::func1();
+	test19::func();
+	int x{ 10 };
+	int y(10);
+	int z = { 10 };
+	int y1 = (10);
+	
+	int y3 = { (101) };
+	int{};
+	double();
+
 	return 0;
 }
