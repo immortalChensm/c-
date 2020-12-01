@@ -845,18 +845,31 @@ namespace test19
 		A(int x, int y) :_x(x), _y(y) {
 
 		}
+		//explicit A(int x)
+		 A(int x)
+		{
+			_x = x;
+		}
 		A()
 		{
 			_x = 0;
 			_y = 0;
 		}
 	};
+	void test(A obj)
+	{
+		cout << obj._x << endl;
+		return;
+	}
 	void func()
 	{
-		A obj{ 1,2 };
+		/*A obj{ 1,2 };
 		A obj1(1, 2);
 		A obj2 = { 1,2 };
-		A obj3 = A(2, 3);
+		A obj3 = A(2, 3);*/
+		//A obj = 2;
+		test(666);
+
 	}
 }
 int main()
