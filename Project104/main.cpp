@@ -872,9 +872,56 @@ namespace test19
 
 	}
 }
+namespace test20
+{
+	class A {
+	public:
+		mutable int x = 0;
+		/*void test(int y) const {
+			x = y;
+			cout << x << endl;
+		}*/
+		void test(int y) const;
+		static int j;
+		static void show()
+		{
+			cout << "a" << endl;
+		}
+		inline void display()
+		{
+			cout << "inline" << endl;
+		}
+		A& getx(int x) {
+			this->x = x;
+			return *this;
+		}
+	};
+	void A::test(int y) const
+	{
+		x = y;
+		cout << x << endl;
+	}
+	int A::j = 88;
+
+	void func()
+	{
+		A obj;
+		obj.test(10);
+
+		const A obj1;
+		obj1.j = 888;
+		obj1.x = 100;
+		obj1.test(100);
+
+		cout << obj.j << endl;
+		cout << obj1.j << endl;
+		cout << A::j << endl;
+
+	}
+}
 int main()
 {
-	test19::func();
+	test20::func();
 	int x{ 10 };
 	int y(10);
 	int z = { 10 };
