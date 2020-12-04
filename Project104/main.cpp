@@ -938,13 +938,70 @@ namespace test21
 	};
 	void func()
 	{
-		A obj;
+		//A obj;
 		//A obj1(100);
+	}
+}
+namespace test22
+{
+	
+	class N {
+	public:
+		N() {
+			cout << "call N()" << endl;
+		}
+		N(const N& obj) {
+			cout << "call N(const N& obj)" << endl;
+		}
+	};
+	class A {
+
+	public:
+		int _x;
+		N obj;
+		A() {
+			cout << "call A()" << endl;
+		}
+		A(int x) :_x(x) {
+			cout << "call A(int x)" << endl;
+		}
+		A(const A& obj) {
+			_x = obj._x;
+			this->obj = obj.obj;
+
+			cout << "call A(const A& obj)" << endl;
+		}
+	};
+
+	A& func1(A obj)
+	{
+		A obj2;
+		return obj2;
+	}
+	void func()
+	{
+		/*A obj;
+
+		A obj1 = 2;
+		A obj2 = { 2 };
+		A obj3 = (2);
+
+		cout << "************" << endl;
+
+		A obj4 = obj3;
+		A obj5 = { obj3 };
+		A obj6 = { obj3 };*/
+		//A obj;
+		//A obj1 = obj;
+
+		func1(A());
+
+
 	}
 }
 int main()
 {
-	test21::func();
+	test22::func();
 	int x{ 10 };
 	int y(10);
 	int z = { 10 };
