@@ -947,11 +947,13 @@ namespace test22
 	
 	class N {
 	public:
+		int y;
 		N() {
 			cout << "call N()" << endl;
 		}
 		N(const N& obj) {
-			cout << "call N(const N& obj)" << endl;
+			this->y = obj.y;
+			cout << "call N(const N& obj)"<<this->y << endl;
 		}
 	};
 	class A {
@@ -969,13 +971,16 @@ namespace test22
 			_x = obj._x;
 			this->obj = obj.obj;
 
-			cout << "call A(const A& obj)" << endl;
+			cout << "call A(const A& obj)"<<_x<< endl;
 		}
 	};
 
 	A& func1(A obj)
 	{
 		A obj2;
+		obj2._x = 100;
+		obj2.obj.y = 101;
+
 		return obj2;
 	}
 	void func()
@@ -991,17 +996,53 @@ namespace test22
 		A obj4 = obj3;
 		A obj5 = { obj3 };
 		A obj6 = { obj3 };*/
-		//A obj;
+		A obj;
+		obj._x = 100;
+		obj.obj.y = 101;
 		//A obj1 = obj;
 
-		func1(A());
+		A objx = func1(obj);
 
+
+	}
+}
+namespace test23
+{
+	class A {
+	public:
+		int x = 0;
+		char* p;
+		A()
+		{
+			cout << "A" << endl;
+			p = new char[10];
+		}
+		
+		A& operator=(A& obj) {
+			this->x = obj.x;
+			cout << "A& operator=(A& obj) x=" << this->x << endl;
+			return *this;
+		}
+		~A()
+		{
+			cout << "~A" << endl;
+			delete p;
+		}
+	};
+
+	void func()
+	{
+		A obj;
+		A obj1 = obj;
+
+		A obj2;
+		obj2 = obj1;
 
 	}
 }
 int main()
 {
-	test22::func();
+	test23::func();
 	int x{ 10 };
 	int y(10);
 	int z = { 10 };
