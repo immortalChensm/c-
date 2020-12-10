@@ -920,113 +920,124 @@ namespace test20
 
 	//}
 }
-namespace test21
-{
-
-	class A {
-
-	public:
-		int i{ 10 };
-		/*A() {
-			cout << i << endl;
-		}
-		A(int x) :i(x) {
-			cout << i << endl;
-		}*/
-		//A() = default;
-		A() = delete;
-	};
-	void func()
-	{
-		//A obj;
-		//A obj1(100);
-	}
-}
-namespace test22
-{
-	
-	class N {
-	public:
-		int y;
-		N() {
-			cout << "call N()" << endl;
-		}
-		N(const N& obj) {
-			this->y = obj.y;
-			cout << "call N(const N& obj)"<<this->y << endl;
-		}
-	};
-	class A {
-
-	public:
-		int _x;
-		N obj;
-		A() {
-			cout << "call A()" << endl;
-		}
-		A(int x) :_x(x) {
-			cout << "call A(int x)" << endl;
-		}
-		A(const A& obj) {
-			_x = obj._x;
-			this->obj = obj.obj;
-
-			cout << "call A(const A& obj)"<<_x<< endl;
-		}
-	};
-
-	A& func1(A obj)
-	{
-		A obj2;
-		obj2._x = 100;
-		obj2.obj.y = 101;
-
-		return obj2;
-	}
-	void func()
-	{
-		/*A obj;
-
-		A obj1 = 2;
-		A obj2 = { 2 };
-		A obj3 = (2);
-
-		cout << "************" << endl;
-
-		A obj4 = obj3;
-		A obj5 = { obj3 };
-		A obj6 = { obj3 };*/
-		A obj;
-		obj._x = 100;
-		obj.obj.y = 101;
-		//A obj1 = obj;
-
-		A objx = func1(obj);
-
-
-	}
-}
+//namespace test21
+//{
+//
+//	class A {
+//
+//	public:
+//		int i{ 10 };
+//		/*A() {
+//			cout << i << endl;
+//		}
+//		A(int x) :i(x) {
+//			cout << i << endl;
+//		}*/
+//		//A() = default;
+//		A() = delete;
+//	};
+//	void func()
+//	{
+//		//A obj;
+//		//A obj1(100);
+//	}
+//}
+//namespace test22
+//{
+//	
+//	class N {
+//	public:
+//		int y;
+//		N() {
+//			cout << "call N()" << endl;
+//		}
+//		N(const N& obj) {
+//			this->y = obj.y;
+//			cout << "call N(const N& obj)"<<this->y << endl;
+//		}
+//	};
+//	class A {
+//
+//	public:
+//		int _x;
+//		N obj;
+//		A() {
+//			cout << "call A()" << endl;
+//		}
+//		A(int x) :_x(x) {
+//			cout << "call A(int x)" << endl;
+//		}
+//		A(const A& obj) {
+//			_x = obj._x;
+//			this->obj = obj.obj;
+//
+//			cout << "call A(const A& obj)"<<_x<< endl;
+//		}
+//	};
+//
+//	A& func1(A obj)
+//	{
+//		A obj2;
+//		obj2._x = 100;
+//		obj2.obj.y = 101;
+//
+//		return obj2;
+//	}
+//	void func()
+//	{
+//		/*A obj;
+//
+//		A obj1 = 2;
+//		A obj2 = { 2 };
+//		A obj3 = (2);
+//
+//		cout << "************" << endl;
+//
+//		A obj4 = obj3;
+//		A obj5 = { obj3 };
+//		A obj6 = { obj3 };*/
+//		A obj;
+//		obj._x = 100;
+//		obj.obj.y = 101;
+//		//A obj1 = obj;
+//
+//		A objx = func1(obj);
+//
+//
+//	}
+//}
 namespace test23
 {
 	class A {
 	public:
 		int x = 0;
-		char* p;
+		char* p=nullptr;
 		A()
 		{
 			cout << "A" << endl;
-			p = new char[10];
+			p = new char[10]();
+		}
+
+		A(A& obj) {
+			x = obj.x;
+			//p = obj.p;
+			//memcpy(p,obj.p,sizeof(obj.p));
+			cout << "copy" << endl;
 		}
 		
 		A& operator=(A& obj) {
 			this->x = obj.x;
+			//this->p = obj.p;
 			cout << "A& operator=(A& obj) x=" << this->x << endl;
 			return *this;
 		}
 		~A()
 		{
 			cout << "~A" << endl;
-			delete p;
+			if (p) {
+				delete[]p;
+			}
+			
 		}
 	};
 
@@ -1034,15 +1045,63 @@ namespace test23
 	{
 		A obj;
 		A obj1 = obj;
+		//A obj1;
+		//obj1 = obj;
+		/*obj.x = 10;
+		A obj1 = obj;
+		
 
 		A obj2;
-		obj2 = obj1;
+		obj2 = obj1;*/
 
+	}
+}
+namespace test24
+{
+
+	class A {
+	public:
+		A()
+		{
+			cout << "A" << endl;
+		}
+
+		void show()
+		{
+			cout << "A::show" << endl;
+		}
+		void show(int) {
+			cout << "A::show(int)" << endl;
+		}
+	};
+
+	class B :public A {
+	public:
+		B()
+		{
+			cout << "B" << endl;
+		}
+		void show()
+		{
+			A::show();
+			cout << "B show" << endl;
+		}
+		/*void show(int)
+		{
+			
+			cout << "B show(int)" << endl;
+		}*/
+		using A::show;
+	};
+	void func()
+	{
+		B obj;
+		obj.show(1);
 	}
 }
 int main()
 {
-	test23::func();
+	test24::func();
 	int x{ 10 };
 	int y(10);
 	int z = { 10 };
