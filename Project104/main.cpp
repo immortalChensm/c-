@@ -1099,9 +1099,55 @@ namespace test24
 		obj.show(1);
 	}
 }
+namespace test25
+{
+	class A {
+	public:
+		A()
+		{
+
+		}
+		virtual void show()
+		{
+			cout << "A::show" << endl;
+		}
+	};
+	class B:public A {
+	public:
+		B()
+		{
+
+		}
+		virtual void show() override
+		{
+			cout << "B::show" << endl;
+		}
+	};
+	class C :public A {
+	public:
+		C()
+		{
+
+		}
+		virtual void show() override
+		{
+			cout << "C::show" << endl;
+		}
+	};
+	void func()
+	{
+		A* obj = new B();
+		obj->show();
+
+		obj = new C();
+		obj->show();
+
+		delete obj;
+	}
+}
 int main()
 {
-	test24::func();
+	test25::func();
 	int x{ 10 };
 	int y(10);
 	int z = { 10 };
