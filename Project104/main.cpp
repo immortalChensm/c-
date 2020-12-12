@@ -1105,42 +1105,55 @@ namespace test25
 	public:
 		A()
 		{
-
+			cout << "A::" << endl;
 		}
-		virtual void show()
+		/*virtual void show() final
 		{
 			cout << "A::show" << endl;
+		}*/
+		//virtual void show() = 0;
+		virtual ~A()
+		{
+			cout << "~A::" << endl;
 		}
 	};
 	class B:public A {
 	public:
 		B()
 		{
-
+			cout << "B::" << endl;
 		}
-		virtual void show() override
+		/*virtual void show() override
 		{
 			cout << "B::show" << endl;
+		}*/
+		~B()
+		{
+			cout << "~B::" << endl;
 		}
 	};
 	class C :public A {
 	public:
 		C()
 		{
-
+			cout << "C::" << endl;
 		}
-		virtual void show() override
+		/*virtual void show() override
 		{
 			cout << "C::show" << endl;
+		}*/
+		~C()
+		{
+			cout << "~C::" << endl;
 		}
 	};
 	void func()
 	{
 		A* obj = new B();
-		obj->show();
+		//obj->show();
 
-		obj = new C();
-		obj->show();
+		//obj = new C();
+		//obj->show();
 
 		delete obj;
 	}
