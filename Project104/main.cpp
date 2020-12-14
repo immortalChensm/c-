@@ -1158,9 +1158,67 @@ namespace test25
 		delete obj;
 	}
 }
+namespace test26
+{
+	
+	/*class B {
+	private:
+		void display()
+		{
+			cout << "b::display func" << endl;
+
+		}
+		friend class A;
+	};
+	class A {
+	private:
+		void show()
+		{
+			cout << "a::show func" << endl;
+		}
+		friend void test(A &obj);
+	public:
+		void haha(B &obj)
+		{
+			obj.display();
+		}
+	};
+	void test(A& obj)
+	{
+		obj.show();
+	}*/
+	class A;
+	
+	class B {
+	public:
+		friend void A::show(B& obj);
+		//friend class A;
+	//private:
+		void display()
+		{
+			cout << "b dis fumc" << endl;
+		}
+		
+	};
+	class A {
+	public:
+		void show(B& obj)
+		{
+			obj.display();
+		}
+	};
+	void func()
+	{
+
+		/*A obj;
+		test(obj);
+		B objxl;
+		obj.haha(objxl);*/
+	}
+}
 int main()
 {
-	test25::func();
+	test26::func();
 	int x{ 10 };
 	int y(10);
 	int z = { 10 };
