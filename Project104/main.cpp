@@ -1187,38 +1187,90 @@ namespace test26
 	{
 		obj.show();
 	}*/
-	class A;
-	
-	class B {
-	public:
-		friend void A::show(B& obj);
-		//friend class A;
-	//private:
-		void display()
-		{
-			cout << "b dis fumc" << endl;
-		}
-		
-	};
+	//class A;
+	//
+	//class B {
+	//public:
+	//	friend void A::show(B& obj);
+	//	//friend class A;
+	////private:
+	//	void display()
+	//	{
+	//		cout << "b dis fumc" << endl;
+	//	}
+	//	
+	//};
+	//class A {
+	//public:
+	//	void show(B& obj)
+	//	{
+	//		obj.display();
+	//	}
+	//};
+	//void func()
+	//{
+
+	//	/*A obj;
+	//	test(obj);
+	//	B objxl;
+	//	obj.haha(objxl);*/
+	//}
+}
+namespace test27
+{
+
 	class A {
 	public:
-		void show(B& obj)
+		A()
 		{
-			obj.display();
+			cout << "A" << endl;
+		}
+		virtual void test()
+		{
+
+		}
+	};
+	class B :public A {
+	public:
+		B()
+		{
+			cout << "b" << endl;
+		}
+		void show()
+		{
+			cout << "b::show" << endl;
 		}
 	};
 	void func()
 	{
 
-		/*A obj;
-		test(obj);
-		B objxl;
-		obj.haha(objxl);*/
+		A* obj = new B();
+
+		//B* x = (B*)(obj);
+		//x->show();
+
+		B* x = dynamic_cast<B*>(obj);
+		x->show();
+
+
+		cout << typeid(x).name() << endl;
+		cout << typeid(*x).name() << endl;
+		cout << typeid(B).name() << endl;
+
+		if (typeid(B) == typeid(*x)) {
+
+			cout << "x ÊôÓÚ BÀà" << endl;
+		}
+
+		const type_info &j = typeid(*x);
+
+		cout << j.name() << endl;
+
 	}
 }
 int main()
 {
-	test26::func();
+	test27::func();
 	int x{ 10 };
 	int y(10);
 	int z = { 10 };
