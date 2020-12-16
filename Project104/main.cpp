@@ -1268,9 +1268,72 @@ namespace test27
 
 	}
 }
+namespace test28
+{
+	//class A final{
+	class A{
+	public:
+		int _x;
+		A(int a):_x(a)
+		{
+			cout << "a" << endl;
+		}
+		A(const A& obj)
+		{
+			_x = obj._x;
+			cout << "A(const A& obj)" << endl;
+		}
+		A& operator=(const A& obj)
+		{
+			_x = obj._x;
+			cout << "A& operator=(const A& obj)" << endl;
+			return *this;
+		}
+		void show()
+		{
+			cout << _x << endl;
+		}
+	};
+	struct B :A {
+		int j;
+		B(int a,int b):j(a),A(b)
+		{
+			cout << "b" << endl;
+		}
+	};
+	void func()
+	{
+
+		//A* obj = new B(1,2);
+		/*B* obj = new B(10, 20);
+		A* objx(obj);
+
+		objx = obj;
+
+		A* objy;
+		objy = obj;
+
+		objy = objx;*/
+
+
+		A* obja = new A(10);
+		A* objb(obja);
+
+		objb->show();
+
+		A* objc = obja;
+
+		A objx = 1;
+
+		A objy = objx;
+
+		objy = objx;
+		
+	}
+}
 int main()
 {
-	test27::func();
+	test28::func();
 	int x{ 10 };
 	int y(10);
 	int z = { 10 };
