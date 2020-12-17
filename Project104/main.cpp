@@ -1331,9 +1331,25 @@ namespace test28
 		
 	}
 }
+namespace test29
+{
+	void func()
+	{
+		int x = 10;
+		int& y = x;
+
+		const int& z = y;
+		const int& j = 100;
+
+		int&& y1 = 100;
+		int&& z1 = x * 100;
+
+		const int&& j1 = x*0;
+	}
+}
 int main()
 {
-	test28::func();
+	test29::func();
 	int x{ 10 };
 	int y(10);
 	int z = { 10 };
