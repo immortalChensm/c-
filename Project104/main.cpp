@@ -1345,6 +1345,11 @@ namespace test29
 		int&& z1 = x * 100;
 
 		const int&& j1 = x*0;
+
+		string ss = "china";
+		string&& ss1 = std::move(ss);
+
+		string&& ss2 = std::move(ss1);
 	}
 }
 int main()
