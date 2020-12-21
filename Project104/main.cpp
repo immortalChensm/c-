@@ -1352,9 +1352,67 @@ namespace test29
 		string&& ss2 = std::move(ss1);
 	}
 }
+namespace test30
+{
+	class A {
+	public:
+		int a, b;
+		A(int x=0, int y=0) :a(x), b(y) {
+			cout << " call a" << endl;
+		}
+		A(const A& obj) :a(obj.a), b(obj.b) {
+			cout << "call a copy" << endl;
+		}
+
+		A& operator=(const A& obj) {
+
+			a = obj.a;
+			b = obj.b;
+			cout << "call a copy =" << endl;
+			return *this;
+		}
+
+		~A()
+		{
+			cout << "call ~a" << endl;
+		}
+		int Add(A &obj) {
+
+			int x = obj.a + obj.b;
+			return x;
+		}
+	};
+
+	A Double(const A& obj)
+	{
+		A objx;
+		objx.a = obj.a + obj.b;
+		return objx;
+	}
+
+	void func()
+	{
+		/*A obj;
+		A obj1;
+		obj = obj1;*/
+		//A obj = 66;
+		//A obj;
+		//obj.Add(obj);
+
+		/*A obj;
+		A obj1;
+		obj = obj1;*/
+
+		//A obj;
+		//obj = 1;
+
+		A obj;
+		Double(obj);
+	}
+}
 int main()
 {
-	test29::func();
+	test30::func();
 	int x{ 10 };
 	int y(10);
 	int z = { 10 };
