@@ -1410,9 +1410,55 @@ namespace test30
 		Double(obj);
 	}
 }
+namespace test31
+{
+	class A {
+	public:
+		int _a;
+		A(int x = 100) :_a(x)
+		{
+			cout << "call A func" << endl;
+		}
+		A(const A& obj) :_a(obj._a) {
+			cout << "call A(const A& obj) func" << endl;
+		}
+		virtual ~A()
+		{
+			cout << "call ~A() func" << endl;
+		}
+	};
+	class B {
+	public:
+		B() :obja(new A()) {
+			cout << "call B() :obja(new A())" << endl;
+		}
+		B(const B& obj) :obja(obj.obja)
+		{
+			cout << "call B(const B& obj) :obja(obj.obja)" << endl;
+		}
+		virtual ~B()
+		{
+			cout << "call virtual ~B() func" << endl;
+		}
+		A* obja;
+	};
+	void func()
+	{
+
+		A obj;
+		A* obj1 = new A(obj);
+		delete obj1;
+
+
+		B* obj2 = new B();
+
+		delete obj2;
+
+	}
+}
 int main()
 {
-	test30::func();
+	test31::func();
 	int x{ 10 };
 	int y(10);
 	int z = { 10 };
