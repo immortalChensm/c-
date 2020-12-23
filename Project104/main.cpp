@@ -1417,42 +1417,66 @@ namespace test31
 		int _a;
 		A(int x = 100) :_a(x)
 		{
-			cout << "call A func" << endl;
+			cout << "调用A普通构造函数" << endl;
 		}
 		A(const A& obj) :_a(obj._a) {
-			cout << "call A(const A& obj) func" << endl;
+			cout << "调用A拷贝构造函数" << endl;
+		}
+		A& operator=(const A& obj) {
+			cout << "调用A拷贝赋值函数" << endl;
+			return *this;
+		}
+		A(const A&& obj) :_a(obj._a) {
+			cout << "调用A移动构造函数" << endl;
+		}
+		A& operator=(A&& obj) {
+			cout << "调用A移动赋值函数" << endl;
+			return *this;
 		}
 		virtual ~A()
 		{
-			cout << "call ~A() func" << endl;
+			cout << "调用A析构函数" << endl;
 		}
 	};
 	class B {
 	public:
 		B() :obja(new A()) {
-			cout << "call B() :obja(new A())" << endl;
+			cout << "调用B普通构造函数" << endl;
 		}
 		B(const B& obj) :obja(obj.obja)
 		{
-			cout << "call B(const B& obj) :obja(obj.obja)" << endl;
+			cout << "调用B拷贝构造函数" << endl;
 		}
 		virtual ~B()
 		{
-			cout << "call virtual ~B() func" << endl;
+			cout << "调用B析构函数" << endl;
 		}
 		A* obja;
 	};
 	void func()
 	{
 
-		A obj;
+		/*A obj;
 		A* obj1 = new A(obj);
 		delete obj1;
 
 
 		B* obj2 = new B();
 
-		delete obj2;
+		B* obj3 = new B();
+
+		obj3 = obj2;
+
+		delete obj2;*/
+
+		A obj;
+		A obj1;
+		obj1 = obj;
+
+		obj1 = std::move(obj);
+
+		A obj2(obj1);
+		A obj3 = std::move(obj1);
 
 	}
 }
