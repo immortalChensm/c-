@@ -1426,10 +1426,10 @@ namespace test31
 			cout << "调用A拷贝赋值函数" << endl;
 			return *this;
 		}
-		A(const A&& obj) :_a(obj._a) {
+		A(const A&& obj)noexcept :_a(obj._a)  {
 			cout << "调用A移动构造函数" << endl;
 		}
-		A& operator=(A&& obj) {
+		A& operator=(A&& obj) noexcept {
 			cout << "调用A移动赋值函数" << endl;
 			return *this;
 		}
@@ -1453,6 +1453,11 @@ namespace test31
 		}
 		A* obja;
 	};
+	static A test(A &obj)
+	{
+		A objx;
+		return objx;
+	}
 	void func()
 	{
 
@@ -1469,20 +1474,121 @@ namespace test31
 
 		delete obj2;*/
 
-		A obj;
+		/*A obj;
 		A obj1;
 		obj1 = obj;
 
 		obj1 = std::move(obj);
 
 		A obj2(obj1);
-		A obj3 = std::move(obj1);
+		A obj3 = std::move(obj1);*/
+		A objx;
+		A obj = test(objx);
 
+	}
+}  
+namespace test32
+{
+	class Grand
+	{
+	public:
+		int _g;
+		Grand(int x):_g(x)
+		{
+			cout << "G构造函数" << endl;
+		}
+		virtual ~Grand()
+		{
+			cout << "G析构函数" << endl;
+		}
+		void myinfo()
+		{
+			cout << _g << endl;
+		}
+	};
+	class A :public Grand
+	{
+	public:
+		int _a;
+		A(int x) :Grand(x), _a(x) {
+			cout << "A构造函数" << endl;
+		}
+		virtual ~A()
+		{
+			cout << "A析构函数" << endl;
+		}
+		void myinfo()
+		{
+			cout << _a << endl;
+		}
+	};
+	class B
+	{
+	public:
+		int _b;
+		B()
+		{
+			cout << "B构造函数" << endl;
+		}
+		B(int x) :_b(x) {
+			cout << "B构造函数x" << endl;
+		}
+		virtual ~B()
+		{
+			cout << "B析构函数" << endl;
+		}
+		void myinfo()
+		{
+			cout << _b << endl;
+		}
+	};
+	class C :public A,public B
+	{
+	public:
+		int _c;
+		C(int x,int y,int z) :A(x), B(y),_c(z) {
+		//C(int x,int y,int z) :A(x),_c(z) {
+			cout << "C构造函数" << endl;
+		}
+		virtual ~C()
+		{
+			cout << "C析构函数" << endl;
+		}
+		/*void myinfo()
+		{
+			cout << _c << endl;
+		}*/
+	};
+
+	class X {
+	public:
+		int x, y, z;
+		X(int a,int b,int c):x(a),y(b),z(c)
+		{
+
+		}
+		void show()
+		{
+			cout << x << y << z << endl;
+		}
+	};
+	class Y:public X {
+	public:
+		using X::X;
+	};
+	void func()
+	{
+		//C test(10, 20,30);
+
+		//test.myinfo();
+
+		Y obj(1, 2, 3);
+		obj.show();
 	}
 }
 int main()
 {
-	test31::func();
+	test32::func();
 	int x{ 10 };
 	int y(10);
 	int z = { 10 };
