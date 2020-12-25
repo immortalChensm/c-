@@ -1506,7 +1506,7 @@ namespace test32
 			cout << _g << endl;
 		}
 	};
-	class A :public Grand
+	class A :public virtual Grand
 	{
 	public:
 		int _a;
@@ -1520,6 +1520,22 @@ namespace test32
 		void myinfo()
 		{
 			cout << _a << endl;
+		}
+	};
+	class A2 :public virtual Grand
+	{
+	public:
+		int _a2;
+		A2(int x) :Grand(x), _a2(x) {
+			cout << "A2构造函数" << endl;
+		}
+		virtual ~A2()
+		{
+			cout << "A2析构函数" << endl;
+		}
+		void myinfo()
+		{
+			cout << _a2 << endl;
 		}
 	};
 	class B
@@ -1542,11 +1558,13 @@ namespace test32
 			cout << _b << endl;
 		}
 	};
-	class C :public A,public B
+	//class C :public A,  public A2,public B
+	class C :public B,public A,  public A2
 	{
 	public:
 		int _c;
-		C(int x,int y,int z) :A(x), B(y),_c(z) {
+		//C(int x,int y,int z) :A(x), A2(x),B(y),_c(z) {
+		C(int x,int y,int z) :A(x), A2(x),B(y),Grand(y),_c(z) {
 		//C(int x,int y,int z) :A(x),_c(z) {
 			cout << "C构造函数" << endl;
 		}
@@ -1554,10 +1572,10 @@ namespace test32
 		{
 			cout << "C析构函数" << endl;
 		}
-		/*void myinfo()
+		void myinfo()
 		{
 			cout << _c << endl;
-		}*/
+		}
 	};
 
 	class X {
@@ -1572,18 +1590,35 @@ namespace test32
 			cout << x << y << z << endl;
 		}
 	};
-	class Y:public X {
+	class Z {
+	public:
+		int x, y, z;
+		Z(int a, int b, int c) :x(a), y(b), z(c)
+		{
+
+		}
+		void show()
+		{
+			cout << x << y << z << endl;
+		}
+	};
+	class Y:public X,public Z {
 	public:
 		using X::X;
+		using Z::Z;
+		Y(int a, int b, int c) :Z(a, b, c), X(a, b, c) {
+
+		}
 	};
 	void func()
 	{
-		//C test(10, 20,30);
+		C test(10, 20,30);
 
-		//test.myinfo();
+		test.myinfo();
 
-		Y obj(1, 2, 3);
-		obj.show();
+		//Y obj(1, 2, 3);
+		//obj.show();
+		//obj.X::show();
 	}
 }
 int main()
