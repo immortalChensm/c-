@@ -1618,12 +1618,56 @@ namespace test32
 
 		//Y obj(1, 2, 3);
 		//obj.show();
-		//obj.X::show();
+		//obj.X::show();  
+
+		cout << "*******************" << endl;
+		int a = 10;
+		int* b = &a;
+		*b = 100;
+		cout <<"a=" <<a << "b="<<*b << endl;
+		cout << "*******************" << endl;
+	}
+}
+namespace test33
+{
+	class A {
+	public:
+		//typedef void(*point)(int);
+		using point = void(*)(int);
+		static void show(int x) {
+			cout << "show:" << x << endl;
+		}
+		operator point() {
+			return show;
+		}
+		int _a;
+		A(int x) :_a(x) {
+
+			cout << _a << endl;
+		}
+		
+		operator int() const
+		{
+			return _a;
+		}
+	};
+	void func()
+	{
+		//A obj = 1;
+
+		//int k = obj;
+
+		//cout << k << endl;
+
+		A obj = 100;
+		obj(1100);
+		obj.operator test33::A::point()(888);
+
 	}
 }
 int main()
 {
-	test32::func();
+	test33::func();
 	int x{ 10 };
 	int y(10);
 	int z = { 10 };
