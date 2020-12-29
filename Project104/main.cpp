@@ -1665,9 +1665,66 @@ namespace test33
 
 	}
 }
+namespace test34
+{
+	class A {
+	public:
+		A()
+		{
+
+		}
+		void func()
+		{
+			cout << "func" << endl;
+		}
+		virtual void show()
+		{
+			cout << "virtual show" << endl;
+		}
+		static void disp()
+		{
+			cout << "static disp" << endl;
+		}
+		int _a;
+		static int _b;
+	};
+	int A::_b = 10;
+	void func()
+	{
+		A obj, * obj1;
+		obj1 = &obj;
+
+		void(A:: * f1)() = &A::func;
+		void(A:: * f2)() = &A::show;
+		void(*f3)() = &A::disp;
+
+		int A::* var1 = &A::_a;
+		int* x = &A::_b;
+
+		(obj.*var1) = 10;
+		*x = 100;
+		cout << (obj.*var1) << *x << endl;
+
+		(obj.*f1)();
+		(obj.*f2)();
+
+		(obj1->*f1)();
+		(obj1->*f2)();
+		
+		f3();
+
+
+		std::function<void()> f5 = std::bind(&A::func,&obj);
+		//auto f5 = std::bind(&A::func,&obj);
+
+		f5();
+
+		
+	}
+}
 int main()
 {
-	test33::func();
+	test34::func();
 	int x{ 10 };
 	int y(10);
 	int z = { 10 };
