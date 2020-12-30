@@ -1722,9 +1722,45 @@ namespace test34
 		
 	}
 }
+namespace test35
+{
+	template<typename T,int a,int b>
+	void show(T c)
+	{
+		T d = c + a + b;
+		cout << d << endl;
+	}
+	template<typename T,class S>
+	void disp(T a, S b) {
+		cout << a << b << endl;
+	}
+	template<unsigned l1,unsigned l2>
+	void pp(const char(&p)[l1], const char(&s)[l2]) {
+
+		int x = strcmp(p,s);
+		cout << x << endl;
+	}
+	template<int a,int b>
+	void testss()
+	{
+		cout << a << b << endl;
+	}
+	void func()
+	{
+		show<int,1,2>(100);
+
+		disp(100,"china"); 
+
+		disp<int,std::string>(999,"like money");
+
+		pp("test","testa");
+
+		testss<1,2>();
+	}
+}
 int main()
 {
-	test34::func();
+	test35::func();
 	int x{ 10 };
 	int y(10);
 	int z = { 10 };
