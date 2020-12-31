@@ -1757,10 +1757,55 @@ namespace test35
 
 		testss<1,2>();
 	}
+} 
+namespace test36
+{
+	template<typename T>
+	class A {
+	public:
+		typedef T* iterator;
+		A()
+		{
+
+		}
+		A& operator=(const A& obj);
+		void show();
+	};
+
+	template<typename T>
+	A<T>& A<T>::operator=(const A<T>& obj)
+	{
+		cout << "A===" << endl;
+		return *this;
+	}
+
+	template<typename T>
+	void A<T>::show()
+	{
+		cout << "A::show" << endl;
+	}
+
+	template<typename T,int size=10>
+	class MyArr
+	{
+	public:
+		T arr[size];
+	};
+	void func()
+	{
+
+		A<int> obj;
+		obj.show();
+		A<int> obj1;
+		obj1 = obj;
+
+		MyArr<int, 100> xx;
+		MyArr<double> yy;
+	}
 }
 int main()
 {
-	test35::func();
+	test36::func();
 	int x{ 10 };
 	int y(10);
 	int z = { 10 };
