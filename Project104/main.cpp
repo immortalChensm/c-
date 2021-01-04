@@ -1770,8 +1770,19 @@ namespace test36
 		}
 		A& operator=(const A& obj);
 		void show();
+		iterator mybegin();
+		iterator myend();
 	};
+	template<typename T>
+	typename A<T>::iterator A<T>::mybegin()
+	{
 
+	}
+	template<typename T>
+	typename A<T>::iterator A<T>::myend()
+	{
+
+	}
 	template<typename T>
 	A<T>& A<T>::operator=(const A<T>& obj)
 	{
@@ -1791,16 +1802,52 @@ namespace test36
 	public:
 		T arr[size];
 	};
+
+	class tc
+	{
+	public:
+		tc() { cout << "tc" << endl; }
+		tc(const tc& obj) {
+
+		}
+		int operator()(int x, int y) {
+			return x + y;
+		}
+	};
+	int ok(int a, int b)
+	{
+		return 1;
+	}
+
+	typedef int(*Func)(int, int);
+
+	template<typename T,typename F=tc>
+	//void callok(int x, int y, Func f)
+	void callok(T x, T y, F f=F())
+	{
+		cout << f(x, y) << endl;
+	}
+	template<typename T>
+	typename T::size_type getLen(T str)
+	{
+		return str.size();
+	}
 	void func()
 	{
 
-		A<int> obj;
-		obj.show();
-		A<int> obj1;
-		obj1 = obj;
+		callok(10,20,ok);
+		callok(10,30,tc());
+		callok(100,200);
 
-		MyArr<int, 100> xx;
-		MyArr<double> yy;
+		std::string s = "test";
+		cout << getLen(s) << endl;
+		//A<int> obj;
+		//obj.show();
+		//A<int> obj1;
+		//obj1 = obj;
+
+		//MyArr<int, 100> xx;
+		//MyArr<double> yy;
 	}
 }
 int main()
