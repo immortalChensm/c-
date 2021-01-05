@@ -1850,9 +1850,53 @@ namespace test36
 		//MyArr<double> yy;
 	}
 }
+namespace test37
+{
+	template<typename C>
+	class A {
+	public:
+		template<typename T1,typename T2>
+		A(T1 v1, T2 v2);
+
+		template<typename T1,typename T2>
+		void show(T1 a,T2 b);
+		C _i;
+	};
+
+	template<typename C>
+	template<typename T1, typename T2>
+	A<C>::A(T1 v1, T2 v2)
+	{
+		cout << v1 << v2 << endl;
+		_i = v1;
+	}
+
+
+	template<typename C>
+	template<typename T1, typename T2>
+	void A<C>::show(T1 a, T2 b)
+	{
+		cout << a << b << endl;
+	}
+
+
+	template A<int>;
+
+	void func()
+	{
+		//A obj;
+		//obj.show(10,20);
+
+		A<int> obj(1,2);
+		obj.show(100,200);
+
+		A<float> obj1(1.2, 3.5);
+
+	}
+}
 int main()
 {
-	test36::func();
+	test37::func();
 	int x{ 10 };
 	int y(10);
 	int z = { 10 };
