@@ -1894,9 +1894,50 @@ namespace test37
 
 	}
 }
+namespace test38
+{
+
+	template<typename T>
+	struct m{
+		typedef std::map<std::string, T> map_s;
+	};
+
+	template<typename T>
+	using map_si = std::map<std::string, T>;
+
+	//ÀàĞÍÄ£°å
+	template<typename T>
+	using map_fun = int(*)(T a,T b);
+
+	template<typename T>
+	int test(T a, T b)
+	//int test(int a,int b)
+	{
+		cout << a + b << endl;
+		return a;
+	}
+	void func()
+	{
+		m<int>::map_s m1;
+		m1.insert({"first",1});
+
+		map_si<int> m2;
+		m2["second"] = 2;
+
+		for (auto x : m2) {
+			cout <<x.first<< x.second << endl;
+		}
+
+		map_fun<int> fun = test;
+		//map_fun fun = test;
+
+		test(10,20);
+		fun(10,2);
+	}
+}
 int main()
 {
-	test37::func();
+	test38::func();
 	int x{ 10 };
 	int y(10);
 	int z = { 10 };
