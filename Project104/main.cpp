@@ -1935,9 +1935,100 @@ namespace test38
 		fun(10,2);
 	}
 }
+namespace test39
+{
+	template<typename T,typename U>
+	class A {
+	public:
+		A()
+		{
+			cout << "模板泛化构造函数版本" << endl;
+		}
+		void show()
+		{
+			cout << "模板泛化show函数版本" << endl;
+		}
+	};
+	template<>
+	class A<int, int>
+	{
+	public:
+		A()
+		{
+			cout << "模板int,int全特化构造函数版本" << endl;
+		}
+		void show()
+		{
+			cout << "模板int,int 全特化show函数版本" << endl;
+		}
+	};
+	template<typename A,typename B,typename C>
+	struct J {
+		J()
+		{
+			cout << "模板J构造函数版本" << endl;
+		}
+		void show()
+		{
+			cout << "模板J show函数版本" << endl;
+		}
+	};
+	template<typename B>
+	struct J<int, B, char>
+	{
+		J()
+		{
+			cout << "模板J 偏特化数量上【局部】构造函数版本" << endl;
+		}
+		void show()
+		{
+			cout << "模板J 偏特化数量上【局部】 show函数版本" << endl;
+		}
+	};
+
+	template<typename A,typename B,typename C>
+	struct J<const A, B*, C&>
+	{
+		J()
+		{
+			cout << "模板J 偏特化 参数范围【局部】构造函数版本" << endl;
+		}
+		void show()
+		{
+			cout << "模板J 偏特化 参数范围【局部】 show函数版本" << endl;
+		}
+	};
+
+	template <typename T,typename U>
+	void ka(T a, U b) {
+		cout << a << b << "函数泛化" << endl;
+	}
+	template<>
+	void ka(int a, char b)
+	{
+		cout << a << b << "函数全特化" << endl;
+	}
+	void func()
+	{
+		//A<int,int> obj;
+		//obj.show();
+
+		J<int, char, double> obj;
+		obj.show();
+
+		J<int, char, char> obj1;
+		obj1.show();
+
+		J<const int, char*, char&> obj2;
+		obj2.show();
+
+		ka(1,2);
+		ka(1,'b');
+	}
+}
 int main()
 {
-	test38::func();
+	test39::func();
 	int x{ 10 };
 	int y(10);
 	int z = { 10 };
