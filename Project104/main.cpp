@@ -2026,9 +2026,68 @@ namespace test39
 		ka(1,'b');
 	}
 }
+namespace test40
+{
+	//可变参函数模板
+	void show()
+	{
+		cout << "end show" << endl;
+	}
+
+	template<typename T,typename ...others>
+	void show(T a, others...args)
+	{
+		//cout << sizeof...(T) << endl;
+		cout << sizeof...(others) << a << endl;
+		show(args...);
+	}
+
+	
+	template<typename ...T>
+	void show1(T...args)
+	{
+		cout << sizeof...(T) << endl;
+		cout << sizeof...(args)  << endl;
+	}
+	//可变参类模板
+	template<typename ...others> class myclass {}; 
+
+	template<> class myclass<>
+	{
+	public:
+		myclass()
+		{
+			cout << "empty myclass" << endl;
+		}
+	};
+	template<typename T,typename ...others>
+	class myclass<T,others...>:private myclass<others...>
+	{
+	public:
+		myclass() :a(0)
+		{
+			cout << sizeof...(others) << "this="<<this << endl;
+		}
+		myclass(T x, others...args) :a(x), myclass<others...>(args...)
+		{
+			cout << a << endl;
+		}
+		T a;
+	};
+	void func()
+	{
+
+		//show(10,"china",23.4f);
+
+		//show1(1,2,3,"bbb");
+
+		//myclass<int, char, double> obj;
+		myclass<int, char, double> obj(1,'a',123.34f);
+	}
+}
 int main()
 {
-	test39::func();
+	test40::func();
 	int x{ 10 };
 	int y(10);
 	int z = { 10 };
