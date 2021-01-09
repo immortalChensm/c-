@@ -2085,9 +2085,101 @@ namespace test40
 		myclass<int, char, double> obj(1,'a',123.34f);
 	}
 }
+namespace test41
+{
+	void show()
+	{
+		cout << "end" << endl;
+	}
+	template<typename T,typename ...others>
+	void show(T a, others...args)
+	{
+		cout << a << endl;
+		show(args...);
+	}
+
+	template<typename...others> class myclass {};
+
+	template<> class myclass<>
+	{
+	public:
+		myclass()
+		{
+			cout << "empty" << endl;
+		}
+	};
+	template <typename T,typename ...others>
+	class myclass<T, others...> :private myclass<others...>
+	{
+	public:
+		T x;
+		myclass(T a, others...args) :x(a), myclass<others...>(args...)
+		{
+			cout << a << endl;
+		}
+
+	};
+	void func()
+	{
+		show(1,2,3,"china");
+
+		myclass<int, char, double> obj(1,'a',123.3f);
+	}
+}
+namespace test42
+{
+	//模板  模板参数
+	template<
+		typename T,
+		//template<class> class Container
+		template<typename> typename Container
+	>
+	class myclass
+	{
+	public:
+		T i;
+		Container<T> obj;
+		myclass()
+		{
+			for (int i = 0; i < 10; ++i)
+			{
+				obj.push_back(i);
+			}
+
+			for (int j = 0; j < 10; ++j)
+			{
+				cout << obj[j]<<endl;
+			}
+		}
+	};
+
+	template<typename T>
+	using myVec = vector<T, allocator<T>>;
+	void func()
+	{
+
+		myclass<int, myVec> obj;
+	}
+}
+namespace test43
+{
+	void func()
+	{
+
+
+		int* a1 = new int();
+		const int* a2 = new const int();
+
+		auto* a3 = new auto(232);
+
+		cout << *a3 << endl;
+		cout << *a1 << endl;
+		cout << *a2 << endl;
+	}
+}
 int main()
 {
-	test40::func();
+	test43::func();
 	int x{ 10 };
 	int y(10);
 	int z = { 10 };
