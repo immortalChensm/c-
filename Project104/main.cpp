@@ -2163,18 +2163,45 @@ namespace test42
 }
 namespace test43
 {
+	class A {
+	public:
+		A()
+		{
+			cout << "A" << endl;
+		
+		}
+		~A()
+		{
+			cout << "~A" << endl;
+		}
+	};
 	void func()
 	{
 
 
-		int* a1 = new int();
+		/*int* a1 = new int();
 		const int* a2 = new const int();
 
 		auto* a3 = new auto(232);
 
 		cout << *a3 << endl;
 		cout << *a1 << endl;
-		cout << *a2 << endl;
+		cout << *a2 << endl;  
+		*/  
+
+		int* p = new int[2];
+		cout << sizeof(*p) << endl;
+
+		delete[] p;
+
+		A* pa = new A();
+		cout << sizeof(pa) << endl;
+		delete pa;
+		A* pa1 = new A[2]();
+
+		//delete pa1;
+		delete[] pa1;
+
 	}
 }
 int main()
