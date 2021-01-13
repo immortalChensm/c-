@@ -2204,9 +2204,58 @@ namespace test43
 
 	}
 }
+namespace test45
+{
+	class A {
+	public:
+		A()
+		{
+			cout << "A" << endl;
+		}
+		~A()
+		{
+			cout << "~A" << endl;
+		}
+		void show()
+		{
+			cout << "show" << endl;
+		}
+	};
+	void myfunc(shared_ptr<int> tmp)
+	{
+		return;
+	}
+	void func()
+	{
+		/*std::shared_ptr<int> p(new int(100));
+		cout << p << endl;
+		cout << *p << endl;
+
+		std::shared_ptr<string> p1 = std::make_shared<string>(5,'a');
+		cout << *p1 << endl;
+
+		auto p2 = std::make_shared<std::string>("china");
+		cout << *p2 << endl;
+
+		std::shared_ptr<A> p3(new A());
+		p3->show();*/
+
+
+		//auto p4 = make_shared<A>(new A());
+		//p4->show();
+
+		auto p1 = make_shared<int>(100);
+		auto p2(p1);
+
+		myfunc(p2);
+
+		p2 = make_shared<int > (200);
+
+	}
+}
 int main()
 {
-	test43::func();
+	test45::func();
 	int x{ 10 };
 	int y(10);
 	int z = { 10 };
