@@ -2221,7 +2221,7 @@ namespace test45
 			cout << "show" << endl;
 		}
 	};
-	void myfunc(shared_ptr<int> tmp)
+	void myfunc(shared_ptr<int> &tmp)
 	{
 		return;
 	}
@@ -2244,12 +2244,103 @@ namespace test45
 		//auto p4 = make_shared<A>(new A());
 		//p4->show();
 
-		auto p1 = make_shared<int>(100);
+		/*auto p1 = make_shared<int>(100);
 		auto p2(p1);
 
 		myfunc(p2);
 
-		p2 = make_shared<int > (200);
+		p2 = make_shared<int > (200);*/
+
+		/*shared_ptr<int> p1 = make_shared<int>(100);
+
+		if (p1.unique()) {
+			cout << "只有p1单独指向该内存" << endl;
+		}
+		shared_ptr<int> p2(p1);
+
+		cout << p2.use_count() << endl;
+
+		if (p1.unique()) {
+			cout << "只有p1单独指向该内存" << endl;
+		}
+		else {
+			cout << "有多个对象指向该内存" << endl;
+		}
+		cout << *p2 << endl;
+		cout << *p1 << endl;*/
+		/*p2.reset(new int(1));
+		if (p1.unique()) {
+			cout << "只有p1单独指向该内存" << endl;
+		}
+		else {
+			cout << "有多个对象指向该内存" << endl;
+		}
+
+		cout << *p2 << endl;
+		cout << *p1 << endl;
+
+
+
+		shared_ptr<int> p3;
+		if (p3.unique()) {
+			cout << "只有p2单独指向该内存" << endl;
+		}
+		else {
+			cout << "没有对象指向该内存" << endl;
+		}*/
+
+		/*p3.reset(new int(10));
+		if (p3.unique()) {
+			cout << "只有p3单独指向该内存" << endl;
+		}
+		else {
+			cout << "没有对象指向该内存" << endl;
+		}*/  
+
+		/*shared_ptr<int> p1(new int(1));
+		if (p1.unique()) {
+			cout << "p1单独指向该内存" << endl;
+		}
+		shared_ptr<int> p2(p1);
+		cout << p2.use_count() << endl;
+
+		p2 = nullptr;
+
+		cout << p2.use_count() << endl;
+		cout << p1.use_count() << endl;
+
+		int* x = p1.get();
+		*x = 100;
+		cout << *x << endl;
+
+		shared_ptr<int> a1(new int(100));
+		shared_ptr<int> a2(new int(200));
+		a2 = a1;
+
+		a2.swap(a1);*/
+		
+
+		shared_ptr<int[]> p2(new int[10]);
+		
+		shared_ptr<int> p3(new int[10], default_delete<int[]>());
+		
+		shared_ptr<int[]> p4(new int[20](), [](int* p) {
+			delete[]p;
+		});
+		
+		/**p4 = 100;
+		cout << *p4 << endl;
+		*(p4 + 1) = 200;*/
+		p4[0] = 199;
+		p4[1] = 3;
+
+		int* x = new int[10];
+		x[0] = 1;
+		x[1] = 2;
+		cout << *x << endl;
+		cout << x[1] << endl;
+		cout << *(x+1) << endl;
+
 
 	}
 }
