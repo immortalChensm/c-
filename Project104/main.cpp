@@ -2320,26 +2320,56 @@ namespace test45
 		a2.swap(a1);*/
 		
 
-		shared_ptr<int[]> p2(new int[10]);
-		
-		shared_ptr<int> p3(new int[10], default_delete<int[]>());
-		
-		shared_ptr<int[]> p4(new int[20](), [](int* p) {
-			delete[]p;
-		});
-		
-		/**p4 = 100;
-		cout << *p4 << endl;
-		*(p4 + 1) = 200;*/
-		p4[0] = 199;
-		p4[1] = 3;
+		//shared_ptr<int[]> p2(new int[10]);
+		//
+		//shared_ptr<int> p3(new int[10], default_delete<int[]>());
+		//
+		//shared_ptr<int[]> p4(new int[20](), [](int* p) {
+		//	delete[]p;
+		//});
+		//
+		///**p4 = 100;
+		//cout << *p4 << endl;
+		//*(p4 + 1) = 200;*/
+		//p4[0] = 199;
+		//p4[1] = 3;
 
-		int* x = new int[10];
-		x[0] = 1;
-		x[1] = 2;
-		cout << *x << endl;
-		cout << x[1] << endl;
-		cout << *(x+1) << endl;
+		//int* x = new int[10];
+		//x[0] = 1;
+		//x[1] = 2;
+		//cout << *x << endl;
+		//cout << x[1] << endl;
+		//cout << *(x+1) << endl;
+
+		shared_ptr<int> p1 = make_shared<int>(100);
+
+		auto p2 = p1;
+
+		weak_ptr<int> p3(p2);
+
+		cout << p1.use_count() << endl;
+		cout << p3.use_count() << endl;
+
+		//p1.reset();
+		//p2.reset();
+
+		p3.reset();
+
+		if (!p3.expired()) {
+
+			auto p4 = p3.lock();
+			*p4 = 200;
+			cout << *p1 << endl;
+		}
+		else {
+			cout << "p3弱引用指向的内存对象过期" << endl;
+		}
+
+		cout << *p1 << endl;
+		cout << *p2 << endl;
+		//cout << p3 << endl;
+
+		
 
 
 	}
