@@ -2341,32 +2341,32 @@ namespace test45
 		//cout << x[1] << endl;
 		//cout << *(x+1) << endl;
 
-		shared_ptr<int> p1 = make_shared<int>(100);
+		//shared_ptr<int> p1 = make_shared<int>(100);
 
-		auto p2 = p1;
+		//auto p2 = p1;
 
-		weak_ptr<int> p3(p2);
+		//weak_ptr<int> p3(p2);
 
-		cout << p1.use_count() << endl;
-		cout << p3.use_count() << endl;
+		//cout << p1.use_count() << endl;
+		//cout << p3.use_count() << endl;
 
-		//p1.reset();
-		//p2.reset();
+		////p1.reset();
+		////p2.reset();
 
-		p3.reset();
+		//p3.reset();
 
-		if (!p3.expired()) {
+		//if (!p3.expired()) {
 
-			auto p4 = p3.lock();
-			*p4 = 200;
-			cout << *p1 << endl;
-		}
-		else {
-			cout << "p3弱引用指向的内存对象过期" << endl;
-		}
+		//	auto p4 = p3.lock();
+		//	*p4 = 200;
+		//	cout << *p1 << endl;
+		//}
+		//else {
+		//	cout << "p3弱引用指向的内存对象过期" << endl;
+		//}
 
-		cout << *p1 << endl;
-		cout << *p2 << endl;
+		//cout << *p1 << endl;
+		//cout << *p2 << endl;
 		//cout << p3 << endl;
 
 		
@@ -2374,9 +2374,70 @@ namespace test45
 
 	}
 }
+namespace test46
+{
+
+	class CT:public enable_shared_from_this<CT>
+	{
+	public:
+		shared_ptr<CT> getself()
+		{
+			//return shared_ptr<CT>(this);
+			return shared_from_this();
+		}
+	};
+	class CB;
+	class CA {
+	public:
+		shared_ptr<CB> _obj;
+		~CA()
+		{
+			cout << "ca" << endl;
+		}
+	};
+	class CB {
+	public:
+		//shared_ptr<CA> _obj;
+		weak_ptr<CA> _obj;
+		~CB()
+		{
+			cout << "CB" << endl;
+		}
+	};
+	void func()
+	{
+
+		shared_ptr<CA> ca(new CA);
+		shared_ptr<CB> cb(new CB);
+		ca->_obj = cb;
+		cb->_obj = ca;
+
+		//两个智能指针共同指向同一个裸指针，导致释放delete两次报错
+		/*int* x = new int(100);
+
+		shared_ptr<int> p(x);
+		shared_ptr<int> p1(x);*/
+
+
+
+		/*shared_ptr<int> p(new int(100));
+		int* x = p.get();
+
+		shared_ptr<int> p2(x);*/
+
+		//也是两个智能指针共同指向同一块内存
+		//shared_ptr<CT> p2(new CT);
+		//shared_ptr<CT> p1(new CT);
+		//shared_ptr<CT> p3(p1);
+		//shared_ptr<CT> px = p2->getself();
+
+
+
+	}
+}
 int main()
 {
-	test45::func();
+	test46::func();
 	int x{ 10 };
 	int y(10);
 	int z = { 10 };
