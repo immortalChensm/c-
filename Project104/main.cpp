@@ -2407,10 +2407,15 @@ namespace test46
 	void func()
 	{
 
-		shared_ptr<CA> ca(new CA);
+		/*shared_ptr<CA> ca(new CA);
 		shared_ptr<CB> cb(new CB);
 		ca->_obj = cb;
-		cb->_obj = ca;
+		cb->_obj = ca;*/
+
+		shared_ptr<int> p(new int(10));
+		shared_ptr<int> px(std::move(p));
+
+		cout << *px << endl;
 
 		//两个智能指针共同指向同一个裸指针，导致释放delete两次报错
 		/*int* x = new int(100);
@@ -2434,10 +2439,63 @@ namespace test46
 
 
 	}
+}  
+namespace test47
+{
+	class A {
+	public:
+		A()
+		{
+
+		}
+		~A()
+		{
+			cout << "aaa" << endl;
+		}
+	};
+	void func()
+	{
+		unique_ptr<int> p(new int(100));
+
+		//unique_ptr<int> px = p;
+		//unique_ptr<int> px(std::move(p));
+
+		auto px = make_unique<int>(22);
+		cout << *px << endl;
+
+		unique_ptr<int> pz(p.release());
+
+		int* j = pz.get();
+
+		cout << *j << endl;
+
+		if (p == nullptr) {
+			cout << "p empty" << endl;
+		}
+		if (pz == nullptr) {
+			cout << "pz empty" << endl;
+		}
+		else {
+			cout << "pz not mepty" << endl;
+		}
+
+		pz.reset(px.release());
+		if (pz == nullptr) {
+			cout << "pz empty" << endl;
+		}
+		else {
+			cout << "pz not mepty" << endl;
+		}
+
+
+		//unique_ptr<A[]>(new A[10]);
+		unique_ptr<A[]>(new A[10],std::default_delete<A[]>());
+
+	}
 }
 int main()
 {
-	test46::func();
+	test47::func();
 	int x{ 10 };
 	int y(10);
 	int z = { 10 };
