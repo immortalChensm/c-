@@ -2460,42 +2460,131 @@ namespace test47
 		//unique_ptr<int> px = p;
 		//unique_ptr<int> px(std::move(p));
 
-		auto px = make_unique<int>(22);
+		//auto px = make_unique<int>(22);
+		//cout << *px << endl;
+
+		//unique_ptr<int> pz(p.release());
+
+		//int* j = pz.get();
+
+		//cout << *j << endl;
+
+		//if (p == nullptr) {
+		//	cout << "p empty" << endl;
+		//}
+		//if (pz == nullptr) {
+		//	cout << "pz empty" << endl;
+		//}
+		//else {
+		//	cout << "pz not mepty" << endl;
+		//}
+
+		//pz.reset(px.release());
+		//if (pz == nullptr) {
+		//	cout << "pz empty" << endl;
+		//}
+		//else {
+		//	cout << "pz not mepty" << endl;
+		//}
+
+
+		////unique_ptr<A[]>(new A[10]);
+		////unique_ptr<A[]>(new A[10],std::default_delete<A[]>());
+		////unique_ptr<A[]> x(new A[10], std::default_delete<A[]>());
+		//unique_ptr<A[]> x(new A[10], [](A *p) {
+		//	delete[]p;
+		//});  
+
+		unique_ptr<string> px1(new string("test1"));  
+
+		if (px1) {
+			cout << "px1 not empty" << endl;
+		}
+		else {
+			cout << "px1 empty" << endl;
+		}
+
+		px1.reset();
+		if (px1) {
+			cout << "px1 not empty" << endl;
+		}
+		else {
+			cout << "px1 empty" << endl;
+		}
+
+		unique_ptr<int> px2(new int(1));
+		shared_ptr<int> px3 = std::move(px2);
+
+
+		/*unique_ptr<string> px2(new string("test2"));
+
+		std::swap(px1, px2);
+
+		cout << *px1 << endl;
+		cout << *px2 << endl;
+
+		px1.swap(px2);
+		cout << *px1 << endl;
+		cout << *px2 << endl*/;
+
+
+
+	}
+}
+namespace test48
+{
+	unique_ptr<string> uni()
+	{
+		return unique_ptr<string>(new string("like china"));
+	}
+
+	void un_delete(string* p)
+	{
+		delete p;
+		p = nullptr;
+		cout << "ÖÇÄÜÖ¸ÕëÉ¾³ýÆ÷" << endl;
+	}
+	void func()
+	{
+
+		unique_ptr<string> px = uni();
+
 		cout << *px << endl;
 
-		unique_ptr<int> pz(p.release());
-
-		int* j = pz.get();
-
-		cout << *j << endl;
-
-		if (p == nullptr) {
-			cout << "p empty" << endl;
-		}
-		if (pz == nullptr) {
-			cout << "pz empty" << endl;
-		}
-		else {
-			cout << "pz not mepty" << endl;
-		}
-
-		pz.reset(px.release());
-		if (pz == nullptr) {
-			cout << "pz empty" << endl;
-		}
-		else {
-			cout << "pz not mepty" << endl;
-		}
+		unique_ptr<string, decltype(un_delete)*> pj(new string("haha"), un_delete);
 
 
-		//unique_ptr<A[]>(new A[10]);
-		unique_ptr<A[]>(new A[10],std::default_delete<A[]>());
+		typedef void(*fp)(string*);
+
+		unique_ptr<string, fp> pj1(new string("test"), un_delete);
+
+		auto delete1 = [](string *p) {
+			delete p;
+			p = nullptr;
+			cout << "ÖÇÄÜÖ¸ÕëÉ¾³ýÆ÷1" << endl;
+		};
+
+		unique_ptr<string, decltype(delete1)> pj2(new string("test1"), delete1);
+
+
+		using delete2 = void(*)(string*);
+
+		unique_ptr<string, delete2> pj3(new string("test2"), un_delete);
+
+
+		string* x;
+		int len1 = sizeof(x);
+		unique_ptr<string> px1(new string("test"));
+
+		int len2 = sizeof(pj3);
+
+		cout << "len1="<<len1 <<"len2="<< len2 << endl;
 
 	}
 }
 int main()
 {
-	test47::func();
+	test48::func();
 	int x{ 10 };
 	int y(10);
 	int z = { 10 };
