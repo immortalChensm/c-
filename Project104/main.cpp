@@ -2566,7 +2566,7 @@ namespace test48
 
 		unique_ptr<string, decltype(delete1)> pj2(new string("test1"), delete1);
 
-
+		//
 		using delete2 = void(*)(string*);
 
 		unique_ptr<string, delete2> pj3(new string("test2"), un_delete);
@@ -2580,10 +2580,18 @@ namespace test48
 
 		cout << "len1="<<len1 <<"len2="<< len2 << endl;
 
+		auto_ptr<string> pxzy(new string("china"));
+		cout << *pxzy << endl;
+
+		auto_ptr<string> pjj1 = pxzy;
+
+		cout << *pjj1 << endl;
+
 	}
 }
 int main()
 {
+	//47.108.21.107
 	test48::func();
 	int x{ 10 };
 	int y(10);
