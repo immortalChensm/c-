@@ -19,22 +19,38 @@ public:
 		{
 			cout << "inMsgRecvQueue:threadId=" << std::this_thread::get_id() << "执行，插入数据" << i << endl;
 
-			_mutext.lock();
+			//_mutext.lock();
+			//std::lock_guard<std::mutex> lock(_mutext);
+			//_mutext2.lock();
+			//_mutext.lock();
+			//std::lock_guard<std::mutex> lock1(_mutext2);
+			//std::lock_guard<std::mutex> lock2(_mutext);
+			std::lock(_mutext,_mutext2);
+			std::lock_guard<std::mutex> lock1(_mutext,std::adopt_lock);
+			std::lock_guard<std::mutex> lock2(_mutext2,std::adopt_lock);
 			msgRecvQueue.push_back(i);
-			_mutext.unlock();
+			//_mutext.unlock();
+			//_mutext2.unlock();
 		}
 	}
 
 	bool outMsgProc(int &command)
 	{
+		//_mutext.lock();
+		//std::lock_guard<std::mutex> lock(_mutext);
+		_mutext2.lock();
 		_mutext.lock();
 		if (!msgRecvQueue.empty())
 		{
 			command = msgRecvQueue.front();
 			msgRecvQueue.pop_front();
+			//_mutext.unlock();
+			_mutext2.unlock();
 			_mutext.unlock();
 			return true;
 		}
+		//_mutext.unlock();
+		_mutext2.unlock();
 		_mutext.unlock();
 		return false;
 	}
@@ -57,6 +73,7 @@ public:
 private:
 	std::list<int> msgRecvQueue;
 	std::mutex _mutext;
+	std::mutex _mutext2;
 };
 int main()
 {
