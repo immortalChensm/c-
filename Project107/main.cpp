@@ -4,6 +4,19 @@
 #include <thread>
 #include <mutex>
 
+//https://zh.cppreference.com/w/cpp/thread/unique_lock
+/**
+std::mutex lock unlock
+std::lock_guard<std::mutex> lock(_mutex)
+std::lock(_mutex1,_mutex2)
+std::lock_guard<std::mutex> lock(_mutex,std::adopt_lock)
+
+std::unique_lock<std::mutex> lock(_mutex,[std::adopt_lock,std::try_to_lock,std::defer_lock])
+std::try_to_lock 时，可以用lock.owns_lock()判断是否锁住了
+std::defer_lock 时，可以用lock.lock() lock.unlock lock.try_lock()==true 来操作锁  
+
+
+**/
 using namespace std;
 
 void show(int num)
@@ -25,12 +38,35 @@ public:
 			//_mutext.lock();
 			//std::lock_guard<std::mutex> lock1(_mutext2);
 			//std::lock_guard<std::mutex> lock2(_mutext);
-			std::lock(_mutext,_mutext2);
-			std::lock_guard<std::mutex> lock1(_mutext,std::adopt_lock);
-			std::lock_guard<std::mutex> lock2(_mutext2,std::adopt_lock);
-			msgRecvQueue.push_back(i);
+			//std::lock(_mutext,_mutext2);
+			//std::lock_guard<std::mutex> lock1(_mutext,std::adopt_lock);
+			//_mutext.lock();
+			//std::unique_lock<std::mutex> lock2(_mutext,std::adopt_lock);
+			//std::unique_lock<std::mutex> lock(_mutext,std::try_to_lock);
+			//std::unique_lock<std::mutex> lock(_mutext,std::defer_lock);
+			std::unique_lock<std::mutex> lock(_mutext,std::defer_lock);
+			std::unique_lock<std::mutex> lock1(std::move(lock));//所有权转移
+			//if (lock.owns_lock()) {
+			//if (lock.try_lock()==true) {
+			//lock.lock();
+
+			//do something...
+			//lock.unlock();
+
+			//lock.lock();
+			std::mutex* ptx = lock1.release();
+			ptx->lock();
+
+				msgRecvQueue.push_back(i);
+			//}
+			//else {
+
+			//	cout << "in线程没有拿到锁，不操作共享资源，做其它事情吧" << endl;
+			//}
+			
 			//_mutext.unlock();
 			//_mutext2.unlock();
+				ptx->unlock();
 		}
 	}
 
@@ -38,20 +74,25 @@ public:
 	{
 		//_mutext.lock();
 		//std::lock_guard<std::mutex> lock(_mutext);
-		_mutext2.lock();
-		_mutext.lock();
+		//_mutext2.lock();
+		//_mutext.lock();
+		std::unique_lock<std::mutex> lock(_mutext);
+
+		std::chrono::microseconds dura(200);
+		std::this_thread::sleep_for(dura);
+
 		if (!msgRecvQueue.empty())
 		{
 			command = msgRecvQueue.front();
 			msgRecvQueue.pop_front();
 			//_mutext.unlock();
-			_mutext2.unlock();
-			_mutext.unlock();
+			//_mutext2.unlock();
+			//_mutext.unlock();
 			return true;
 		}
 		//_mutext.unlock();
-		_mutext2.unlock();
-		_mutext.unlock();
+		//_mutext2.unlock();
+		//_mutext.unlock();
 		return false;
 	}
 	void outMsgRecvQueue()
