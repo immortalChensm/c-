@@ -118,7 +118,7 @@ int main()
 	}*/
 
 	/*std::thread t1(mythread1);
-	std::thread t2(mythread1);
+	std::thread t2(mythread1); 
 
 	t1.join();
 	t2.join();
