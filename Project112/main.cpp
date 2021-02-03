@@ -41,7 +41,7 @@ int main()
 
 	cout << "g_count=" << g_count << endl;*/
 
-	std::future<int> result = std::async(myshow,10);
+	std::future<int> result = std::async(std::launch::async|std::launch::deferred,myshow,10);
 
 	std::future_status st = result.wait_for(std::chrono::milliseconds(0s));
 
