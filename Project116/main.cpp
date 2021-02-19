@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <ctime>
 
 using namespace std;
 
@@ -29,11 +30,11 @@ namespace test1
 		}
 		A()
 		{
-			cout << "a" << endl;
+			//cout << "a" << endl;
 		}
 		~A()
 		{
-			cout << "~a" << endl;
+			//cout << "~a" << endl;
 		}
 	};
 	void func()
@@ -44,11 +45,24 @@ namespace test1
 
 		//A* obj = new A();
 		//delete obj;
-		A* obj = new A[3]();//本身是占用3个字节的内存，但是会使用4个字节的空间来存储数组元素长度
+		//A* obj = new A[3]();//本身是占用3个字节的内存，但是会使用4个字节的空间来存储数组元素长度
 		//就会占用7个字节
 		//new/delete 在分配内存和释放内存时，内存的管理如记录占用多少个字节，会多分配额外的内存
 		//来存储 其它数据的
-		delete[] obj;
+		//delete[] obj;
+
+		clock_t start, end;
+		start = clock();
+
+		for (int i = 0; i < 100; i++)
+		{
+			A* obj = new A();
+			delete obj;
+		}
+
+		end = clock();
+		cout << end - start << endl;
+		
 	}
 }
 int main()
