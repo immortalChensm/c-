@@ -99,8 +99,36 @@ namespace test3
 		}
 	}
 }
+namespace test4
+{
+	void func()
+	{
+		//∑÷≈‰∆˜  ƒ⁄¥Ê∑÷≈‰
+		std::allocator<int> alloc;
+		int* p = alloc.allocate(3);
+		int* q = p;
+		*q = 1; q++;
+		*q = 2; q++;
+		*q = 3;
+		cout << *p << *(p + 1) << *(p + 2) << endl;
+
+		alloc.deallocate(p,3);
+
+		list<int, std::allocator<int>> obj;
+		obj.push_back(1);
+		obj.push_back(2);
+		obj.push_back(3);
+
+		for (auto itr = obj.begin(); itr != obj.end(); itr++)
+		{
+			cout << *itr << endl;
+			printf("%p\n",&(*itr));
+		}
+		
+	}
+}
 int main()
 {
-	test3::func();
+	test4::func();
 	return 0;
 }
