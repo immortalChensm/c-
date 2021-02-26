@@ -127,8 +127,25 @@ namespace test4
 		
 	}
 }
+namespace test5
+{
+	void func()
+	{
+		vector<int> obj = { 1,2,3,4,5 };
+		vector<int>::iterator itr = obj.begin();
+		for (; itr != obj.end(); itr++) {
+
+			cout << *itr << endl;
+			*itr = *itr + 10;
+		}
+
+		for (auto x = obj.begin(); x != obj.end(); x++) {
+			cout << *x << endl;
+		}
+	}
+}
 int main()
 {
-	test4::func();
+	test5::func();
 	return 0;
 }
