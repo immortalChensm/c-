@@ -11,6 +11,7 @@
 #include <set>
 #include <unordered_map>
 #include <unordered_set>
+#include <algorithm>
 //https://zh.cppreference.com/w/cpp/container#.E9.A1.BA.E5.BA.8F.E5.AE.B9.E5.99.A8 
 //各种容器类模板相关成员函数
 using namespace std;
@@ -144,8 +145,56 @@ namespace test5
 		}
 	}
 }
+namespace test6
+{
+
+	class B {
+	public:
+		bool operator()(int x, int y) {
+			return x > y;
+		}
+	};
+	void func()
+	{
+
+		//vector<int> obj = { 6,3,2,4,1,5 };
+		//list<int> obj = { 6,3,2,4,1,5 };
+		map<int, std::string> obj;
+		obj.insert(std::make_pair(1,"ok1"));
+		obj.insert(std::make_pair(3,"ok2"));
+		obj.insert(std::make_pair(2,"ok3"));
+
+
+		auto x = obj.find(2);
+		if (x!=obj.end()) {
+			cout << x->first << x->second << endl;
+		}
+
+		/*sort(obj.begin(),obj.end(),B());
+		for_each(obj.begin(), obj.end(), [](int v) {
+			cout << v << endl;
+			});
+
+
+		auto result = find(obj.begin(),obj.end(),5);
+		if (*result) {
+			cout <<"findout:"<< *result << endl;
+		}
+
+
+		auto xret = find_if(obj.begin(), obj.end(), [](int v) {
+			if (v == 3) {
+				return v;
+			}
+		});
+
+		if (*xret) {
+			cout <<"find_if:"<< *xret << endl;
+		}*/
+	}
+}
 int main()
 {
-	test5::func();
+	test6::func();
 	return 0;
 }
