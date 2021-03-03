@@ -12,6 +12,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <algorithm>
+#include <functional> //stpl 组成部分里的仿函数对象
 //https://zh.cppreference.com/w/cpp/container#.E9.A1.BA.E5.BA.8F.E5.AE.B9.E5.99.A8 
 //各种容器类模板相关成员函数
 using namespace std;
@@ -193,8 +194,39 @@ namespace test6
 		}*/
 	}
 }
+namespace test7
+{
+	template<typename T>
+	class A {
+	public:
+		bool operator()(T x, T y)
+		{
+			return x > y;
+		}
+	};
+	void func()
+	{
+
+		vector<int> obj = { 1,5,6,3,2,8,9,55 };
+
+		//sort(obj.begin(),obj.end(),A<int>());
+		//sort(obj.begin(),obj.end(),greater<int>());//使用仿函数  系统内置类对象
+		sort(obj.begin(),obj.end(),less<int>());//使用仿函数  系统内置类对象
+
+		for (auto itr = obj.begin(); itr != obj.end(); itr++) {
+
+			cout << *itr << endl;
+		}
+
+		
+		int x = greater<int>()(300,200);
+
+		cout << x << endl;
+
+	}
+}
 int main()
 {
-	test6::func();
+	test7::func();
 	return 0;
 }
