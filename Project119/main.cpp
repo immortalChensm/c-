@@ -225,8 +225,38 @@ namespace test7
 
 	}
 }
+namespace test8
+{
+	//适配器  在已有的容器，分配器，迭代器，算法上增加或减少一些代码
+	class A {
+	public:
+		bool operator()(int v) {
+			return 10 < v;
+		}
+	};
+	void func()
+	{
+
+		vector<int> obj = { 1,2,3,4,5,10,200,500,666,5,5 };
+
+		int x = count(obj.begin(),obj.end(),5);
+
+		cout << x << endl;
+
+		//int y = count_if(obj.begin(),obj.end(),A());
+		int y = count_if(obj.begin(),obj.end(),bind(less<int>(),10,std::placeholders::_1));
+		//less<int>()  == bool operator()(10,_1)
+		cout << y << endl;
+
+
+		for (vector<int>::reverse_iterator itr = obj.rbegin(); itr != obj.rend(); itr++) {
+
+			cout << *itr << endl;
+		}
+	}
+}
 int main()
 {
-	test7::func();
+	test8::func();
 	return 0;
 }
