@@ -255,8 +255,43 @@ namespace test8
 		}
 	}
 }
+namespace test9
+{
+	//对象所占用的空间大小
+	class A {
+	public:
+		int x;
+		void func() {
+
+		}
+		static void test()
+		{
+
+		}
+		virtual void bb()
+		{
+
+		}
+		char y;
+	};
+
+	void func()
+	{
+		//A *obj = new A();
+		A obj;
+		int x = sizeof(obj);
+
+		cout << x << endl;
+
+		int* y;
+		int* j;
+		cout << sizeof(y) << endl;
+		cout << sizeof(char*) << endl;
+		cout << sizeof(A *) << endl;
+	}
+}
 int main()
 {
-	test8::func();
+	test9::func();
 	return 0;
 }
