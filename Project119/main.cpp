@@ -290,8 +290,66 @@ namespace test9
 		cout << sizeof(A *) << endl;
 	}
 }
+namespace test10
+{
+	class A {
+	public:
+		int a;
+		A()
+		{
+			cout << "A::A() this=" << this << endl;
+		}
+		void funcA()
+		{
+			cout << "A::funcA() this=" << this << endl;
+		}
+	};
+	class B {
+	public:
+		int b;
+		B()
+		{
+			cout << "B::B() this=" << this << endl;
+		}
+		void funcB()
+		{
+			cout << "B::funcB() this=" << this << endl;
+		}
+	};
+
+	class C :public A,public B {
+	public:
+		int c;
+		C()
+		{
+			cout << "C::C() this=" << this << endl;
+		}
+		void funcC()
+		{
+			cout << "C::funcC() this=" << this << endl;
+		}
+		void funcB()
+		{
+			cout << "C::funcB() this=" << this << endl;
+		}
+	};
+
+	void func()
+	{
+		//this Ö¸Õëµ÷Õû
+		cout << sizeof(A) << endl;
+		cout << sizeof(B) << endl;
+		cout << sizeof(C) << endl;
+
+		C obj;
+		obj.funcA();
+		obj.funcB();
+		obj.funcC();
+
+	}
+}
 int main()
 {
-	test9::func();
+	test10::func();
 	return 0;
 }
