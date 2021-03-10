@@ -1,1 +1,7 @@
-﻿
+﻿  main.cpp
+  Stu.cpp
+  test.cpp
+  正在生成代码...
+main.obj : error LNK2019: 无法解析的外部符号 "public: void __thiscall stu::initStu(int,char *)" (?initStu@stu@@QAEXHPAD@Z)，函数 _main 中引用了该符号
+test.obj : error LNK2001: 无法解析的外部符号 "public: void __thiscall stu::initStu(int,char *)" (?initStu@stu@@QAEXHPAD@Z)
+E:\project\Debug\Project6.exe : fatal error LNK1120: 1 个无法解析的外部命令

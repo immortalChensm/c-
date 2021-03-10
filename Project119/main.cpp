@@ -348,8 +348,80 @@ namespace test10
 
 	}
 }
+namespace test11
+{
+	class A {
+	public:
+		A()
+		{
+			cout << "A::A" << endl;
+		}
+	};
+
+	class X {
+	public:
+		int a;
+		int b;
+		void func()
+		{
+			cout << "X::func" << endl;
+		}
+	};
+	void func()
+	{
+		X obj;
+	}
+}
+namespace test12
+{
+	/*class A {
+	public:
+		A() {
+			int x = 10;
+		}
+	};
+	class B :public A {
+
+	};*/
+	/*class Grand
+	{
+	public:
+	};
+	class A :virtual public Grand {
+
+	};
+	class A2 :virtual public Grand
+	{
+
+	};
+	class C :public A, public A2 {
+
+	};*/
+	class A {
+
+	};
+	class B :public A {
+	public:
+		virtual void test()
+		{
+			int x = 100;
+		}
+	};
+	void func()
+	{
+		//B obj;//会合成B 构造函数
+		//0C8D71C  mov         dword ptr [eax],offset test12::C::`vbtable' (0CB3068h)  
+		//00C8D722  mov         eax, dword ptr[this]
+		//00C8D725  mov         dword ptr[eax + 4], offset test12::C::`vbtable' (0CB30B0h)
+		//  test12::A::A (0C85B95h)  
+		// test12::A2::A2 (0C8610Dh)  
+		//C obj;
+		B obj;
+
+	}
+}
 int main()
 {
-	test10::func();
+	test12::func();
 	return 0;
 }
