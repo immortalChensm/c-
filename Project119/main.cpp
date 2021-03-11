@@ -420,8 +420,56 @@ namespace test12
 
 	}
 }
+namespace test13
+{
+	//拷贝构造函数合成情况测试
+	//class A {
+	//public:
+	//	A(const A& obj) {
+	//		cout << "A copy func" << endl;
+	//	}
+	//	A()
+	//	{
+
+	//	}
+	//};
+	//class B//:public A 
+	//{
+	//public:
+	//	int x;
+	//	//A obj;
+	//	//virtual void test() {
+
+	//	//}
+
+	////};
+	class Grand
+	{
+	public:
+		Grand()
+		{
+			cout << "Grand::grand" << endl;
+		}
+	};
+	class A :virtual public Grand {
+
+	};
+	class A1 :virtual public Grand {
+
+	};
+	class C :public A, public A1 {
+
+	};
+	void func()
+	{
+		//B obj;
+		//B obj1 = obj;
+		C obj;
+		C obj1 = obj;
+	}
+}
 int main()
 {
-	test12::func();
+	test13::func();
 	return 0;
 }
