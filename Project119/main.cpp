@@ -468,8 +468,58 @@ namespace test13
 		C obj1 = obj;
 	}
 }
+namespace test14
+{
+	class X {
+	public:
+		int i;
+		X(const X& obj) {
+			i = obj.i;
+			cout << "X copy function" << endl;
+		}
+		X() {
+			cout << "x FUNCTION" << endl;
+		}
+		~X() {
+			cout << "~X FUNCTION" << endl;
+		}
+		void show()
+		{
+			cout << "x::show function" << endl;
+			cout << i << endl;
+		}
+	};
+	/*X funx(X obj) {
+		X objx;
+		objx.i = obj.i;
+		return objx;
+	}*/
+	void funx(X& obj) {
+
+		X objx;
+		objx.i = 101;
+		obj.X::X(objx);
+	}
+	void func()
+	{
+
+		X obj;
+		obj.i = 100;
+
+		//X objx = funx(obj);
+		//funx(obj);
+
+		//obj.show();
+		(funx(obj), obj).show();
+		
+
+		//X obj1 = obj;
+		//X obj1;
+		//obj1.X::X(obj);
+	}
+}
 int main()
 {
-	test13::func();
+	test14::func();
 	return 0;
 }
