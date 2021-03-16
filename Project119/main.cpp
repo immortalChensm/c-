@@ -518,8 +518,38 @@ namespace test14
 		//obj1.X::X(obj);
 	}
 }
+namespace test15
+{
+	class X {
+	public:
+		int x, y;
+		X(int a=0, int b=0) :x(a), y(b) {
+
+			cout << "x constructor" << endl;
+		}
+		X(const X& obj) :x(obj.x), y(obj.y)
+		{
+			cout << "x copy constructor" << endl;
+		}
+		~X() {
+			cout << "x destructor" << endl;
+		}
+	};
+	X tempx(X& obj)
+	{
+		X temp;
+		temp.X::X(obj.x*2,obj.y*2);
+		return temp;
+
+	}
+	void func()
+	{
+		X obj(1, 2);
+		X j = tempx(obj);
+	}
+}
 int main()
 {
-	test14::func();
+	test15::func();
 	return 0;
 }
