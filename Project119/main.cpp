@@ -548,8 +548,46 @@ namespace test15
 		X j = tempx(obj);
 	}
 }
+namespace test16
+{
+
+	class X {
+	public:
+		int i;
+		int* mi;
+		X() {
+			mi = new int(11);
+			cout << "X " << endl;
+		}
+		X(const X& obj) {
+			i = obj.i;
+			mi = new int(0);
+			memcpy(mi,obj.mi,sizeof(int));
+			cout << "X(const X& obj)" << endl;
+		}
+		~X() {
+			delete mi;
+			cout << "~X" << endl;
+		}
+		X(int v) :i(v) {
+			mi = new int(11);
+			cout << "X(int v) :i(v)" << endl;
+		}
+	};
+	void func()
+	{
+
+		/*X x1 = 1;
+		X x2(2);
+		X x3 = (X)100;
+		X x4 = X(101);*/
+
+		X x1(10);//x1,x2 的成员mi指向同一块内存，释放2次
+		X x2(x1);
+	}
+}
 int main()
 {
-	test15::func();
+	test16::func();
 	return 0;
 }
