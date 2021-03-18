@@ -586,8 +586,57 @@ namespace test16
 		X x2(x1);
 	}
 }
+namespace test17
+{
+	//成员初始化列表 在一定程序上（类类成员）会提升性能
+	class X {
+	public:
+		int i;
+		X(int a = 0) :i(a) {
+			
+			cout <<"this="<<this<<" X constructor " << endl;
+		}
+		X(const X& obj):i(obj.i) {
+			cout << "this=" << this << " X(const X& obj) constructor " << endl;
+		}
+		X& operator=(const X& obj) {
+			i = obj.i;
+			cout << "this=" << this << " X& operator=(const X& obj) constructor " << endl;
+			return *this;
+		}
+		~X() {
+			cout << "~X" << endl;
+		}
+	};
+	class Base {
+	public:
+		int x, y;
+		Base(int a, int b) :x(a), y(b) {
+
+		}
+	};
+	//class A:public Base {
+	class A{
+	public:
+		int x;
+		int& y;
+		//Base obj;
+		//A(int v) :y(v),obj(v,v) {
+		//A(int v) :y(v),Base(v,v) {
+		X obj;
+		//A(int v) :y(v),obj(v) {
+		A(int v) :y(v) {
+			obj = 100;
+			cout << "A 成员初始化列表" << endl;
+		}
+	};
+	void func()
+	{
+		A obj(100);
+	}
+}
 int main()
 {
-	test16::func();
+	test17::func();
 	return 0;
 }
