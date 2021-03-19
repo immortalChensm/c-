@@ -635,8 +635,115 @@ namespace test17
 		A obj(100);
 	}
 }
+namespace test18
+{
+	//虚函数表的位置
+	class A {
+	public:
+		int i;
+		virtual void testfunc(){}
+	};
+	void func()
+	{
+		A obj;
+		int len = sizeof(obj);
+
+		cout << "obj size=" << len << endl;
+
+		char* p1 = reinterpret_cast<char*>(&obj);
+		char* p2 = reinterpret_cast<char*>(&(obj.i));
+
+		if (p1 == p2) {
+
+			cout << "vptr 在对象内存后面" << endl;
+		}
+		else {
+
+			cout << "vptr 在对象内存前面" << endl;
+		}
+	}
+}
+namespace test19
+{
+	class Base {
+	public:
+		virtual void f() {
+			cout << "Base::f" << endl;
+		}
+		virtual void g()
+		{
+			cout << "Base::g" << endl;
+		}
+		virtual void h()
+		{
+			cout << "Base::h" << endl;
+		}
+	};
+	class Dervie :public Base {
+	public:
+		virtual void g()
+		{
+			cout << "Dervie::g" << endl;
+		}
+	};
+	void func()
+	{
+
+		Dervie* obj = new Dervie();
+		//变量名 obj  0x000
+		//变量值  new Dervie 它是一块内存地址  该内存地址存储一个虚函数表
+		//变量类型  Dervie *
+
+		long* pvptbl = (long*)obj;//得 到obj上的值，该值是个内存地址，该内存地址存储的内容是虚函数表
+		long* vptb = (long*)(*pvptbl);
+
+		for (int i = 0; i < 4; i++) {
+
+			printf("Dervie[%d]=0X:%p\n",i,vptb[i]);
+		}
+
+		typedef void(*Func)(void);
+
+		Func f = (Func)vptb[0];
+		Func g = (Func)vptb[1];
+		Func h = (Func)vptb[2];
+
+		f();
+		g();
+		h();
+
+		cout << "*************************" << endl;
+		Base* obj1 = new Base();
+		long* parvptbl = (long*)obj1;
+		long* parvptb = (long*)(*parvptbl);
+		for (int i = 0; i < 4; i++) {
+
+			printf("Base[%d]=0X:%p\n", i, parvptb[i]);
+		}
+		Func parf = (Func)parvptb[0];
+		Func parg = (Func)parvptb[1];
+		Func parh = (Func)parvptb[2];
+
+		parf();
+		parg();
+		parh();
+
+		cout << "***************************" << endl;
+
+		int a = 100;
+		int* b = &a;
+		int** c = &b;
+
+		printf("c的内容是b的地址%x\n",c);
+		printf("b的内容是a的地址%x\n",b);
+		printf("a的内容是%d\n",a);
+
+		printf("c=%d\n",*(*c));
+		printf("a=%d",*(&a));
+	}
+}
 int main()
 {
-	test17::func();
+	test19::func();
 	return 0;
 }
