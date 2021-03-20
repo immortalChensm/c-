@@ -740,6 +740,21 @@ namespace test19
 
 		printf("c=%d\n",*(*c));
 		printf("a=%d",*(&a));
+
+		cout << "********************************" << endl;
+
+		Dervie objx;
+
+		long* vptr1 = (long*)(&objx);
+		long* vptable = (long*)(*vptr1);
+		for (int i = 0; i < 4; i++) {
+
+			printf("Dervie[%d]=0X:%p\n", i, vptable[i]);
+		}
+		Func parf1 = (Func)vptable[0];
+		Func parg1 = (Func)vptable[1];
+		Func parh1 = (Func)vptable[2];
+
 	}
 }
 int main()
