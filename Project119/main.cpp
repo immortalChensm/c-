@@ -757,8 +757,99 @@ namespace test19
 
 	}
 }
+namespace test20
+{
+	class Base1
+	{
+	public:
+		virtual void f()
+		{
+			cout << "Base1::f" << endl;
+		}
+		virtual void g()
+		{
+			cout << "Base1::g" << endl;
+		}
+	};
+	class Base2
+	{
+	public:
+		virtual void h()
+		{
+			cout << "Base2::h" << endl;
+		}
+		virtual void i()
+		{
+			cout << "Base2::i" << endl;
+		}
+	};
+	class Dervied :public Base1, public Base2
+	{
+	public:
+		virtual void g()
+		{
+			cout << "Dervied::g" << endl;
+		}
+		virtual void i()
+		{
+			cout << "Dervied::i" << endl;
+		}
+		virtual void mi()
+		{
+			cout << "Derviced::mi" << endl;
+		}
+		virtual void mh()
+		{
+			cout << "Dervied::mh" << endl;
+		}
+		virtual void mg()
+		{
+			cout << "Derviced::mg" << endl;
+		}
+	};
+	void func()
+	{
+
+		cout << sizeof(Base1) << endl;
+		cout << sizeof(Base2) << endl;
+		cout << sizeof(Dervied) << endl;
+
+		Dervied ins;
+		Base1& b1 = ins;
+		Base2& b2 = ins;
+		Dervied d = ins;
+
+
+		long* vptr1 = (long*)(&ins);
+		long* vptable1 = (long*)(*vptr1);
+
+		typedef void(*Func)(void);
+		Func f1 = (Func)(vptable1[0]);//0x008571ee {Project119.exe!test20::Base1::f(void)}
+		Func f2 = (Func)(vptable1[1]);//0x008571e4 {Project119.exe!test20::Dervied::g(void)}
+		Func f3 = (Func)(vptable1[2]);//0x008571da {Project119.exe!test20::Dervied::mi(void)}
+		Func f4 = (Func)(vptable1[3]);//0x00857211 {Project119.exe!test20::Dervied::mh(void)}
+		Func f5 = (Func)(vptable1[4]);//0x00857207 {Project119.exe!test20::Dervied::mg(void)}
+		Func f6 = (Func)(vptable1[5]);
+		Func f7 = (Func)(vptable1[6]);
+		Func f8 = (Func)(vptable1[7]);
+
+
+		long* vptr2 = vptr1 + 1;
+		long* vptable2 = (long*)(*vptr2);
+
+		Func f11 = (Func)(vptable2[0]);//0x008571fd {Project119.exe!test20::Base2::h(void)}
+		Func f22 = (Func)(vptable2[1]);//0x0085720c {Project119.exe!test20::Dervied::i(void)}
+		Func f33 = (Func)(vptable2[2]);
+		Func f44 = (Func)(vptable2[3]);
+
+		int x = 0;
+
+		//子类继承  多个基类（每个基类都有虚函数）时，会有多个虚函数表指针
+
+	}
+}
 int main()
 {
-	test19::func();
+	test20::func();
 	return 0;
 }
