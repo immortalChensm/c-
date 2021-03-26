@@ -848,8 +848,26 @@ namespace test20
 
 	}
 }
+namespace test21
+{
+	//数据成员绑定时机
+	typedef string my;
+	class A {
+		typedef int my;
+	public:
+		void show(my a) {
+			x = a;
+		}
+		typedef int my;
+		my x;
+	};
+	void func()
+	{
+		A obj;
+	}
+}
 int main()
 {
-	test20::func();
+	test21::func();
 	return 0;
 }
