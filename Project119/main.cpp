@@ -866,8 +866,57 @@ namespace test21
 		A obj;
 	}
 }
+namespace test22
+{
+#pragma pack(1)
+	class A {
+	public:
+		int x;
+		int y;
+	public:
+		int z;
+		static int s_x;
+		static int s_y;
+		static int s_z;
+		char j;
+		int m;
+		int k;
+		void printOffset()
+		{
+			printf("x=%d\n",&A::x);
+			printf("y=%d\n",&A::y);
+			printf("z=%d\n",&A::z);
+			printf("j=%d\n",&A::j);
+			printf("m=%d\n",&A::m);
+			printf("k=%d\n",&A::k);
+		}
+	};
+#pragma pack()
+	void func()
+	{
+		A obj;
+		printf("obj size=%d\n",sizeof(obj));
+		printf("A size=%d\n",sizeof(A));
+		printf("x=%p\n",&obj.x);
+		printf("y=%p\n",&obj.y);
+		printf("z=%p\n",&obj.z);
+		printf("j=%p\n",&obj.j);
+		printf("m=%p\n",&obj.m);
+		printf("k=%p\n",&obj.k);
+
+		obj.printOffset();
+		obj.x = 100;
+		int A::* mx = &A::x;
+		cout << (obj.*mx) << endl;
+
+		void (A::*f1)(void) = &A::printOffset;
+
+		(obj.*f1)();
+
+	}
+}
 int main()
 {
-	test21::func();
+	test22::func();
 	return 0;
 }
