@@ -915,8 +915,82 @@ namespace test22
 
 	}
 }
+namespace test23
+{
+	class A {
+	public:
+		int i;
+		int j;
+		static int x;
+		void test()
+		{
+			i = 10;
+			j = 20;
+		}
+	};
+	int A::x = 0;
+	void func()
+	{
+		A obj;
+		obj.x = 101;
+		A* obj1 = new A();
+		obj1->i = 1;
+		obj1->j = 2;
+		obj1->x = 102;
+
+
+		printf("obj.x=%d\n",obj.x);
+		printf("obj1->x=%d\n",obj1->x);
+
+		A::x = 100;
+		printf("obj.x=%d\n", obj.x);
+		printf("obj1->x=%d\n", obj1->x);
+
+		printf("obj.x=%p\n",&obj.x);
+		printf("obj1->x=%p\n",&obj1->x);
+		printf("A::x=%p\n",&A::x);
+
+		printf("i=%d\n",&A::i);
+		printf("j=%d\n",&A::j);
+		printf("x=%d\n",&A::x);
+
+		printf("size=%d\n",sizeof(A));
+
+		char* data = new char[sizeof(A)];
+
+		data = (char*)obj1;
+
+		int* i = (int*)data;
+		int* j = (int*)(data+4);
+
+		printf("i=%d\n",*i);
+		printf("j=%d\n",*j);
+
+		*i = 8;
+		*j = 6;
+		printf("i=%d\n", obj1->i);
+		printf("j=%d\n", obj1->j);
+
+		int z = 300;
+
+		char* a1 = (char*)&z;
+		char* a2 = a1+1;
+		char* a3 = a1+2;
+		char* a4 = a1+3;
+
+		int za = 0;
+		za = (int)*a1;
+		
+		za|= (int)*a2<<8;
+
+		printf("a2=%d\n",(int)*a2);
+
+		int ha = 12;
+
+	}
+}
 int main()
 {
-	test22::func();
+	test23::func();
 	return 0;
 }
