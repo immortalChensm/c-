@@ -989,8 +989,74 @@ namespace test23
 
 	}
 }
+namespace test24
+{
+	void func()
+	{
+		//0000 0001 0010 1100
+		int x = 300;
+		uint8_t data[4] = { 0 };
+
+		data[0] = (x >> 8)&0xFF; //内存低位存值高位
+		cout << data[0] << endl;
+		cout << (x >> 8) << endl;
+		data[1] = x & 0xFF;//内存高位存值低位
+		cout << data[1] << endl;
+		cout << (x & 0xFF) << endl;
+
+		int y = 0;//内存从低到高
+		//y 0000 0000 0000 0001
+		y|= data[0]<<8;//值高位
+		cout << y << endl;
+		y |= data[1];
+	
+		cout << y << endl;
+
+	}
+}
+namespace test25
+{
+	//存在内存对齐，填充，它们之间并不会挨在一起
+	class A {
+	public:
+		int i;
+		char a;
+		char b;
+		char c;
+	};
+	class Base1 {
+	public:
+		int i;
+		char a;
+	};
+	class Base2 :public Base1 {
+	public:
+		char b;
+	};
+	class Base3 :public Base2 {
+	public:
+		char c;
+	};
+	void func()
+	{
+		cout << sizeof(A) << endl;
+		cout << sizeof(Base1) << endl;
+		cout << sizeof(Base2) << endl;
+		cout << sizeof(Base3) << endl;
+
+		printf("A:i=%d\n",&A::i);
+		printf("A:a=%d\n",&A::a);
+		printf("A:b=%d\n",&A::b);
+		printf("A:c=%d\n",&A::c);
+
+		printf("Base3:i=%d\n", &Base3::i);
+		printf("Base3:a=%d\n", &Base3::a);
+		printf("Base3:b=%d\n", &Base3::b);
+		printf("Base3:c=%d\n", &Base3::c);
+	}
+}
 int main()
 {
-	test23::func();
+	test25::func();
 	return 0;
 }
