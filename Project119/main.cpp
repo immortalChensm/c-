@@ -1055,8 +1055,48 @@ namespace test25
 		printf("Base3:c=%d\n", &Base3::c);
 	}
 }
+namespace test26
+{
+	//类成员数据布局
+	//打印出来的偏移并不一定正确
+	//最好调试看各个成员在内存中的数据存储情况
+	//一个类有虚函数，就会有虚函数表
+	//并且类对象会添加新成员vptr虚函数表指针指向虚函数表
+	//而这个添加新成员赋值操作是由编程器在构造函数中额外添加的
+	class Base {
+	public:
+		int mi;
+		//virtual void show(){}
+	};
+	class A:public Base {
+	public:
+		int i;
+		int j;
+		virtual void test(){}
+		A() {
+			int a = 10;
+		}
+		~A()
+		{
+			int b = 0;
+		}
+	};
+	void func()
+	{
+		A obj;
+		cout << sizeof(A) << endl;
+
+		printf("A::i=%d\n",&A::i);
+		printf("A::j=%d\n",&A::j);
+		printf("A::mi=%d\n",&A::mi);
+
+		obj.i = 2;
+		obj.j = 3;
+		obj.mi = 6;
+	}
+}
 int main()
 {
-	test25::func();
+	test26::func();
 	return 0;
 }
