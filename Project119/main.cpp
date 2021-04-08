@@ -1095,8 +1095,54 @@ namespace test26
 		obj.mi = 6;
 	}
 }
+namespace test27
+{
+	class Base1 {
+	public:
+		int mi1;
+		virtual void show1(){}
+	};
+	class Base2
+	{
+	public:
+		int mi2;
+		virtual void show2() {}
+	};
+	class A :public Base1,public Base2 {
+	public:
+		int i;
+		int j;
+		virtual void test() {}
+		A() {
+			int a = 10;
+		}
+		~A()
+		{
+			int b = 0;
+		}
+	};
+	void func()
+	{
+		A obj;
+		cout << sizeof(A) << endl;
+
+		printf("A::mi1=%d\n", &A::mi1);
+		printf("A::mi2=%d\n", &A::mi2);
+		printf("A::i=%d\n", &A::i);
+		printf("A::j=%d\n", &A::j);
+
+		obj.i = 2;
+		obj.j = 3;
+		obj.mi1 = 8;
+		obj.mi2 = 9;
+		
+		//obj 对象内存布局
+		//dc 93 87 00 08 00 00 00 ec 93 87 00 09 00 00 00 02 00 00 00 03 00 00 00
+		//vptr         mi1        vptr        mi2         i           j
+	}
+}
 int main()
 {
-	test26::func();
+	test27::func();
 	return 0;
 }
