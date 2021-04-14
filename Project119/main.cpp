@@ -1141,8 +1141,45 @@ namespace test27
 		//vptr         mi1        vptr        mi2         i           j
 	}
 }
+namespace test28
+{
+	//虚基类
+	//
+	class Grand
+	{
+	public:
+		int m_grand;
+	};
+	//虚继承
+	class A1 : virtual public Grand {
+	public:
+		int m_a1;
+	};
+	class A2 : virtual public Grand {
+	public:
+		int m_a2;
+	};
+	//C1对象布局：A1 成员+A1虚基类表指针vbptr=vbtable virtual base table
+	//A2成员+A2虚基类表指针+基类m_grand+m_c1
+	class C1 :public A1, public A2 {
+	public:
+		int m_c1;
+	};
+	void func()
+	{
+		cout << sizeof(Grand) << endl;
+		cout << sizeof(A1) << endl;
+		cout << sizeof(A2) << endl;
+		cout << sizeof(C1) << endl;
+
+		C1 obj;
+		//obj.m_grand = 10;
+		obj.A1::m_grand = 10;
+
+	}
+}
 int main()
 {
-	test27::func();
+	test28::func();
 	return 0;
 }
