@@ -1248,8 +1248,42 @@ namespace test29
 
 	}
 }
+namespace test30
+{
+	//类虚继承会存在虚基类表指针
+	//虚基类表指针里存储的实际是上父类的一些成员偏移值
+	//当类对象对类成员操作时，会取得虚基类地址里的偏移值
+	class Grand {
+	public:
+		int m_grand;
+	};
+	class Grand1 {
+	public:
+		int m_grand1;
+	};
+	class A1:virtual public Grand,virtual public Grand1 {
+	public:
+		int _a1;
+	};
+	class A2 :virtual public Grand {
+	public:
+		int _a2;
+	};
+	class C :public A1, public A2 {
+	public:
+		int c;
+	};
+	void func()
+	{
+		A1 obj;
+		cout << sizeof(obj) << endl;
+		obj.m_grand = 3;
+		obj.m_grand1 = 2;
+		obj._a1 = 4;
+	}
+}
 int main()
 {
-	test29::func();
+	test30::func();
 	return 0;
 }
