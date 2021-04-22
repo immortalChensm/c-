@@ -1282,8 +1282,75 @@ namespace test30
 		obj._a1 = 4;
 	}
 }
+namespace test31
+{
+	void func(char )
+	{
+		//
+		//const char code[] = { 0x03,0x1b,0x17,0x00,0x00,0x00,0x02,0xD0,0x03,0xE8,0x00,0x00,0x20,0x78,0x00,0x00,0x00,0x00,0x00,0x00,0x10,0x48,0x03,0x0F,0x02,0x0B,0x76,0x0B,0x82 };
+		//const char code[] = { 0x05,0x0A, 0x30 ,0x31 ,0x32, 0x33,0x34,0x35,0x36,0x37,0x38,0x39 };
+		const char code[] = {0x04,0x00,0x00};
+		int i = 0;
+		short int sum = 0;
+		for (i = 0; i < 3; i++)
+			sum += code[i];//将每个数相加
+
+
+		printf("0x%x\n", sum);
+		sum = ~sum;
+		printf("0x%x\n", sum);
+		sum += 1;
+
+
+		
+		//sum = sum & 0xff;
+		printf("0x%x\n", sum);
+
+		//取低位
+		unsigned char op1 = (sum >>8)&0xFF;
+		//取高位
+		unsigned char op2 = sum & 0xFF;
+		printf("0x%x\n", op1);
+		printf("0x%x\n", op2);
+	}
+}
+namespace test32
+{
+	class Grand {
+	public:
+		int m_grand;
+	};
+	class A1 :virtual public Grand {
+	public:
+		int m_a1;
+	};
+	class A2 :virtual public Grand {
+	public:
+		int m_a2;
+	};
+
+	class C1 :public A1, public A2 {
+	public:
+		int m_c1;
+	};
+
+	void func()
+	{
+		cout << sizeof(Grand) << endl;
+		cout << sizeof(A1) << endl;
+		cout << sizeof(A2) << endl;
+		cout << sizeof(C1) << endl;
+		//obj内存布局：有虚基类表，表里存储的是基类成员的偏移值
+		//当给m_grand赋值时，汇编代码会取得该偏移值
+		C1 obj;
+		obj.m_grand = 2;
+		obj.m_a1 = 3;
+		obj.m_a2 = 4;
+		obj.m_c1 = 5;
+	}
+}
 int main()
 {
-	test30::func();
+	test32::func();
 	return 0;
 }

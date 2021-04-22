@@ -1,0 +1,12 @@
+﻿  WzSerialPort.cpp
+  main.cpp
+E:\WzSerialPort\src\windows\main.cpp(12,25): warning C4838: 从“int”转换到“const char”需要收缩转换
+E:\WzSerialPort\src\windows\main.cpp(12,25): warning C4309: “初始化”: 截断常量值
+E:\WzSerialPort\src\windows\main.cpp(12,30): warning C4838: 从“int”转换到“const char”需要收缩转换
+E:\WzSerialPort\src\windows\main.cpp(12,30): warning C4309: “初始化”: 截断常量值
+E:\WzSerialPort\src\windows\main.cpp(12,45): warning C4838: 从“int”转换到“const char”需要收缩转换
+E:\WzSerialPort\src\windows\main.cpp(12,45): warning C4309: “初始化”: 截断常量值
+E:\WzSerialPort\src\windows\main.cpp(12,50): warning C4838: 从“int”转换到“const char”需要收缩转换
+E:\WzSerialPort\src\windows\main.cpp(12,50): warning C4309: “初始化”: 截断常量值
+  正在生成代码...
+  serial.vcxproj -> E:\project\Debug\serial.exe
