@@ -1349,8 +1349,103 @@ namespace test32
 		obj.m_c1 = 5;
 	}
 }
+
+namespace test33
+{
+
+	template<typename T1,class T2>
+	T1 test(T1 a, T2 b)
+	{
+		T1 c = a + b;
+		return c;
+	}
+	class A {
+	public:
+		int num;
+		A(int b=0) :num(b) {
+			
+		}
+	
+	};
+	struct B {
+		int num;
+		B(int b = 0) :num(b) {
+
+		}
+	};
+	template<class T1,class T2>
+	T1 operator+(const T1& obj1, const T2& obj2) {
+
+		T1 obj;
+		obj.num = obj1.num + obj2.num;
+		return obj;
+	}
+}
+
+namespace test34
+{
+	class A {
+	public:
+		int i;
+		int j;
+		int k;
+
+		void show() {
+			cout << i << j << k << endl;
+		}
+	};
+	void func() {
+
+		printf("i的偏移值%d\n",&A::i);
+		printf("j的偏移值%d\n",&A::j);
+		printf("k的偏移值%d\n",&A::k);
+
+		A obj;
+		printf("i的地址=%p\n",&obj.i);
+		printf("j的地址=%p\n",&obj.j);
+		printf("i的地址=%p\n",&obj.k);
+
+		A* obj1 = new A();
+		printf("i指针变量的地址=%p\n", &obj1->i);
+		printf("j指针变量的地址=%p\n", &obj1->j);
+		printf("i指针变量的地址=%p\n", &obj1->k);
+
+		int A::* x = &A::i;
+		obj.*x = 100;
+		int A::* y = &A::j;
+		int A::* z = &A::k;
+
+		cout << obj.i << obj.*x << endl;
+
+		void (A::* func)(void) = &A::show;
+		(obj.*func)();
+
+		printf("x=%d,size=%d\n",x,sizeof(x));
+		printf("y=%d,size=%d\n",y,sizeof(y));
+		printf("z=%d,size=%d\n",z,sizeof(z));
+	}
+}
 int main()
 {
-	test32::func();
+	test34::func();
+	//using namespace test33;
+
+	/*cout<<test33::test(10,22) << endl;
+	cout<<test33::test(10.32,22.43) << endl;
+	cout<<test33::test((std::string)"china", (std::string)"good") << endl;
+	test33::A objx(1);
+	test33::A objy(2);
+	cout<<test33::test(objx,objy).num<<endl;
+
+	test33::B objx1(10);
+	test33::B objy1(20);
+	cout << test33::test(objx1, objy1).num << endl;*/
+
+
+	/*test33::A obj(1);
+	test33::A obj2(2);
+	test33::A obj3 = obj + obj2;*/
+	
+
 	return 0;
 }
