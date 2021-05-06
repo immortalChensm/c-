@@ -1425,9 +1425,73 @@ namespace test34
 		printf("z=%d,size=%d\n",z,sizeof(z));
 	}
 }
+namespace test35
+{
+	class A {
+	public:
+		int i;
+		//编译器实现时是
+		//void myfunc(const A*this,int a) 实际上会编译成全局函数，调用时传递A并让this接收
+		void myfunc(int a) {
+			i += a;
+			cout << "this=" << this << endl;
+		}
+	};
+	void gmyfunc( A*obj,int x) {
+		obj->i+= x;
+	}
+	void func() {
+
+		A obj;
+		cout << "obj=" << &obj << endl;
+		obj.myfunc(10);
+		gmyfunc(&obj,20);
+	}
+}
+namespace test36
+{
+	class A {
+	public:
+		int m_i;
+		void myfunc(int abc)
+		{
+			//m_i = abc;
+			printf("myfunc called");
+		}
+		virtual void myvfunc()
+		{
+			printf("virtual void myvfunc called %p\n",this);
+		}
+
+		static void mystfunc()
+		{
+			printf("static void mystfunc called \n");
+		}
+	};
+	void func()
+	{
+		//c++ 类成员函数编译器处理后会变成全局函数  当涉及到类成员变量调用时，建议在栈或是堆中实例化类对象
+		//否则可以以其它方式调用
+		A obj;
+		A* obj1 = new A();
+		obj.myvfunc();
+		obj1->myvfunc();
+
+		obj.mystfunc();
+		obj1->mystfunc();
+		A::mystfunc();
+
+		((A*)0)->mystfunc();
+		((A*)0)->myfunc(1);
+		((A*)1)->myfunc(2);
+
+		((A*)"china")->myfunc(3);
+		delete obj1;
+	}
+}
 int main()
 {
-	test34::func();
+	test36::func();
 	//using namespace test33;
 
 	/*cout<<test33::test(10,22) << endl;
