@@ -1489,9 +1489,30 @@ namespace test36
 		delete obj1;
 	}
 }
+namespace test37
+{
+	class A {
+	public:
+		int i;
+		virtual void a() {
+
+		}
+		virtual void b() {
+
+		}
+	};
+	void func() {
+
+		cout << sizeof(A) << endl;
+		printf("a=%p\n",&A::a);
+		printf("b=%p\n",&A::b);
+		A* obj = new A();
+		
+	}
+}
 int main()
 {
-	test36::func();
+	test37::func();
 	//using namespace test33;
 
 	/*cout<<test33::test(10,22) << endl;
