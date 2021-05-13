@@ -1510,9 +1510,101 @@ namespace test37
 		
 	}
 }
+namespace test38
+{
+	class A {
+	public:
+		mutable  int x;
+	};
+	class B {
+	public:
+		mutable  int x;
+	};
+	void func() {
+
+		printf("A size=%d\n",sizeof(A));
+		int arr[3] = { 0 };
+
+		int* x = arr;//可以
+		printf("x=%p,arr=%p\n",x,arr);//可以
+
+		int* y = arr + 1;
+		printf("y=%p,arr=%p\n", y, arr+1);
+
+		int* z = &arr[0] + 1;
+
+		printf("z=%p,arr=%p\n",z,&arr[0]+1);
+
+		int* x1 = arr;
+		x1 = (int*)new A();
+		*x1 = 100;
+		int* x2 = arr + 1;
+		x2 = (int*)new A();
+		*x2 = 200;
+		int* x3 = arr + 2;
+		x3 = (int*)new B();
+		*x3 = 200;
+
+		
+		cout << ((A*)(x1))->x << endl;
+		cout << ((A*)(x2))->x << endl;
+		cout << ((A*)(x3))->x << endl;
+
+
+		*(arr + 1) = 100;
+		*(arr + 2) = 300;
+		*arr = 500;
+
+		printf("arr[0]=%d,arr[1]=%d,arr[2]=%d\n",arr[0],arr[1],arr[2]);
+
+	}
+}
+namespace test39
+{
+	class Base {
+	public:
+		void show() {
+			cout << "Base::show()" << endl;
+		}
+
+		virtual void printf(int v=100) {
+			cout << "Base::printf()" <<v<< endl;
+		}
+	};
+	class Dervie :public Base {
+	public:
+		void show() {
+			cout << "Dervie::show()" << endl;
+		}
+		virtual void printf(int v=300) {
+			cout << "Dervie::printf()" <<v<< endl;
+		}
+	};
+	void func()
+	{
+		Base obj1;
+		Dervie obj2;
+		obj1.show();
+		obj2.show();
+
+		Base* obj3 = new Base();
+		Dervie* obj4 = new Dervie();
+	
+		obj3->printf();
+		cout << "***************" << endl;
+		obj3 = obj4;
+
+		obj3->show();
+		obj4->show();
+
+		obj3->printf();
+		obj4->printf();
+		
+	}
+}
 int main()
 {
-	test37::func();
+	test39::func();
 	//using namespace test33;
 
 	/*cout<<test33::test(10,22) << endl;
