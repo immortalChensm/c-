@@ -1602,9 +1602,51 @@ namespace test39
 		
 	}
 }
+namespace test40
+{
+	class Base {
+	public:
+		virtual void f() {
+			cout << "Base::f" << endl;
+		}
+		virtual void g() {
+			cout << "Base::g" << endl;
+		}
+		virtual void h() {
+			cout << "Base::h" << endl;
+		}
+	};
+	class Dervied :public Base {
+	public:
+		virtual void g()
+		{
+			cout << "Dervied::g" << endl;
+		}
+		virtual void i()
+		{
+			cout << "Dervied::i" << endl;
+		}
+	};
+	void func()
+	{
+		Base* obj = new Dervied();
+		obj->g();
+
+		Dervied* obj1 = new Dervied();
+
+		long* x = (long*)obj1;
+		long* y = (long*)*x;
+
+		using Func = void(*)();
+		Func f = (Func)y[0];
+
+		f();
+
+	}
+}
 int main()
 {
-	test39::func();
+	test40::func();
 	//using namespace test33;
 
 	/*cout<<test33::test(10,22) << endl;
