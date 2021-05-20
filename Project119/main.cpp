@@ -1616,7 +1616,16 @@ namespace test40
 			cout << "Base::h" << endl;
 		}
 	};
-	class Dervied :public Base {
+	class Base2 {
+	public:
+		virtual void Hbase() {
+
+		}
+		virtual ~Base2(){
+
+		}
+	};
+	class Dervied :public Base,public Base2 {
 	public:
 		virtual void g()
 		{
@@ -1629,7 +1638,7 @@ namespace test40
 	};
 	void func()
 	{
-		Base* obj = new Dervied();
+		/*Base* obj = new Dervied();
 		obj->g();
 
 		Dervied* obj1 = new Dervied();
@@ -1641,6 +1650,13 @@ namespace test40
 		Func f = (Func)y[0];
 
 		f();
+
+		delete obj;
+		delete obj1;*/
+
+		Base2* obj = new Dervied();
+		
+		delete obj;
 
 	}
 }
