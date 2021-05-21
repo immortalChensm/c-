@@ -1660,9 +1660,27 @@ namespace test40
 
 	}
 }
+namespace test41
+{
+	void func()
+	{
+		auto x = 100;
+		auto y = "china";
+		int& z = x;
+		z = 200;
+		cout << x << y << z << endl;
+
+		const int j = 100;
+		//j = 200;
+		constexpr int k = 200;
+		//k = 300;
+		cout << j << k << endl;
+
+	}
+}
 int main()
 {
-	test40::func();
+	test41::func();
 	//using namespace test33;
 
 	/*cout<<test33::test(10,22) << endl;
