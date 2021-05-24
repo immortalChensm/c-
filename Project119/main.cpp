@@ -1678,9 +1678,54 @@ namespace test41
 
 	}
 }
+namespace test42
+{
+	void func()
+	{
+		int num[4]{ 1,2,3,4 };
+		for (auto &x : num) {
+			cout << x << endl;
+		}
+
+		int* x1 = new int;
+		*x1 = 100;
+		int* x2 = new int(100);
+		cout << *x1 << *x2 << endl;
+
+		delete x1;
+		delete x2;
+
+		int* x3 = new int[100];
+
+		*x3 = 1;
+		*(x3 + 2) = 2;
+
+		cout << *x3 << endl;
+		cout << *(x3 + 2) << endl;
+		delete[] x3;
+
+		int* x4 = (int*)malloc(10*sizeof(int));
+		x4[0] = 100;
+		x4[1] = 500;
+		cout << x4[1] << endl;
+		free(x4);
+
+		int* a = NULL;
+		int* b = nullptr;
+
+		if (a == b) {
+			cout << "a==b" << endl;
+		}
+
+		cout << typeid(NULL).name() << endl;
+		cout << typeid(nullptr).name() << endl;
+
+	}
+}
+
 int main()
 {
-	test41::func();
+	test42::func();
 	//using namespace test33;
 
 	/*cout<<test33::test(10,22) << endl;
