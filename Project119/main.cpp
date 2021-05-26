@@ -1722,10 +1722,42 @@ namespace test42
 
 	}
 }
+namespace test43
+{
+	struct student {
+
+		int age;
+		char name[100];
+		void test()
+		{
+			age++;
+		}
+	};
+
+	void test(student& stu) {
+		stu.age + 10;
+	}
+	void test1(student* stu) {
+		stu->age += 200;
+	}
+	void func()
+	{
+		student tony;
+		tony.age = 100;
+		strcpy_s(tony.name,sizeof(tony.name),"tony");
+
+		tony.test();
+
+		test(tony);
+		test1(&tony);
+
+		cout << tony.age << tony.name << endl;
+	}
+}
 
 int main()
 {
-	test42::func();
+	test43::func();
 	//using namespace test33;
 
 	/*cout<<test33::test(10,22) << endl;
