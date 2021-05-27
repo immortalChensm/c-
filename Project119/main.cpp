@@ -1754,10 +1754,43 @@ namespace test43
 		cout << tony.age << tony.name << endl;
 	}
 }
+namespace test44
+{
+	auto func1(int x, int b)->int {
+		return x + b;
+	}
+	inline auto func2()-> void {
+		return;
+	}
+
+
+	void func() {
+
+		//cout << func1(10, 20) << endl;
+		string s1{ "ilikephp" };
+		cout << s1.size() << endl;
+		cout << s1.length() << endl;
+		cout << s1.empty() << endl;
+		//cout << s1.reserve(1) << endl;
+		cout << s1[2] << endl;
+		cout << s1.c_str() << endl;
+		cout << s1.data() << endl;
+
+		if (s1 == "c") {
+			cout << "equal" << endl;
+		}
+
+		s1 = s1 + "¿ªÁË";
+		cout << s1 << endl;
+
+		cout << s1.find("k") << endl;
+
+	}
+}
 
 int main()
 {
-	test43::func();
+	test44::func();
 	//using namespace test33;
 
 	/*cout<<test33::test(10,22) << endl;
