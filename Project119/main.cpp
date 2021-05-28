@@ -1787,10 +1787,87 @@ namespace test44
 
 	}
 }
+namespace test45
+{
+	class A {
+	private:
+		int x;
+		int y;
+	public:
+		void init() {
+			x = 100;
+			y = 100;
+		}
+		void show() {
+			cout << x << y << endl;
+		}
+	};
+	void func()
+	{
+		//() 表示元素个数  {}表示数据 数据类型对应不上，会表示个数
+		vector<int> x1(10, 2);
+		vector<int> x2{ 10,2 };
+		vector<string> x3(10);
+		vector<string> x4{ 10 };
+
+		vector<string> x5{ "china","beijing" };
+
+
+		cout << x5.size() << endl;
+		cout << x5.front() << endl;
+		cout << x5[1] << endl;
+
+		if (!x5.empty()) {
+			cout << "x5 not empty" << endl;
+		}
+
+
+	    x5.erase(x5.begin());
+
+		x5.push_back("lucy");
+		//x5[2] = "tom";
+		//x5[3] = "jack";
+
+		for (auto x : x5) {
+
+			cout << x << endl;
+		}
+
+		x5.clear();
+
+		if (x5.empty()) {
+			cout << "x5 empty" << endl;
+		}
+		x5.push_back("china");
+		cout << x5[0] << endl;
+		x5.pop_back();
+		if (x5.empty()) {
+			cout << "x5 empty" << endl;
+		}
+		else {
+			cout << "pop_back=" << x5[0] << endl;
+		}
+		
+
+		A obj;
+		obj.init();
+		obj.show();
+
+		A* obj1 = &obj;
+		obj1->init();
+		obj1->show();
+
+		A obj2 = obj;
+		A obj3{ obj };
+		A obj4(obj);
+		A obj5 = { obj };
+		obj5.show();
+	}
+}
 
 int main()
 {
-	test44::func();
+	test45::func();
 	//using namespace test33;
 
 	/*cout<<test33::test(10,22) << endl;
