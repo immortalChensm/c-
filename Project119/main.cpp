@@ -1864,10 +1864,47 @@ namespace test45
 		obj5.show();
 	}
 }
+namespace test46
+{
+	void func()
+	{
+
+		int x1 = 100;
+		double x2 = double(x1);
+		cout << x2 << endl;
+
+		float x3 = static_cast<float>(x2);
+		cout << x3 << endl;
+
+		int* x4 = static_cast<int*>(&x1);
+		cout << *x4 << endl;
+
+		class A {};
+		class B :public A {};
+		A obj;
+		B obj1;
+		obj = static_cast<A>(obj1);
+
+
+		const int* z = &x1;
+		cout << *z << endl;
+
+		int* y = const_cast<int*>(z);
+		*y = 1000;
+		cout << *y << endl;
+		cout << *z << endl;
+
+		char* j = reinterpret_cast<char*>(y);
+		cout << *j << endl;
+
+		char k = reinterpret_cast<char>(&obj);
+		cout << k << endl;
+	}
+}
 
 int main()
 {
-	test45::func();
+	test46::func();
 	//using namespace test33;
 
 	/*cout<<test33::test(10,22) << endl;
