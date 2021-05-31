@@ -1902,6 +1902,7 @@ namespace test46
 	}
 }
 
+
 int main()
 {
 	test46::func();
