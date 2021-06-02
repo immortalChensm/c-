@@ -8,28 +8,31 @@ public:
 	int hour;
 	int minute;
 	int second;
+	//const int jk{ 0 };
 	void initTIme() {
 
 	}
-	Time(int h, int m, int s):hour(h),minute(m),second(s) {
-		/*hour = h;
-		minute = m;
-		second = s;*/
-		cout << "Time(int h, int m, int s) 构造函数" << endl;
-	}
-	//explicit Time(int h) {
-	 Time(int h) {
-		hour = h;
-		minute = 10;
-		second = 20;
-		cout << "Time(int h) 构造函数" << endl;
-	}
-	Time() {
-		hour = 10;
-		minute = 10;
-		second = 10;
-		cout << "Time() 构造函数" << endl;
-	}
+	//Time() = default;
+	//Time() = delete;
+	//Time(int h, int m, int s):hour(h),minute(m),second(s) {
+	//	/*hour = h;
+	//	minute = m;
+	//	second = s;*/
+	//	cout << "Time(int h, int m, int s) 构造函数" << endl;
+	//}
+	////explicit Time(int h) {
+	// Time(int h) {
+	//	hour = h;
+	//	minute = 10;
+	//	second = 20;
+	//	cout << "Time(int h) 构造函数" << endl;
+	//}
+	//Time() {
+	//	hour = 10;
+	//	minute = 10;
+	//	second = 10;
+	//	cout << "Time() 构造函数" << endl;
+	//}
 
 	inline void test()
 	{
@@ -44,6 +47,9 @@ public:
 
 	static int staticv1;
 	static void tom();
+
+	
+
 };
 
 
@@ -60,12 +66,14 @@ void main()
 {
 
 	Time time;
+
+	/*Time time;
 	time.test();
 	time.ok = 100;
 	time.staticv1 = 200;
 	time.tom();
 	Time::staticv1 = 333;
-	time.tom();
+	time.tom();*/
 
 
 	/*Time time;
