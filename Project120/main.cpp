@@ -30,14 +30,45 @@ public:
 		second = 10;
 		cout << "Time() ¹¹Ôìº¯Êý" << endl;
 	}
+
+	inline void test()
+	{
+		cout << "inline func" <<ok<< endl;
+	}
+	mutable int ok;
+	 int ok1;
+
+	Time& jack(int v)const {
+		ok = v;
+	}
+
+	static int staticv1;
+	static void tom();
 };
+
+
+int Time::staticv1 = 1;
+void Time::tom() {
+	cout << staticv1 << endl;
+	//cout << ok << endl;
+}
 
 void func(Time t) {
 	return;
 }
 void main()
 {
+
 	Time time;
+	time.test();
+	time.ok = 100;
+	time.staticv1 = 200;
+	time.tom();
+	Time::staticv1 = 333;
+	time.tom();
+
+
+	/*Time time;
 	Time time1 = {};
 	Time time2 = 1;
 	Time time3 = (10);
@@ -53,6 +84,6 @@ void main()
 	func({ 100 });
 	func((200));
 	func(300);
-	func({(2002)});
+	func({(2002)});*/
 
 }
