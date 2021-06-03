@@ -2,15 +2,32 @@
 
 using namespace std;
 
+class Tmp {
+public:
+	Tmp() {
+		cout << "tmp构造函数" << endl;
+	}
+	Tmp(const Tmp& obj) {
+		cout << "tmp拷贝构造函数" << endl;
+	}
+};
 class Time
 {
 public:
 	int hour;
 	int minute;
 	int second;
+	Tmp c1;
 	//const int jk{ 0 };
 	void initTIme() {
+		
+	}
+	Time() {
+		cout << "Time构造函数" << endl;
+	}
 
+	Time(const Time& obj):hour(obj.hour),minute(obj.minute),second(obj.second),c1(obj.c1) {
+		cout << "Time拷贝 构造函数" << endl;
 	}
 	//Time() = default;
 	//Time() = delete;
@@ -34,7 +51,7 @@ public:
 	//	cout << "Time() 构造函数" << endl;
 	//}
 
-	inline void test()
+	/*inline void test()
 	{
 		cout << "inline func" <<ok<< endl;
 	}
@@ -46,26 +63,33 @@ public:
 	}
 
 	static int staticv1;
-	static void tom();
+	static void tom();*/
 
 	
 
 };
 
-
-int Time::staticv1 = 1;
-void Time::tom() {
-	cout << staticv1 << endl;
-	//cout << ok << endl;
-}
-
-void func(Time t) {
-	return;
-}
+//
+//int Time::staticv1 = 1;
+//void Time::tom() {
+//	cout << staticv1 << endl;
+//	//cout << ok << endl;
+//}
+//
+//void func(Time t) {
+//	return;
+//}
 void main()
 {
 
 	Time time;
+	Time time1 = time;
+	/*Time time2(time);
+	Time time3{ time };
+	Time time4 = { time };
+	Time time5;
+	time5 = time;*/
+	
 
 	/*Time time;
 	time.test();
