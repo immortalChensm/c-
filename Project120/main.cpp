@@ -19,11 +19,26 @@ public:
 	int second;
 	Tmp c1;
 	//const int jk{ 0 };
+	char* p;
+	Time& operator=(const Time& obj) {
+		hour = obj.hour;
+		minute = obj.minute;
+		second = obj.second;
+		c1 = obj.c1;
+		p = new char[100];
+		cout << "Time拷贝 赋值构造函数" << endl;
+		return *this;
+	}
 	void initTIme() {
 		
 	}
+	~Time() {
+		cout << "Time析构函数" << endl;
+		delete[]p;
+	}
 	Time() {
 		cout << "Time构造函数" << endl;
+
 	}
 
 	Time(const Time& obj):hour(obj.hour),minute(obj.minute),second(obj.second),c1(obj.c1) {
@@ -84,6 +99,12 @@ void main()
 
 	Time time;
 	Time time1 = time;
+	Time time2;
+	time2 = time;
+
+	Time* timex = new Time();
+	delete timex;
+
 	/*Time time2(time);
 	Time time3{ time };
 	Time time4 = { time };
