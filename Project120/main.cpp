@@ -1,4 +1,5 @@
 #include <iostream>
+#include <thread>
 
 using namespace std;
 
@@ -96,14 +97,40 @@ public:
 //}
 void main()
 {
+	cout << "thread id:" << std::this_thread::get_id() << "start" << endl;
+	thread my1([=]() {
+		
+		while (1) {
+			cout << "thread id:" << std::this_thread::get_id() << "start" << endl;
+			//std::chrono::microseconds t(2);
+			//std::this_thread::sleep_for(t);
+		}
+		
+	});
 
-	Time time;
+	thread my2([=]() {
+
+		while (1) {
+			cout << "thread id:" << std::this_thread::get_id() << "start" << endl;
+			//std::chrono::microseconds t(3);
+			//std::this_thread::sleep_for(t);
+		}
+
+		});
+
+	my1.join();
+	my2.join();
+
+
+	cout << "thread id:" << std::this_thread::get_id() << "end" << endl;
+
+	/*Time time;
 	Time time1 = time;
 	Time time2;
 	time2 = time;
 
 	Time* timex = new Time();
-	delete timex;
+	delete timex;*/
 
 	/*Time time2(time);
 	Time time3{ time };
