@@ -84,6 +84,31 @@ namespace test {
 
 	}
 }
+namespace test1
+{
+	void func() {
+
+		int a = 100;//a 左值  100右值  左值：一般是内存地址  右值一般是数据
+		int& b = a;//b左值引用  a左值
+		int&& c = 100;//c右值引用  本身是左值  
+
+		const int& d = 100;//d虽然是左值引用，但它可以引用右值
+
+		string df{ "ilikechina" };
+		string& cf = df;
+
+		df = "iam tony";
+
+		cout << df << cf << endl;
+
+		int&& k = std::move(a);
+		
+		a = 888;
+		k = 101;
+		cout << k << a << endl;
+
+	}
+}
 
 using namespace test;
 int main() {
@@ -94,7 +119,7 @@ int main() {
 	B x;
 	A objx;
 	x.test(200,objx);*/
-	test::func();
+	test1::func();
 
 	return 0;
 }
