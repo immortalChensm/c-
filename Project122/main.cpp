@@ -109,6 +109,60 @@ namespace test1
 
 	}
 }
+namespace test2
+{
+	class CTempValue {
+	public:
+		int a;
+		int b;
+		CTempValue(int x=0, int y=0) :a(x), b(y) {
+			cout << "构造函数" << this<<endl;
+		}
+		CTempValue(const CTempValue& obj) :a(obj.a), b(obj.b) {
+			cout << "拷贝构造函数" << this << endl;
+		}
+		CTempValue& operator=(const CTempValue& obj) {
+
+			a = obj.a;
+			b = obj.b;
+			return *this;
+			cout << "拷贝赋值" << endl;
+		}
+		int Add(CTempValue obj) {
+
+			int ret = obj.a + obj.b;
+			return ret;
+		}
+		~CTempValue() {
+			cout << "析构函数" << this << endl;
+		}
+	};
+	CTempValue  test(CTempValue obj) {
+
+		CTempValue result;
+		result.a = obj.a + 100;
+		result.b = obj.b + 200;
+		return result;
+	}
+	void func() {
+
+		/*CTempValue obj(100, 20);
+
+		int ret = obj.Add(obj);
+
+		cout << "ret=" << ret << endl;*/
+		//CTempValue obj;
+		//obj = 100;
+		//CTempValue x = obj;
+
+		CTempValue ret = test(100);
+
+		cout << ret.a << ret.b << endl;
+
+	}
+
+	
+}
 
 using namespace test;
 int main() {
@@ -119,7 +173,7 @@ int main() {
 	B x;
 	A objx;
 	x.test(200,objx);*/
-	test1::func();
+	test2::func();
 
 	return 0;
 }
