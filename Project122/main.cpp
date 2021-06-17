@@ -125,8 +125,9 @@ namespace test2
 
 			a = obj.a;
 			b = obj.b;
-			return *this;
 			cout << "拷贝赋值" << endl;
+			return *this;
+			
 		}
 		int Add(CTempValue obj) {
 
@@ -151,17 +152,93 @@ namespace test2
 		int ret = obj.Add(obj);
 
 		cout << "ret=" << ret << endl;*/
-		//CTempValue obj;
-		//obj = 100;
+		CTempValue obj;
+		obj = 100;
 		//CTempValue x = obj;
 
-		CTempValue ret = test(100);
+		//CTempValue ret = test(100);
 
-		cout << ret.a << ret.b << endl;
+		//cout << ret.a << ret.b << endl;
 
 	}
 
 	
+}
+namespace test3
+{
+	class B {
+	public:
+		int a;
+		B() :a(100) {
+			cout << "B" << endl;
+		}
+		B(const B& obj) :a(obj.a) {
+			cout << "B copy" << endl;
+		}
+		virtual ~B() {
+			cout << "~B" << endl;
+		}
+	};
+	class A {
+	public:
+		A() :m_b(new B()) {
+			cout << "A" << endl;
+		}
+		A(const A& obj) :m_b(new B(*(obj.m_b))) {
+			cout << "A copy" << endl;
+		}
+		A& operator=(const A& obj)  {
+			m_b = (new B(*(obj.m_b)));
+			cout << "A == copy" << endl;
+		}
+		A& operator=(A&& obj) {
+
+			if (this == &obj) {
+				return *this;
+			}
+			m_b = nullptr;
+			m_b = obj.m_b;
+			obj.m_b = nullptr;
+			cout << "A move copy" << endl;
+			return *this;
+		}
+		A(A&& obj) {
+
+			m_b = nullptr;
+			m_b = obj.m_b;
+			obj.m_b = nullptr;
+			cout << "A move  copy const" << endl;
+			
+		}
+		//A(const A& obj) :m_b(obj.m_b) {//这样会导致 obj成员m_b和当前this.m_b共同指向同一块内存，delete释放出错
+		//	cout << "A copy" << endl;
+		//}
+	private:
+		B* m_b;
+	};
+	static A getA() {
+		A a;
+		return a;
+	}
+	void func() {
+
+		//B obj;
+		//B obj1 = obj;
+
+		//A obj2;
+		//A obj3 = obj2;
+		/*A* obj = new A();
+		A* obj2 = new A();
+		obj2 = obj;
+
+		delete obj;*/
+		//delete obj2;
+
+		A a = getA();
+
+		A&& a1 = std::move(a);
+		//A& a2 = a;
+	}
 }
 
 using namespace test;
@@ -173,7 +250,7 @@ int main() {
 	B x;
 	A objx;
 	x.test(200,objx);*/
-	test2::func();
+	test3::func();
 
 	return 0;
 }
