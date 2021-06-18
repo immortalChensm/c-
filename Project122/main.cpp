@@ -190,8 +190,9 @@ namespace test3
 		A& operator=(const A& obj)  {
 			m_b = (new B(*(obj.m_b)));
 			cout << "A == copy" << endl;
+			return *this;
 		}
-		A& operator=(A&& obj) {
+		A& operator=(A&& obj)noexcept {
 
 			if (this == &obj) {
 				return *this;
@@ -202,7 +203,7 @@ namespace test3
 			cout << "A move copy" << endl;
 			return *this;
 		}
-		A(A&& obj) {
+		A(A&& obj) noexcept{
 
 			m_b = nullptr;
 			m_b = obj.m_b;
@@ -237,7 +238,121 @@ namespace test3
 		A a = getA();
 
 		A&& a1 = std::move(a);
-		//A& a2 = a;
+
+		
+		A& a2 = a;
+	}
+}
+namespace test4
+{
+	class Grand {
+	public:
+		Grand(int x) :grand(x) {
+			cout << "Grand 构造函数" << endl;
+		}
+		virtual ~Grand() {
+			cout << "Grand 析构函数" << endl;
+		}
+		void myinfo() {
+
+			cout << "Grand grand" << grand << endl;
+		}
+	public:
+		int grand;
+	};
+	class A:virtual public Grand {
+	public:
+		A(int x) :Grand(x),a(x) {
+			cout << "A 构造函数" << endl;
+		}
+		virtual ~A() {
+			cout << "A 析构函数" << endl;
+		}
+		void myinfo() {
+
+			cout << "A a==" << a << endl;
+		}
+	public:
+		int a;
+	};
+	//虚继承基类  基类就是  虚基类了
+	class A2 :public virtual  Grand {
+	public:
+		A2(int x) :Grand(x), a2(x) {
+			cout << "A2 构造函数" << endl;
+		}
+		virtual ~A2() {
+			cout << "A2 析构函数" << endl;
+		}
+		void myinfo() {
+
+			cout << "A a2" << a2 << endl;
+		}
+	public:
+		int a2;
+	};
+	class B {
+	public:
+		B(int x) : b(x) {
+			cout << "B 构造函数" << endl;
+		}
+		virtual ~B() {
+			cout << "B 析构函数" << endl;
+		}
+		void myinfo() {
+
+			cout << "B b" << b << endl;
+		}
+	public:
+		int b;
+	};
+	class C :public A,public A2, public B {//派生列表
+
+	public:
+		C(int x,int y,int z) :A(x),A2(x),B(y),Grand(x), c(z) {
+			cout << "C 构造函数" << endl;
+		}
+		virtual ~C() {
+			cout << "C 析构函数" << endl;
+		}
+		void myinfoC() {
+
+			cout << "C c" << c << endl;
+		}
+	public:
+		int c;
+
+	};
+	class X {
+	public:
+		//X(){}
+		X(int x=0) {}
+	};
+	class Y1 {
+	public:
+		//Y() {}
+		Y1(int x=0){}
+	};
+	class Z :public X, public Y1 {
+	public:
+		//using Y1::Y1;
+		using X::X;
+		//using Y::Y;//继承基类的构造函数  派生类会写一份自己的构造函数
+		/*Z(int x) :X(x) {
+
+		}
+		Z(int x) :Y(x) {
+
+		}*/
+	};
+	void func() {
+
+		C obj(1,2,3);
+		obj.myinfoC();
+
+		//obj.myinfo();
+		obj.A::myinfo();
+
 	}
 }
 
@@ -250,7 +365,7 @@ int main() {
 	B x;
 	A objx;
 	x.test(200,objx);*/
-	test3::func();
+	test4::func();
 
 	return 0;
 }
