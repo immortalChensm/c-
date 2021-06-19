@@ -355,6 +355,100 @@ namespace test4
 
 	}
 }
+namespace test5
+{
+	class A {
+	public:
+		A(int x = 0) :a(x) {
+			cout << "A x" << x << endl;
+		}
+		int a;
+	public:
+		//typedef void(*func)(int);
+		using Func = void(*)(int);
+		operator int() {
+			return a;
+		}
+		static void myshow(int x){
+			cout << "myshow" << x<<endl;
+		}
+		operator Func() {
+			return myshow;
+		}
+	};
+	class CT1 {
+	public:
+		CT1(int x=0){}
+	};
+	class CT2 {
+	public:
+		CT2(int x=0) {}
+	};
+	void test(CT1 obj){}
+	void test(CT2 obj) {}
+
+	class TestInt {
+	public:
+		void ptfunc() {
+			cout << "ptfunc" << endl;
+		}
+		static void staticfunc() {
+			cout << "staticfunc" << endl;
+		}
+		virtual void virfunc() {
+			cout << "virfunc" << endl;
+		}
+		int x{ 0 };
+		static int y;
+	};
+	int TestInt::y = 0;
+
+	void func() {
+
+		TestInt obj;
+
+		void(TestInt:: * pt)() = &TestInt::ptfunc;
+
+		(obj.*pt)();
+
+		void (TestInt:: * vir)() = &TestInt::virfunc;
+
+		(obj.*vir)();
+
+
+		void (*stat)() = &TestInt::staticfunc;
+
+		stat();
+
+		int TestInt::* px = &TestInt::x;
+
+		(obj.*px) = 100;
+
+		cout << (obj.*px) << endl;
+
+		int* py = &TestInt::y;
+		*py = 101;
+		cout << *py << endl;
+
+		printf("x=%d,x=%#x\n",&TestInt::x, &obj.x);
+		printf("y=%d,y=%#x\n",&TestInt::y, &obj.y);
+
+		/*A obj = 1;
+		A obj2{ 2 };
+		obj(22);
+		int k = static_cast<int>(obj)+100;
+		obj.operator test5::A::Func()(222);
+
+		test(CT1{22});*/
+
+		/*int k = obj;
+		int j = obj.operator int();
+
+		int m = obj + 100;
+		cout << "m=" << m << endl;*/
+
+	}
+}
 
 using namespace test;
 int main() {
@@ -365,7 +459,7 @@ int main() {
 	B x;
 	A objx;
 	x.test(200,objx);*/
-	test4::func();
+	test5::func();
 
 	return 0;
 }
