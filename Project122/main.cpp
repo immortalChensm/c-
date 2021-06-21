@@ -449,6 +449,33 @@ namespace test5
 
 	}
 }
+namespace test6
+{
+
+	template <typename a,typename b>
+	a adds(a x, b y) {
+		a j = x + y;
+		return j;
+	}
+
+	template<class T,int x>
+	T addhe(T a, T b) {
+
+		T j = a + b + x;
+		return j;
+	}
+
+	void func() {
+
+
+		int k = adds(100, 200);//编译器自己推断
+
+		cout << k << endl;
+		//手动推导
+		cout << addhe<int,100>(100, 200) << endl;
+
+	}
+}
 
 using namespace test;
 int main() {
@@ -459,7 +486,7 @@ int main() {
 	B x;
 	A objx;
 	x.test(200,objx);*/
-	test5::func();
+	test6::func();
 
 	return 0;
 }
