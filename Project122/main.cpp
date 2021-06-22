@@ -476,6 +476,51 @@ namespace test6
 
 	}
 }
+namespace test7
+{
+	template<typename T,int size=10>
+	class A {
+	public:
+		A();
+		A& operator=(const A& obj);
+		void show();
+	};
+	template<typename T, int size>
+	A<T, size>::A() {
+		cout << "constructor" << endl;
+	}
+
+	template<typename T, int size>
+	A<T,size>& A<T, size>::operator=(const A<T,size>& obj) {
+
+		return *this;
+	}
+	template<typename T, int size>
+	void A<T, size>::show() {
+		cout << "show" << size << endl;
+	}
+	
+	//template<typename T,char b='c'>
+	//template<typename T, double b=100.323>
+	//template<typename T, string b="tom">
+	class x {};
+	//template<typename T, x b>
+	template<typename T, char b = 'c'>
+	void show(T x) {
+		cout << x << b << endl;
+	}
+	void func() {
+
+		A<int> obj;
+		A<int, 100>* objx = new A<int,100>();
+
+		obj.show();
+		objx->show();
+
+		show(100);
+
+	}
+}
 
 using namespace test;
 int main() {
@@ -486,7 +531,7 @@ int main() {
 	B x;
 	A objx;
 	x.test(200,objx);*/
-	test6::func();
+	test7::func();
 
 	return 0;
 }
