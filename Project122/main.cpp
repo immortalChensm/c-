@@ -521,6 +521,63 @@ namespace test7
 
 	}
 }
+namespace test8
+{
+	//typename 后面必须是类型
+	template<typename T>
+	typename T::size_type getLength(T o) {
+
+		if (o.empty()) {
+			return 0;
+		}
+		return o.size();
+	}
+	typedef int (*Func)(int,int);
+
+	int mf(int v1, int v2) {
+		return v1 + v2;
+	}
+
+	void funcx(int a, int b, Func fx) {
+		int result = fx(a,b);
+		cout << "result=" << result << endl;
+	}
+	class tc {
+	public:
+		tc() {
+			cout << "tc" << endl;
+		}
+		tc(const tc& obj) {
+			cout << "tc copy" << endl;
+		}
+		int operator()(int x,int y) {
+			return x + y;
+		}
+	};
+	//template<typename T,typename F=tc>
+	
+	//void funcj(const T& a, const T& b, F fun=tc()) {
+	template<typename T, typename F = Func>
+	void funcj(const T& a, const T& b, F fun=mf) {
+		T result = fun(a, b);
+		cout << "result=" << result << endl;
+	}
+	void func() {
+
+
+		string name = "tom";
+		string::size_type s = getLength(name);
+		cout << s << endl;
+
+		funcx(100,200,mf);
+
+		funcj(300,500,mf);
+
+		funcj(200,200,tc());
+
+		funcj(1,1);
+	}
+}
 
 using namespace test;
 int main() {
@@ -531,7 +588,7 @@ int main() {
 	B x;
 	A objx;
 	x.test(200,objx);*/
-	test7::func();
+	test8::func();
 
 	return 0;
 }
