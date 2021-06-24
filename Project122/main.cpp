@@ -542,6 +542,21 @@ namespace test8
 		int result = fx(a,b);
 		cout << "result=" << result << endl;
 	}
+	template<typename T>
+	class myiterator {
+	public:
+		//int *p
+		typedef T *iterator;
+	public:
+		iterator begin();
+	};
+
+	template<typename T>
+	typename myiterator<T>::iterator myiterator<T>::begin() {
+
+		myiterator i;
+		return &i;
+	}
 	class tc {
 	public:
 		tc() {
@@ -578,6 +593,55 @@ namespace test8
 		funcj(1,1);
 	}
 }
+namespace test9
+{
+	template<typename C>
+	class Te {
+	public:
+		template<typename T2>
+		Te(T2 a, T2 b);
+
+		template<typename T>
+		void test(T o);
+	public:
+		void show() {
+
+		}
+
+		C m_i;
+	};
+
+	template<typename C>
+	template<typename T2>
+	Te<C>::Te(T2 a,T2 b) {
+		cout << "Te" << a << b << endl;
+	}
+	template<typename C>
+	template<typename T>
+	void Te<C>::test(T o) {
+		cout << "test" << o << endl;
+	}
+
+	//template void jj(int o);
+	template<typename T>
+	void jj(T o) {
+		cout << "jj" << o << endl;
+	}
+	
+	//ÏÔÊ¾ÊµÀý»¯
+	extern template Te<char>;
+
+	//extern template void jj(int o);
+	
+
+	void func() {
+
+		Te<float> a(1, 2);
+		a.test(10);
+
+		jj(100);
+	}
+}
 
 using namespace test;
 int main() {
@@ -588,7 +652,7 @@ int main() {
 	B x;
 	A objx;
 	x.test(200,objx);*/
-	test8::func();
+	test9::func();
 
 	return 0;
 }
