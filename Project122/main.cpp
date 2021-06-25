@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <map>
 using namespace std;
 //class B;
 //class A {
@@ -628,7 +628,7 @@ namespace test9
 		cout << "jj" << o << endl;
 	}
 	
-	//显示实例化
+	//显示实例化 
 	extern template Te<char>;
 
 	//extern template void jj(int o);
@@ -640,6 +640,56 @@ namespace test9
 		a.test(10);
 
 		jj(100);
+
+		std::map<std::string, int> map;
+		map["a"] = 1;
+		map["b"] = 2;
+
+		for (auto itr: map) {
+
+			printf("%d\n",itr.second);
+		}
+	}
+}
+namespace test10
+{
+	//函数模板  类模板  类模板成员函数模板 类型模板
+	template<typename T>
+	struct map {
+		typedef std::map<std::string, T> type;
+	};
+
+	template<typename T>
+	using types = std::map<std::string, T>;
+
+	void show(int x) {
+		cout << x << endl;
+	}
+	template<typename T>
+	using fun = void(*)(int);
+
+	template<typename T1,typename T2,typename T3>
+	void ok(T1 a, T2 b, T3 c) {
+		cout << a + b + c << endl;
+	}
+	void func() {
+
+		map<int>::type maps;
+		maps["a"] = { 1 };
+		maps["b"] = { 2 };
+		types<int> jj;
+		jj["ok"] = 10;
+		for (auto itr : maps) {
+			cout << itr.second << endl;
+		}
+		cout << jj["ok"] << endl;
+
+		fun<int> fx = show;
+		fx(22);
+
+		ok(1,2,3);
+		ok<int, int, int>(10,20,30);
+
 	}
 }
 
@@ -652,7 +702,7 @@ int main() {
 	B x;
 	A objx;
 	x.test(200,objx);*/
-	test9::func();
+	test10::func();
 
 	return 0;
 }
