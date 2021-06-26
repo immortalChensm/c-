@@ -692,6 +692,121 @@ namespace test10
 
 	}
 }
+namespace test11
+{
+	class A {};
+	void funcxxx() {
+
+	}
+	void func() {
+
+		auto k = 100;
+		auto m = 100.22;
+		auto l = "china";
+		auto n = {"i like china"};
+		auto x = new A();
+		int lucy = 1;
+		auto y = &lucy;
+		int&& tom = 122;
+		auto z = tom;
+		auto p = funcxxx;
+
+		p();
+
+
+	}
+}
+namespace test12
+{
+	template<typename T>
+	class A {
+	public:
+		A(T o) {
+			cout << "模版泛化版本"<<o << endl;
+		}
+	};
+	template<>
+	class A<float> {
+	public:
+		A(float o) {
+			cout << "模版全特化版本" << o << endl;
+		}
+	};
+
+	template<typename T,typename U>
+	class TC {
+	public:
+		TC() {
+			cout << "模版泛化版本" << endl;
+		}
+	};
+
+	template<>
+	class TC<int, char> {
+	public:
+		TC() {
+			cout << "模版int,char特化版本" << endl;
+		}
+	};
+	template<typename T>
+	class TC<T, double> {
+	public:
+		TC() {
+			cout << "模版T,double局部之参数数量特化版本" << endl;
+		}
+	};
+
+	template<typename T,typename U>
+	class TC<const T, const U>
+	{
+	public:
+		TC() {
+			cout << "模版const T,const U局部之参数范围特化版本" << endl;
+		}
+	};
+
+	template<typename T, typename U>
+	class TC< T*, U*>
+	{
+	public:
+		TC() {
+			cout << "模版T*, U*局部之参数范围特化版本" << endl;
+		}
+	};
+	template<typename T, typename U>
+	class TC< T &, U&>
+	{
+	public:
+		TC(T &a,U &b) {
+			cout << "模版 T &, U&局部之参数范围特化版本" << endl;
+		}
+	};
+	
+	template<typename T>
+	void test(T o) {
+		cout << "函数模板泛化" << endl;
+	}
+	template<>
+	void test(int o) {
+		cout << "函数模板全特化" << endl;
+	}
+	void func() {
+
+		//A<int > ob(100);
+		//A<float> ok(100.2);
+		TC<int, int> j;
+		TC<int, char> x;
+		TC<string, double> m;
+		int a1 = 10;
+		char b2 = 'c';
+		TC<int*, char*> z1;
+		TC<const int, const char> z2;
+		TC<int&, char&> z3(a1,b2);
+
+		test("china");
+		test(100);
+	}
+}
 
 using namespace test;
 int main() {
@@ -702,7 +817,7 @@ int main() {
 	B x;
 	A objx;
 	x.test(200,objx);*/
-	test10::func();
+	test12::func();
 
 	return 0;
 }
