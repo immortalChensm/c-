@@ -742,7 +742,7 @@ namespace test12
 	};
 
 	template<>
-	class TC<int, char> {
+	class TC<int , char> {
 	public:
 		TC() {
 			cout << "模版int,char特化版本" << endl;
@@ -807,6 +807,47 @@ namespace test12
 		test(100);
 	}
 }
+namespace test13
+{
+	template<typename ...T>
+	void test(T...args) {
+		cout << sizeof...(T) << endl;
+		cout << sizeof...(args) << endl;
+	}
+
+	void ok() {
+		cout << "函数终止递归" << endl;
+	}
+	template<typename First,typename ...Second>
+	void ok(First a,Second...b) {
+
+		cout << "a=" << a << endl;
+		ok(b...);
+	}
+
+	template<typename ...Second>class A {};
+
+	template<typename First,typename ...Second>
+	class A<First, Second...>:private A<Second...> {
+	public:
+		A():m_i(0) {
+			printf("A(),this=%p\n",this);
+		}
+		A(First a, Second ...args) :m_i(a), A<Second...>(args...) {
+			cout << "a=" << a << endl;
+		}
+		First m_i;
+	};
+	void func() {
+
+		//test();
+		//test(1,2,3,"china");
+
+		//ok(1,2,3,"ok","lucy",12.2);
+		A<char, double, int> o('a',12.12,100);
+
+	}
+}
 
 using namespace test;
 int main() {
@@ -817,7 +858,7 @@ int main() {
 	B x;
 	A objx;
 	x.test(200,objx);*/
-	test12::func();
+	test13::func();
 
 	return 0;
 }
