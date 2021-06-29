@@ -1,5 +1,6 @@
 #include <iostream>
 #include <map>
+#include <vector>
 using namespace std;
 //class B;
 //class A {
@@ -848,7 +849,44 @@ namespace test13
 
 	}
 }
+namespace test14 {
 
+	//模板模板参数
+	//template<typename 类型模板参数，int 非类型参数,template xx 模板参数>
+	//template<typename T,typename U>
+	template<
+		typename T,
+		//template<class> class Container
+		template<typename W> typename Container
+	>
+	class myclass {
+	public:
+		myclass() {
+			cout << "myclass T,U" << endl;
+
+			for (int i = 0; i < 10; i++) {
+
+				my.push_back(i);
+			}
+
+			for (auto itr : my) {
+				cout << itr << endl;
+			}
+		}
+
+		T ok;
+		Container<T> my;
+	};
+	template<typename T> using myvec = std::vector<T,allocator<T>>;
+	void func() {
+
+		//myclass<int, char> obj;
+		myclass<int, myvec> obj;
+
+		std::vector<int> j;
+	
+	}
+}
 using namespace test;
 int main() {
 
@@ -858,7 +896,7 @@ int main() {
 	B x;
 	A objx;
 	x.test(200,objx);*/
-	test13::func();
+	test14::func();
 
 	return 0;
 }
