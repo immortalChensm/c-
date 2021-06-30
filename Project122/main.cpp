@@ -887,6 +887,32 @@ namespace test14 {
 	
 	}
 }
+namespace test15
+{
+
+	class A {};
+	void func() {
+
+		int* a = new int(10);
+		A b;
+		A* c = new A();
+
+		const int* d = new const int(100);
+
+		auto f = new auto(b);
+
+		delete f;
+
+		//int j = 100;
+		//int* x = &j;
+		//delete x;
+
+		int* j = new int(10);
+		int* m = j;
+		delete j;
+		delete m;
+	}
+}
 using namespace test;
 int main() {
 
@@ -896,7 +922,7 @@ int main() {
 	B x;
 	A objx;
 	x.test(200,objx);*/
-	test14::func();
+	test15::func();
 
 	return 0;
 }
