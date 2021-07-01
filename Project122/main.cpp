@@ -909,8 +909,45 @@ namespace test15
 
 		int* j = new int(10);
 		int* m = j;
-		delete j;
+		delete j; 
 		delete m;
+	}
+
+	void kk() {
+
+		int m[] = { 1,2 };
+		printf("%d\n",*m);
+	}
+}
+namespace test16
+{
+	class A {
+	public:
+		A() {
+			cout << "A" << endl;
+		}
+		~A() {
+			cout << "~A" << endl;
+		}
+	};
+	void func()
+	{
+		//A* obj = new A[2]();
+		//delete obj;
+		//printf("size=%d\n",sizeof(*obj));
+		//delete[]obj;
+
+		//int* x = (int*)operator new(100);
+		//cout << *x << endl;
+		//delete x;
+
+		//shared_ptr<int> x(new int(100));
+		//cout << *x << endl;
+
+		auto y = make_shared<int>(101);
+		auto z = make_shared<string>(5,'b');
+		cout << *y << *z << endl;
+
 	}
 }
 using namespace test;
@@ -922,7 +959,8 @@ int main() {
 	B x;
 	A objx;
 	x.test(200,objx);*/
-	test15::func();
+	//test15::func();
+	test16::func();
 
 	return 0;
 }
