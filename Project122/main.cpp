@@ -944,9 +944,104 @@ namespace test16
 		//shared_ptr<int> x(new int(100));
 		//cout << *x << endl;
 
-		auto y = make_shared<int>(101);
-		auto z = make_shared<string>(5,'b');
-		cout << *y << *z << endl;
+		//auto y = make_shared<int>(101);
+		//auto z = make_shared<string>(5,'b');
+		//cout << *y << *z << endl;
+
+		//uint8_t a = 10;
+		char* x = (char*)malloc(sizeof(char)*100);;
+
+		memcpy(x,"GET /index HTTP/1.1\r\nContent-Length: 10\r\n\r\nhelloworld",100);
+		//0x00ce5340 "GET /index HTTP/1.1\r\nContent-Length: 10\r\n\r\nhelloworld"
+		//cout << x << endl;
+		//0x00ce5343 " /index HTTP/1.1\r\nContent-Length: 10\r\n\r\nhelloworld"
+		char* temp = strstr(x," ");
+		//cout << x[0] << endl;
+		
+		temp[0] = '\0';
+
+		cout << x << endl;
+
+		x = temp+1;
+
+		temp = strstr(x," ");
+		temp[0] = '\0';
+
+		cout << x << endl;
+
+		x = temp + 1;
+
+		temp = strstr(x,"\r\n");
+		temp[0] = '\0';
+
+		cout << x << endl;
+
+
+		x = temp + 2;
+
+
+
+	}
+}
+namespace test17
+{
+	template<typename T>
+	shared_ptr<T[]> make_shared_array(size_t size) {
+		return shared_ptr<T[]>(new T[size]);
+	}
+
+	void func()
+	{
+		shared_ptr<int> p1(new int(100));
+		shared_ptr<int> p2(p1);
+
+		cout << p1.use_count() << endl;
+		cout << p2.use_count() << endl;
+
+		p1.reset();
+
+		if (p1 == nullptr) {
+			cout << "p1 nullptr" << endl;
+		}
+		if (p2.unique()) {
+			cout << "unique" << endl;
+		}
+		cout << *p2 << endl;
+
+		p2.reset(new int(20));
+
+		auto p3 = make_shared<int>(101);
+		std::swap(p3, p2);
+
+		p2.swap(p3);
+
+		cout << "p2="<<*p2 << "p3="<<*p3.get() << endl;
+
+		shared_ptr<int> p5(new int(1), [=](int *p) {
+			cout << "自己调用删除器" << endl;
+			delete p;
+
+			});
+
+		shared_ptr<int[]> p6(new int[10]());
+		p6[0] = 101;
+		p6[1] = 202;
+
+		shared_ptr<int> p7(new int[10](), [](int* p) {
+
+			delete[]p;
+			});
+		shared_ptr<int> p8(new int[10](), std::default_delete<int[]>());
+
+		cout << *p8 << endl;
+
+
+		shared_ptr<int[]> p9 = make_shared_array<int>(10);
+
+		p9[0] = 1;
+
+		cout << "p9[0]=" << p9[0] << endl;
+
 
 	}
 }
@@ -960,7 +1055,7 @@ int main() {
 	A objx;
 	x.test(200,objx);*/
 	//test15::func();
-	test16::func();
+	test17::func();
 
 	return 0;
 }
