@@ -1045,6 +1045,39 @@ namespace test17
 
 	}
 }
+namespace test18
+{
+	void func() {
+
+		auto p1 = make_shared<int>(100);
+
+		weak_ptr<int> p2(p1);
+
+		cout << p2.use_count() << endl;
+
+
+		auto p3 = p2;
+		
+		p3.reset();
+		p1.reset();
+		p2.reset();
+
+		if (!p2.expired()) {
+
+			auto p4 = p2.lock();
+		}
+		else {
+
+			cout << "expired" << endl;
+		}
+
+
+		int* len1;
+		cout << sizeof(len1) << endl;
+		weak_ptr<int> p;
+		cout << sizeof(p) << endl;
+	}
+}
 using namespace test;
 int main() {
 
@@ -1055,7 +1088,7 @@ int main() {
 	A objx;
 	x.test(200,objx);*/
 	//test15::func();
-	test17::func();
+	test18::func();
 
 	return 0;
 }
