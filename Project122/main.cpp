@@ -1078,6 +1078,66 @@ namespace test18
 		cout << sizeof(p) << endl;
 	}
 }
+namespace test19
+{
+	class A {
+	public:
+		A() {
+			cout << "A ()" << endl;
+		}
+		~A() {
+			cout << "~A()" << endl;
+		}
+	};
+	auto makes() {
+		return unique_ptr<A>(new A());
+	}
+	void func()
+	{
+		
+		unique_ptr<int> p2(new int(100));
+		int* p = p2.get();
+		*p = 200;
+
+		cout << *p2 << *p2 << p2 << p << endl;
+
+		//unique_ptr<A> p3 = make_unique<A>(A());
+		//unique_ptr<A[]> p2(new A[4]());
+		//shared_ptr<A> p2 = makes();
+
+		//p2.reset();
+		//p2.release();
+
+		//if (p2 == nullptr) {
+		//	cout << "p2 nullptr" << endl;
+		//}
+
+		//unique_ptr<int> p2(new int(100));
+
+		//cout << *p2 << endl;
+
+		//if (p2 == nullptr) {
+		//	cout << "p2 nullptr" << endl;
+
+		//}
+		//else {
+
+		//	//p2.reset();
+		//	p2.reset(p2.release());
+		//}
+
+		//if (p2 == nullptr) {
+		//	cout << "now p2 nullptr" << endl;
+		//}
+		//else {
+		//	cout << "now p2=" << *p2.get() << endl;
+		//}
+
+		//unique_ptr<int>p3 = p2;
+		//unique_ptr<int>p3;
+		//p3 = p2;
+	}
+}
 using namespace test;
 int main() {
 
@@ -1088,7 +1148,7 @@ int main() {
 	A objx;
 	x.test(200,objx);*/
 	//test15::func();
-	test18::func();
+	test19::func();
 
 	return 0;
 }
