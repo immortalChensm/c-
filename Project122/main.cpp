@@ -1138,6 +1138,51 @@ namespace test19
 		//p3 = p2;
 	}
 }
+namespace test20
+{
+	void mydelete(string* d) {
+
+		delete d;
+		d = nullptr;
+		cout << "调用了用户自定义的删除器" << endl;
+	}
+	class A {
+	public:
+		A() {
+			cout << "A()" << endl;
+		}
+		~A() {
+			cout << "~A()" << endl;
+		}
+	};
+	void func()
+	{
+		//typedef void(*fp)(string* d);
+		//using fp = void (*)(string *d);
+		//typedef decltype(mydelete)* fp;
+
+		/*unique_ptr<string,decltype(mydelete)*> ps1(new string("hello,world"),mydelete);
+
+		cout << *ps1 << endl;
+		cout << *ps1.get() << endl;
+
+		int len = sizeof(ps1);
+		cout << len << endl;
+
+		auto_ptr<string> ps2(new string("china"));
+		cout << *ps2 << endl;
+
+		auto ps3 = ps2;
+		cout << *ps3<< endl;*/
+
+		unique_ptr<A[]> p(new A[3]());
+		//unique_ptr<A[]> p(new A[3]());
+
+		//智能指针的存在：就是为了防止用户忘记删除指针【使用裸指针时】
+		//shared_ptr  unique_ptr weak_ptr auto_ptr
+
+	}
+}
 using namespace test;
 int main() {
 
@@ -1148,7 +1193,7 @@ int main() {
 	A objx;
 	x.test(200,objx);*/
 	//test15::func();
-	test19::func();
+	test20::func();
 
 	return 0;
 }
