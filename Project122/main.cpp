@@ -1183,6 +1183,35 @@ namespace test20
 
 	}
 }
+namespace test21
+{
+	class CT:public enable_shared_from_this<CT> {
+	public:
+		shared_ptr<CT> getself() {
+			//return shared_ptr<CT>(this);
+			return shared_from_this();
+		}
+	};
+	void func() {
+		//会导致内存释放2次
+		//int* p = new int(100);
+		//shared_ptr<int> p1(p);
+		//shared_ptr<int> p2(p);
+
+		/*shared_ptr<int> p(new int(101));
+		int* ps = p.get();
+
+		shared_ptr<int > p2(ps);*/
+
+
+		shared_ptr<CT> o(new CT());
+
+		shared_ptr<CT> p = o->getself();
+
+
+
+	}
+}
 using namespace test;
 int main() {
 
@@ -1193,7 +1222,7 @@ int main() {
 	A objx;
 	x.test(200,objx);*/
 	//test15::func();
-	test20::func();
+	test21::func();
 
 	return 0;
 }
