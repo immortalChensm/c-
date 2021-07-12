@@ -37,27 +37,30 @@ public:
 //	cout << "end" << endl;
 //
 //}
-void test(A &obj) {
-	obj.m_i = 99;
-	cout << "[test子线程]thread id=" << std::this_thread::get_id() << "this=" << &obj << endl;
-	return;
+//void test(A &obj) {
+//	obj.m_i = 99;
+//	cout << "[test子线程]thread id=" << std::this_thread::get_id() << "this=" << &obj << endl;
+//	return;
+//}
+void test(const int& x, char* j) {
+	cout << x << endl;
 }
 int main()
 {
 
-	//int myv = 100;
-	//char x[] = "china";
+	int myv = 100;
+	char x[] = "china";
 	cout << "[main]thread id=" << std::this_thread::get_id() << endl;
-	//thread myobj(test, myv, x);
-	A obj(100);
-	thread myobj(test,std::ref(obj));
+	thread myobj(test, myv, x);
+	//A obj(100);
+	//thread myobj(test,std::ref(obj));
 	//A obj(101);
 	//thread myobj(&A::my_worker,obj,10);
 	//thread myobj(obj,90);
 
-	myobj.join();
+	myobj.detach();
 
-	cout << "main obj.m_i="<<obj.m_i << endl;
+	//cout << "main obj.m_i="<<obj.m_i << endl;
 
 	/*while (1) {
 		;
