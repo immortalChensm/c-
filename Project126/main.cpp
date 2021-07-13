@@ -23,11 +23,33 @@ public:
 			//std::lock_guard<std::mutex> lock(my_mutex);
 			//my_mutex1.lock();
 			//my_mutex2.lock();
-			std::lock(my_mutex2,my_mutex1);
-			std::lock_guard<std::mutex> lock1(my_mutex1,std::adopt_lock);
-			std::lock_guard<std::mutex> lock2(my_mutex2,std::adopt_lock);
+			//std::lock(my_mutex2,my_mutex1);
+			//std::lock_guard<std::mutex> lock1(my_mutex1,std::adopt_lock);
+			//std::lock_guard<std::mutex> lock2(my_mutex2,std::adopt_lock);
 			
-			recvMsgQueue.push_back(i);
+			//std::unique_lock<std::mutex> lock(my_mutex1);
+			//my_mutex1.lock();
+			//std::unique_lock<std::mutex> lock(my_mutex1,std::adopt_lock);
+			//std::unique_lock<std::mutex> lock(my_mutex1,std::try_to_lock);
+			//std::unique_lock<std::mutex> lock(my_mutex1,std::defer_lock);
+			//std::unique_lock<std::mutex> lock(my_mutex1);
+			//std::mutex* mtx = lock.release();
+			//if (lock.owns_lock()) {
+			std::unique_lock<std::mutex> lock(my_mutex1);
+			std::unique_lock<std::mutex> lock1(std::move(lock));
+
+			//if (lock.try_lock() == true) {
+			//lock.lock();
+				recvMsgQueue.push_back(i);
+			//}
+			//	recvMsgQueue.push_back(i);
+			//}
+			//else {
+			//	cout << "没有抢到锁，做其它事" << i << endl;
+			//}
+			
+				//lock.unlock();
+				//mtx->unlock();
 
 			//my_mutex.unlock();
 			//my_mutex1.unlock();
@@ -41,9 +63,15 @@ public:
 		//my_mutex.lock();
 		//my_mutex1.lock();
 		//my_mutex2.lock();
-		std::lock(my_mutex1,my_mutex2);
-		std::lock_guard<std::mutex> lock1(my_mutex1,std::adopt_lock);
-		std::lock_guard<std::mutex> lock2(my_mutex2,std::adopt_lock);
+		//std::lock(my_mutex1,my_mutex2);
+		//std::lock_guard<std::mutex> lock1(my_mutex1,std::adopt_lock);
+		//std::lock_guard<std::mutex> lock2(my_mutex2,std::adopt_lock);
+
+		std::unique_lock<std::mutex> lock(my_mutex1);
+
+		std::chrono::microseconds duar(2000);
+		std::this_thread::sleep_for(duar);
+
 		if (!recvMsgQueue.empty()) {
 
 			command = recvMsgQueue.front();
