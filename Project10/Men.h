@@ -3,7 +3,7 @@
 
 #include "Human.h"
 //class Men:public Human
-//class Men:protected Human
+class Men:protected Human
 class Men:public Human
 {
 public:
