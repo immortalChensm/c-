@@ -67,8 +67,8 @@ namespace test2
 
 	void func()
 	{
-		//ÖØ¶¨Î»placement new
-		//ÔÚÒÑ¾­·ÖÅäºÃµÄÄÚ´æÉÏ³õÊ¼»¯¶ÔÏó
+		//é‡å®šä½placement new
+		//åœ¨å·²ç»åˆ†é…å¥½çš„å†…å­˜ä¸Šåˆå§‹åŒ–å¯¹è±¡
 		//void* o1 = new char[sizeof(A)];
 		//A* obj1 = new (o1) A();
 
@@ -90,8 +90,8 @@ namespace test2
 
 		//delete obj;
 
-		A* obj = new A[3]();//ÀíÂÛ24Bytes,Êµ¼ÊÊÇ28Bytes,»áÓÃ4¸ö×Ö½ÚÀ´´æ´¢Êı×éÔªËØ¸öÊı
-		//Í¬Ê±µ÷ÓÃ¹¹Ôìº¯Êı3´Î£¬Îö¹¹3´Î
+		A* obj = new A[3]();//ç†è®º24Bytes,å®é™…æ˜¯28Bytes,ä¼šç”¨4ä¸ªå­—èŠ‚æ¥å­˜å‚¨æ•°ç»„å…ƒç´ ä¸ªæ•°
+		//åŒæ—¶è°ƒç”¨æ„é€ å‡½æ•°3æ¬¡ï¼Œææ„3æ¬¡
 		delete[]obj;
 
 		cout << sizeof(A) << endl;
@@ -99,7 +99,7 @@ namespace test2
 }
 int main()
 {
-	//test1::func();
+	test1::func();
 	test2::func();
 	return 0;
 }
