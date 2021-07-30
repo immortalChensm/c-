@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <ctime>
+#include <array>
+#include <vector>
 
 using namespace std;
 
@@ -162,8 +164,98 @@ namespace test2
 		delete obj1;
 	}
 }
+namespace test3
+{
+	void func()
+	{
+
+		array<string, 5> obj = { "china","japanese" };
+
+		obj[2] = "test";
+		obj[3] = "lucylucylucylucylucylucylucylucylucylucy";
+
+
+		obj[4] = "i";
+		
+		cout << "string size=" << sizeof(string) << endl;
+
+		for (int i = 0; i < obj.size(); i++) {
+
+			printf("i=%d,obj[%d]=%s,obj[%d]=%p\r\n",i,i,obj[i].c_str(),i,&obj[i]);
+
+			const char* p = obj[i].c_str();
+
+			printf("p=%p,%s\r\n",p,p);
+		}
+	}
+}
+namespace test4
+{
+
+	class A {
+	public:
+		int i;
+		A(int a):i(a) {
+			cout << "A构造函数" << endl;
+		}
+		A(const A&obj) :i(obj.i) {
+			cout << "A拷贝构造函数" << endl;
+		}
+		~A()  {
+			cout << "A析构函数" << endl;
+		}
+	};
+	void func()
+	{
+
+		vector<A> obj;
+		//如果不预先分配内存，那么每次插入数据，都会重新分配新的内容，并把旧内存上的数据拷贝到新连续的内存中
+		//性能会下降，建议先分配好内存
+		obj.reserve(10);
+		for (int i = 0; i < 5; i++) {
+
+			cout << "start 时，size" <<obj.size()<< endl;
+			cout << "start 时，capacity" <<obj.capacity()<< endl;
+
+			obj.push_back(A(i));
+
+			cout << "start 后，size" << obj.size() << endl;
+			cout << "start 后，capacity" << obj.capacity() << endl;
+		}
+		cout << "尝试删除元素" << endl;
+		for (int i = 0; i < 5; i++) {
+
+			if (i == 2) {
+
+				auto itr = obj.begin() + 2;
+				obj.erase(itr);
+				break;
+			}
+		}
+
+		for (auto itr = obj.begin(); itr != obj.end(); itr++) {
+
+			cout << itr->i << endl;
+		}
+
+		cout << "尝试添加元素" << endl;
+		for (int i = 0; i < 5; i++) {
+
+			if (i == 2) {
+
+				//obj.push_back(A(100));
+				obj[1] = A(100);
+				break;
+			}
+		}
+		for (auto itr = obj.begin(); itr != obj.end(); itr++) {
+
+			cout << itr->i << endl;
+		}
+	}
+}
 int main()
 {
 
-	test2::func();
+	test4::func();
 }
