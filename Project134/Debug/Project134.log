@@ -1,5 +1,6 @@
 ﻿  main.cpp
-E:\project\Project134\main.cpp(158,28): warning C4291: “void *test2::A::operator new(size_t,void *,int,int)”: 未找到匹配的删除运算符；如果初始化引发异常，则不会释放内存
-E:\project\Project134\main.cpp(133): message : 参见“test2::A::operator new”的声明
-E:\project\Project134\main.cpp(182,21): warning C4018: “<”: 有符号/无符号不匹配
+E:\project\Project134\main.cpp(168,28): warning C4291: “void *test2::A::operator new(size_t,void *,int,int)”: 未找到匹配的删除运算符；如果初始化引发异常，则不会释放内存
+E:\project\Project134\main.cpp(143): message : 参见“test2::A::operator new”的声明
+E:\project\Project134\main.cpp(192,21): warning C4018: “<”: 有符号/无符号不匹配
+E:\project\Project134\main.cpp(357,21): warning C4018: “<”: 有符号/无符号不匹配
   Project134.vcxproj -> E:\project\Debug\Project134.exe

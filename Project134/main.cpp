@@ -3,6 +3,16 @@
 #include <ctime>
 #include <array>
 #include <vector>
+#include <list>
+#include <forward_list>
+#include <deque>
+#include <queue>
+#include <set>
+#include <map>
+#include <unordered_set>
+#include <unordered_map>
+#include <stack>
+
 
 using namespace std;
 
@@ -254,8 +264,120 @@ namespace test4
 		}
 	}
 }
+namespace test5
+{
+	class A {
+	public:
+		int i;
+		A(int a) :i(a) {
+			cout << "A构造函数" << endl;
+		}
+		A(const A& obj) :i(obj.i) {
+			cout << "A拷贝构造函数" << endl;
+		}
+		~A() {
+			cout << "A析构函数" << endl;
+		}
+	};
+	void func()
+	{
+
+		/*stack<A> obj;
+		obj.push(A(100));
+
+		cout << obj.size() << endl;
+
+		cout << obj.top().i << endl;*/
+
+		/*list<A> obj;
+		obj.push_front(A(101));
+
+		obj.push_back(A(200));
+
+		cout << obj.begin()->i << endl;
+
+		obj.pop_front();*/
+		//cout << obj.end()->i << endl;
+
+		/*queue<A> obj;
+		obj.push(A(2));
+		obj.push(A(3));
+		obj.push(A(4));
+
+		cout << obj.front().i << endl;
+		obj.pop();
+		cout << obj.front().i << endl;
+		obj.pop();
+		
+		cout << obj.front().i << endl;
+		obj.pop();
+		cout << obj.front().i << endl;*/
+
+		/*forward_list<A> obj;
+		obj.push_front(A(100));
+		obj.push_front(A(200));
+
+
+		cout << obj.front().i << endl;*/
+
+		//map<int,A> obj;
+
+
+		//obj[1] = A(100);
+		//obj[2] = A(200);
+
+		//obj.insert(std::make_pair(1,A(22)));
+
+		//cout << obj[1].i << endl;
+		//cout << obj[1].i << endl;
+
+		//int x = obj.at(1).i;
+
+		//cout << x << endl;
+
+
+		//unordered_set<int, A> obj;
+		unordered_set<int> obj;
+
+		for (int i = 0; i < 8; i++) {
+
+
+			obj.insert(i);
+		}
+
+		cout << "bucket size " << obj.bucket_count() << endl;
+		cout << "max bucket size " << obj.max_bucket_count() << endl;
+
+		obj.insert(9);
+
+		cout << "bucket size " << obj.bucket_count() << endl;
+		cout << "max bucket size " << obj.max_bucket_count() << endl;
+
+
+		for (int i = 0; i < obj.bucket_count();i++) {
+
+
+			cout << i << " bucket size " << obj.bucket_size(i) << endl;
+		}
+		for (auto itr = obj.begin(); itr != obj.end();itr++) {
+
+
+			cout << *itr << endl;
+		}
+
+		auto x = obj.find(5);
+		if (x != obj.end()) {
+			cout << "find " << *x << endl;
+		}
+
+		if (find(obj.begin(), obj.end(), 5) != obj.end()) {
+			cout << "find " << *x << endl;
+		}
+
+	}
+}
 int main()
 {
 
-	test4::func();
+	test5::func();
 }
