@@ -376,8 +376,46 @@ namespace test5
 
 	}
 }
+namespace test6
+{
+	class A {
+	public:
+	};
+	void func()
+	{
+
+		list<int, std::allocator<int>> obj;
+		
+		obj.push_back(10);
+		obj.push_back(20);
+		obj.push_back(30);
+
+		for (auto itr = obj.begin(); itr != obj.end(); itr++) {
+
+
+			cout << *itr << endl;
+			int* p = &(*itr);
+
+			printf("%p\n", p);
+
+		}
+
+		std::allocator<int> ok;
+		int *p = ok.allocate(3);
+
+		int* q = p;
+		*q = 1; ++q;
+		*q = 2; ++q;
+
+		cout << *p << *(p+1) << endl;
+
+		ok.deallocate(p,3);
+
+
+	}
+}
 int main()
 {
 
-	test5::func();
+	test6::func();
 }
