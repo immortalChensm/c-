@@ -414,8 +414,22 @@ namespace test6
 
 	}
 }
+namespace test7
+{
+	void func()
+	{
+		vector<int> obj = { 1,2,3,4,5 };
+
+		for (vector<int>::iterator itr = obj.begin(); itr != obj.end(); ++itr) {
+
+			cout << *itr << endl;
+		}
+
+		cout << typeid(vector<int>::iterator()).name() << endl;
+	}
+}
 int main()
 {
 
-	test6::func();
+	test7::func();
 }
