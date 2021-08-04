@@ -12,6 +12,7 @@
 #include <unordered_set>
 #include <unordered_map>
 #include <stack>
+#include <algorithm>
 
 
 using namespace std;
@@ -428,8 +429,87 @@ namespace test7
 		cout << typeid(vector<int>::iterator()).name() << endl;
 	}
 }
+namespace test8
+{
+	void func()
+	{
+
+		vector<int> li = { 1,2,3,4,5 };
+
+		for_each(li.begin(), li.end(), [](int v) {
+			
+			cout << v << endl;
+		});
+
+		auto itr = find(li.begin(),li.begin()+3,2);
+		if (itr != li.begin() + 3) {
+			cout << *itr << endl;
+		}
+		else {
+			cout << "not found" << endl;
+		}
+
+		auto result = find_if(li.begin(), li.end(), [](int x) {
+			if (x > 3) {
+				return true;
+				}
+			return false;
+			});
+
+		if (result != li.end()) {
+			cout << "find result=" << *result << endl;
+		}
+
+		sort(li.begin(), li.end(), [](int x,int y) {
+				
+			return x > y;
+			});
+		for_each(li.begin(), li.end(), [](int x) {
+			cout << "x=" << x<<endl;
+			});
+
+
+		list<int> lis = { 43,23,12,5,3 };
+
+		auto i = find(lis.begin(),lis.end(),12);
+		cout << *i << endl;
+
+		lis.sort([](int x,int y) {
+			return x > y;
+			});
+
+		for_each(lis.begin(), lis.end(), [](int x) {
+			cout << x << endl;
+			});
+		
+
+		cout << "***************************" << endl;
+
+		map<int, string> mlist;
+		mlist[1] = "test";
+		mlist.insert(std::make_pair(2,"china"));
+
+		//sort(mlist.begin(),mlist.end());
+
+		/*for_each(mlist.begin(), mlist.end(), [](auto itr) {
+			cout << itr->first << endl;
+			});*/
+
+		for (auto itr = mlist.begin(); itr != mlist.end(); itr++) {
+
+			cout << itr->first << itr->second << endl;
+		}
+
+		mlist.erase(2);
+		for (auto itr = mlist.begin(); itr != mlist.end(); itr++) {
+
+			cout << itr->first << itr->second << endl;
+		}
+
+	}
+}
 int main()
 {
 
-	test7::func();
+	test8::func();
 }
