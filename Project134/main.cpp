@@ -13,6 +13,7 @@
 #include <unordered_map>
 #include <stack>
 #include <algorithm>
+#include <functional>
 
 
 using namespace std;
@@ -506,10 +507,61 @@ namespace test8
 			cout << itr->first << itr->second << endl;
 		}
 
+		unordered_set<int> p;
+		//p[1] = "china";
+		//p.insert(std::make_pair(1,"china"));
+		//p.insert(1,"b");
+		p.insert(3);
+		p.insert(4);
+		p.insert(5);
+
+		auto ix = p.find(3);
+		cout << *ix << endl;
+
+	}
+}
+namespace test9
+{
+	class A {
+	public:
+		bool operator()(int y,int x){
+			
+			return y > x;
+		}
+	};
+	void func()
+	{
+
+		vector<int> li = { 1,2,3,4,5 };
+
+		for_each(li.begin(), li.end(), [](int v) {
+
+			cout << v << endl;
+			});
+		sort(li.begin(),li.end(),A());
+		for_each(li.begin(), li.end(), [](int v) {
+
+			cout << v << endl;
+			});
+
+		auto x = minus<int>()(10,2);
+		cout << x << endl;
+
+		cout << greater<int>()(1,2) << endl;
+		//cout << bitand<int>()(1,2) << endl;
+		
+
+		cout << count(li.begin(), li.end(), 2) << endl;
+
+		//functor·Âº¯ÊýÊÊÅäÆ÷
+		cout << count_if(li.begin(), li.end(), bind(less<int>(),2,std::placeholders::_1));
+
+		cout << logical_and<int>()(1,2) << endl;
+
 	}
 }
 int main()
 {
 
-	test8::func();
+	test9::func();
 }
