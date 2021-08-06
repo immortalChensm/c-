@@ -531,7 +531,10 @@ namespace test9
 	};
 	void func()
 	{
-
+		//算术运算：minus
+		//关系运算：greater less
+		//逻辑运算：logic_and
+		//位运算：bit
 		vector<int> li = { 1,2,3,4,5 };
 
 		for_each(li.begin(), li.end(), [](int v) {
@@ -560,8 +563,43 @@ namespace test9
 
 	}
 }
+namespace test10
+{
+	class A {
+	public:
+		int operator()(int x){
+			
+			return x;
+		}
+	};
+	int echo(int y) {
+		return y;
+	}
+	int echo() {
+		return 66666;
+	}
+	void func()
+	{
+
+		int (*fp)(int)  = echo;
+		function<int(int)>f1 = fp;
+		function<int(int)>f2 = A();
+
+		cout << f1(200) << endl;
+		cout << f2(200) << endl;
+
+		map<string, function<int(int)>> sss = {
+			{"f1",fp},
+			{"f2",A()}
+		};
+
+		cout << sss["f1"](888) << endl;
+		cout << sss["f2"](9999) << endl;
+		
+	}
+}
 int main()
 {
 
-	test9::func();
+	test10::func();
 }
