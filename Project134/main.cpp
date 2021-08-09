@@ -598,8 +598,31 @@ namespace test10
 		
 	}
 }
+namespace test11
+{
+	//万能引用 可以传递左值，右值
+	template<typename T>
+	void test(T&& v) {
+		cout << v << endl;
+	}
+	//右值引用，只能给右值
+	void test1(int&& v) {
+		cout << "test1 v=" << v << endl;
+	}
+	void func()
+	{
+
+		test(100);
+		
+		test1(200);
+		int j = 10;
+		//test1(j);//只能给右值，j是左值，无法将左值绑定到右值引用
+		test(j);
+		test1(std::move(j));
+	}
+}
 int main()
 {
 
-	test10::func();
+	test11::func();
 }
